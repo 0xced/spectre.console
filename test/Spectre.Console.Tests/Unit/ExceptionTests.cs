@@ -79,6 +79,36 @@ public sealed class ExceptionTests
         return Verifier.Verify(result);
     }
 
+    [Fact]
+    [Expectation("MultipleInnerExceptions")]
+    public Task Should_Write_Exception_With_Multiple_Inner_Exceptions()
+    {
+        // Given
+        var console = new TestConsole().Width(1024);
+        var dex = GetException(() => TestExceptions.ThrowWithMultipleInnerExceptions());
+
+        // When
+        var result = console.WriteNormalizedException(dex);
+
+        // Then
+        return Verifier.Verify(result);
+    }
+
+    [Fact]
+    [Expectation("MultipleInnerExceptionsNoStackTrace")]
+    public Task Should_Write_Exception_With_Multiple_Inner_Exceptions_Without_StackTrace()
+    {
+        // Given
+        var console = new TestConsole().Width(1024);
+        var dex = GetException(() => TestExceptions.ThrowWithMultipleInnerExceptionsNoStackTrace());
+
+        // When
+        var result = console.WriteNormalizedException(dex);
+
+        // Then
+        return Verifier.Verify(result);
+    }
+
     public static Exception GetException(Action action)
     {
         try

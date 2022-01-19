@@ -1,0 +1,12 @@
+System.FormatException: Failed to start
+     System.FormatException: Failed to load configuration
+          System.FormatException: Failed to parse file
+               System.InvalidOperationException: (24,6): Unexpected token end-of-line found while expecting a value
+                 at Spectre.Console.Tests.Data.TestExceptions.ParseConfiguration() in /xyz/Exceptions.cs:nn
+            at Spectre.Console.Tests.Data.TestExceptions.ParseConfiguration() in /xyz/Exceptions.cs:nn
+            at Spectre.Console.Tests.Data.TestExceptions.LoadConfiguration() in /xyz/Exceptions.cs:nn
+       at Spectre.Console.Tests.Data.TestExceptions.LoadConfiguration() in /xyz/Exceptions.cs:nn
+       at Spectre.Console.Tests.Data.TestExceptions.ThrowWithMultipleInnerExceptions() in /xyz/Exceptions.cs:nn
+  at Spectre.Console.Tests.Data.TestExceptions.ThrowWithMultipleInnerExceptions() in /xyz/Exceptions.cs:nn
+  at Spectre.Console.Tests.Unit.ExceptionTests.<>c.<Should_Write_Exception_With_Multiple_Inner_Exceptions>b__5_0() in /xyz/ExceptionTests.cs:nn
+  at Spectre.Console.Tests.Unit.ExceptionTests.GetException(Action action) in /xyz/ExceptionTests.cs:nn

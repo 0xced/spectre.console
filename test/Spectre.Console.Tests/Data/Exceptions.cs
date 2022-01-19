@@ -29,4 +29,49 @@ public static class TestExceptions
             throw new InvalidOperationException("Something threw!", ex);
         }
     }
+
+    public static void ThrowWithMultipleInnerExceptionsNoStackTrace()
+    {
+        throw new FormatException(
+            "Failed to start", new FormatException(
+                "Failed to load configuration", new FormatException(
+                    "Failed to parse file", new InvalidOperationException(
+                        "(24,6): Unexpected token end-of-line found while expecting a value"))));
+    }
+
+    public static void ThrowWithMultipleInnerExceptions()
+    {
+        try
+        {
+            LoadConfiguration();
+        }
+        catch (Exception ex)
+        {
+            throw new FormatException("Failed to start", ex);
+        }
+    }
+
+    private static void LoadConfiguration()
+    {
+        try
+        {
+            ParseConfiguration();
+        }
+        catch (Exception ex)
+        {
+            throw new FormatException("Failed to load configuration", ex);
+        }
+    }
+
+    private static void ParseConfiguration()
+    {
+        try
+        {
+            throw new InvalidOperationException("(24,6): Unexpected token end-of-line found while expecting a value");
+        }
+        catch (Exception ex)
+        {
+            throw new FormatException("Failed to parse file", ex);
+        }
+    }
 }

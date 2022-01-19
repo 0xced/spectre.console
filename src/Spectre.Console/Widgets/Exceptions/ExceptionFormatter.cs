@@ -49,7 +49,7 @@ internal static class ExceptionFormatter
         if (ex.InnerException != null)
         {
             grid.AddRow(
-                Text.Empty,
+                new Text(" "),
                 GetException(ex.InnerException, settings));
         }
 
