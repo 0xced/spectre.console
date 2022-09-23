@@ -51,7 +51,7 @@ public class CommandRuntimeException : CommandAppException
 
     internal static CommandRuntimeException ValidationFailed(ValidationResult result)
     {
-        return new CommandRuntimeException(result.Message ?? "Unknown validation error.");
+        return new CommandRuntimeException(result.Pretty ?? "Unknown validation error.");
     }
 
     internal static Exception CouldNotGetSettingsType(Type commandType)
