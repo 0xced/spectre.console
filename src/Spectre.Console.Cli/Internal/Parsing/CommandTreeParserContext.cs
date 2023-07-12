@@ -30,12 +30,10 @@ internal class CommandTreeParserContext
 
     public void AddRemainingArgument(string key, string? value)
     {
-        if (!_remaining.ContainsKey(key))
+        if (!_remaining.TryAdd(key, new List<string?> { value }))
         {
-            _remaining.Add(key, new List<string?>());
+            _remaining[key].Add(value);
         }
-
-        _remaining[key].Add(value);
     }
 
     [SuppressMessage("Style", "IDE0004:Remove Unnecessary Cast", Justification = "Bug in analyzer?")]

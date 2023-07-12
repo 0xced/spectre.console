@@ -27,11 +27,7 @@ public sealed class FakeTypeRegistrar : ITypeRegistrar
     /// <inheritdoc/>
     public void Register(Type service, Type implementation)
     {
-        if (!Registrations.ContainsKey(service))
-        {
-            Registrations.Add(service, new List<Type> { implementation });
-        }
-        else
+        if (!Registrations.TryAdd(service, new List<Type> { implementation }))
         {
             Registrations[service].Add(implementation);
         }
@@ -40,11 +36,7 @@ public sealed class FakeTypeRegistrar : ITypeRegistrar
     /// <inheritdoc/>
     public void RegisterInstance(Type service, object implementation)
     {
-        if (!Instances.ContainsKey(service))
-        {
-            Instances.Add(service, new List<object> { implementation });
-        }
-        else
+        if (!Instances.TryAdd(service, new List<object> { implementation }))
         {
             Instances[service].Add(implementation);
         }
@@ -58,11 +50,7 @@ public sealed class FakeTypeRegistrar : ITypeRegistrar
             throw new ArgumentNullException(nameof(factory));
         }
 
-        if (!Instances.ContainsKey(service))
-        {
-            Instances.Add(service, new List<object> { factory() });
-        }
-        else
+        if (!Instances.TryAdd(service, new List<object> { factory() }))
         {
             Instances[service].Add(factory());
         }

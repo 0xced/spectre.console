@@ -166,12 +166,10 @@ internal static class CommandModelValidator
             {
                 if (!string.IsNullOrWhiteSpace(key))
                 {
-                    if (!result.ContainsKey(key))
+                    if (!result.TryAdd(key, 1))
                     {
-                        result.Add(key, 0);
+                        result[key]++;
                     }
-
-                    result[key]++;
                 }
             }
         }

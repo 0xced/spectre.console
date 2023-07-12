@@ -100,12 +100,11 @@ internal sealed class MultiMap<TKey, TValue> : IMultiMap, ILookup<TKey, TValue>,
 
     public void Add(TKey key, TValue value)
     {
-        if (!_lookup.ContainsKey(key))
+        if (!_lookup.TryAdd(key, new MultiMapGrouping(key, new List<TValue> { value })))
         {
-            _lookup[key] = new MultiMapGrouping(key, new List<TValue>());
+            _lookup[key].Add(value);
         }
 
-        _lookup[key].Add(value);
         _dictionary[key] = value;
     }
 

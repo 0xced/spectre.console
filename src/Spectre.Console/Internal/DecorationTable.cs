@@ -2,12 +2,12 @@ namespace Spectre.Console;
 
 internal static class DecorationTable
 {
-    private static readonly Dictionary<string, Decoration?> _lookup;
+    private static readonly Dictionary<string, Decoration> _lookup;
     private static readonly Dictionary<Decoration, string> _reverseLookup;
 
     static DecorationTable()
     {
-        _lookup = new Dictionary<string, Decoration?>(StringComparer.OrdinalIgnoreCase)
+        _lookup = new Dictionary<string, Decoration>(StringComparer.OrdinalIgnoreCase)
             {
                 { "none", Decoration.None },
                 { "bold", Decoration.Bold },
@@ -31,23 +31,13 @@ internal static class DecorationTable
         _reverseLookup = new Dictionary<Decoration, string>();
         foreach (var (name, decoration) in _lookup)
         {
-            // Cannot happen, but the compiler thinks so...
-            if (decoration == null)
-            {
-                continue;
-            }
-
-            if (!_reverseLookup.ContainsKey(decoration.Value))
-            {
-                _reverseLookup[decoration.Value] = name;
-            }
+            _reverseLookup.TryAdd(decoration, name);
         }
     }
 
     public static Decoration? GetDecoration(string name)
     {
-        _lookup.TryGetValue(name, out var result);
-        return result;
+        return _lookup.TryGetValue(name, out var result) ? result : null;
     }
 
     public static List<string> GetMarkupNames(Decoration decoration)

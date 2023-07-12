@@ -46,4 +46,10 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="..\Spectre.Console\Internal\Polyfill\Dictionary.cs">
+      <Link>Internal\Polyfill\Dictionary.cs</Link>
+    </Compile>
+  </ItemGroup>
+
 </Project>

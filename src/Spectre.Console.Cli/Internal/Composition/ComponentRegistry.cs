@@ -34,13 +34,10 @@ internal sealed class ComponentRegistry : IDisposable
     {
         foreach (var type in new HashSet<Type>(registration.RegistrationTypes))
         {
-            if (!_registrations.ContainsKey(type))
+            if (!_registrations.TryAdd(type, new HashSet<ComponentRegistration> { registration }))
             {
-                // Only add each registration type once.
-                _registrations.Add(type, new HashSet<ComponentRegistration>());
+                _registrations[type].Add(registration);
             }
-
-            _registrations[type].Add(registration);
         }
     }
 
