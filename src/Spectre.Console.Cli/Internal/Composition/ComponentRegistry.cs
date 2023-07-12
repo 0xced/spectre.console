@@ -46,11 +46,6 @@ internal sealed class ComponentRegistry : IDisposable
 
     public ICollection<ComponentRegistration> GetRegistrations(Type type)
     {
-        if (_registrations.ContainsKey(type))
-        {
-            return _registrations[type];
-        }
-
-        return new List<ComponentRegistration>();
+        return _registrations.TryGetValue(type, out var registrations) ? registrations : Array.Empty<ComponentRegistration>();
     }
 }

@@ -136,7 +136,7 @@ public sealed class Columns : Renderable, IPaddable, IExpandable
             var exceededTotalWidth = false;
             foreach (var renderableWidth in IterateWidths(itemWidths, columnCount))
             {
-                widths[columnIndex] = Math.Max(widths.ContainsKey(columnIndex) ? widths[columnIndex] : 0, renderableWidth);
+                widths[columnIndex] = Math.Max(widths.TryGetValue(columnIndex, out var width) ? width : 0, renderableWidth);
                 var totalWidth = widths.Values.Sum() + (padding * (widths.Count - 1));
                 if (totalWidth > maxWidth)
                 {
