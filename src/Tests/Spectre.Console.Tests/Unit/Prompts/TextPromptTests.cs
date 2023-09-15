@@ -4,14 +4,14 @@ namespace Spectre.Console.Tests.Unit;
 public sealed class TextPromptTests
 {
     [Fact]
-    public void Should_Return_Entered_Text()
+    public async Task Should_Return_Entered_Text()
     {
         // Given
         var console = new TestConsole();
         console.Input.PushTextWithEnter("Hello World");
 
         // When
-        var result = console.Prompt(new TextPrompt<string>("Enter text:"));
+        var result = await console.PromptAsync(new TextPrompt<string>("Enter text:"), CancellationToken.None);
 
         // Then
         result.ShouldBe("Hello World");
@@ -19,7 +19,7 @@ public sealed class TextPromptTests
 
     [Fact]
     [Expectation("ConversionError")]
-    public Task Should_Return_Validation_Error_If_Value_Cannot_Be_Converted()
+    public async Task Should_Return_Validation_Error_If_Value_Cannot_Be_Converted()
     {
         // Given
         var console = new TestConsole();
@@ -27,34 +27,34 @@ public sealed class TextPromptTests
         console.Input.PushTextWithEnter("99");
 
         // When
-        console.Prompt(new TextPrompt<int>("Age?"));
+        await console.PromptAsync(new TextPrompt<int>("Age?"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Lines);
+        await Verifier.Verify(console.Lines);
     }
 
     [Fact]
     [Expectation("DefaultValue")]
-    public Task Should_Chose_Default_Value_If_Nothing_Is_Entered()
+    public async Task Should_Chose_Default_Value_If_Nothing_Is_Entered()
     {
         // Given
         var console = new TestConsole();
         console.Input.PushKey(ConsoleKey.Enter);
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .AddChoice("Banana")
                 .AddChoice("Orange")
-                .DefaultValue("Banana"));
+                .DefaultValue("Banana"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("InvalidChoice")]
-    public Task Should_Return_Error_If_An_Invalid_Choice_Is_Made()
+    public async Task Should_Return_Error_If_An_Invalid_Choice_Is_Made()
     {
         // Given
         var console = new TestConsole();
@@ -62,38 +62,38 @@ public sealed class TextPromptTests
         console.Input.PushTextWithEnter("Banana");
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .AddChoice("Banana")
                 .AddChoice("Orange")
-                .DefaultValue("Banana"));
+                .DefaultValue("Banana"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("AcceptChoice")]
-    public Task Should_Accept_Choice_In_List()
+    public async Task Should_Accept_Choice_In_List()
     {
         // Given
         var console = new TestConsole();
         console.Input.PushTextWithEnter("Orange");
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .AddChoice("Banana")
                 .AddChoice("Orange")
-                .DefaultValue("Banana"));
+                .DefaultValue("Banana"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("AutoComplete_Empty")]
-    public Task Should_Auto_Complete_To_First_Choice_If_Pressing_Tab_On_Empty_String()
+    public async Task Should_Auto_Complete_To_First_Choice_If_Pressing_Tab_On_Empty_String()
     {
         // Given
         var console = new TestConsole();
@@ -101,19 +101,19 @@ public sealed class TextPromptTests
         console.Input.PushKey(ConsoleKey.Enter);
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .AddChoice("Banana")
                 .AddChoice("Orange")
-                .DefaultValue("Banana"));
+                .DefaultValue("Banana"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("AutoComplete_BestMatch")]
-    public Task Should_Auto_Complete_To_Best_Match()
+    public async Task Should_Auto_Complete_To_Best_Match()
     {
         // Given
         var console = new TestConsole();
@@ -122,19 +122,19 @@ public sealed class TextPromptTests
         console.Input.PushKey(ConsoleKey.Enter);
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .AddChoice("Banana")
                 .AddChoice("Bandana")
-                .AddChoice("Orange"));
+                .AddChoice("Orange"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("AutoComplete_NextChoice")]
-    public Task Should_Auto_Complete_To_Next_Choice_When_Pressing_Tab_On_A_Match()
+    public async Task Should_Auto_Complete_To_Next_Choice_When_Pressing_Tab_On_A_Match()
     {
         // Given
         var console = new TestConsole();
@@ -143,19 +143,19 @@ public sealed class TextPromptTests
         console.Input.PushKey(ConsoleKey.Enter);
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .AddChoice("Apple")
                 .AddChoice("Banana")
-                .AddChoice("Orange"));
+                .AddChoice("Orange"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("AutoComplete_PreviousChoice")]
-    public Task Should_Auto_Complete_To_Previous_Choice_When_Pressing_ShiftTab_On_A_Match()
+    public async Task Should_Auto_Complete_To_Previous_Choice_When_Pressing_ShiftTab_On_A_Match()
     {
         // Given
         var console = new TestConsole();
@@ -167,19 +167,19 @@ public sealed class TextPromptTests
         console.Input.PushKey(ConsoleKey.Enter);
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .AddChoice("Banana")
                 .AddChoice("Bandana")
-                .AddChoice("Orange"));
+                .AddChoice("Orange"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("CustomValidation")]
-    public Task Should_Return_Error_If_Custom_Validation_Fails()
+    public async Task Should_Return_Error_If_Custom_Validation_Fails()
     {
         // Given
         var console = new TestConsole();
@@ -189,7 +189,7 @@ public sealed class TextPromptTests
         console.Input.PushTextWithEnter("99");
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<int>("Guess number:")
                 .ValidationErrorMessage("Invalid input")
                 .Validate(age =>
@@ -204,53 +204,53 @@ public sealed class TextPromptTests
                     }
 
                     return ValidationResult.Success();
-                }));
+                }), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("CustomConverter")]
-    public Task Should_Use_Custom_Converter()
+    public async Task Should_Use_Custom_Converter()
     {
         // Given
         var console = new TestConsole();
         console.Input.PushTextWithEnter("Banana");
 
         // When
-        var result = console.Prompt(
+        var result = await console.PromptAsync(
             new TextPrompt<(int, string)>("Favorite fruit?")
                 .AddChoice((1, "Apple"))
                 .AddChoice((2, "Banana"))
-                .WithConverter(testData => testData.Item2));
+                .WithConverter(testData => testData.Item2), CancellationToken.None);
 
         // Then
         result.Item1.ShouldBe(2);
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("SecretDefaultValue")]
-    public Task Should_Choose_Masked_Default_Value_If_Nothing_Is_Entered_And_Prompt_Is_Secret()
+    public async Task Should_Choose_Masked_Default_Value_If_Nothing_Is_Entered_And_Prompt_Is_Secret()
     {
         // Given
         var console = new TestConsole();
         console.Input.PushKey(ConsoleKey.Enter);
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .Secret()
-                .DefaultValue("Banana"));
+                .DefaultValue("Banana"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("SecretValueBackspaceNullMask")]
-    public Task Should_Not_Erase_Prompt_Text_On_Backspace_If_Prompt_Is_Secret_And_Mask_Is_Null()
+    public async Task Should_Not_Erase_Prompt_Text_On_Backspace_If_Prompt_Is_Secret_And_Mask_Is_Null()
     {
         // Given
         var console = new TestConsole();
@@ -259,69 +259,69 @@ public sealed class TextPromptTests
         console.Input.PushKey(ConsoleKey.Enter);
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
-                .Secret(null));
+                .Secret(null), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("SecretDefaultValueCustomMask")]
-    public Task Should_Choose_Custom_Masked_Default_Value_If_Nothing_Is_Entered_And_Prompt_Is_Secret_And_Mask_Is_Custom()
+    public async Task Should_Choose_Custom_Masked_Default_Value_If_Nothing_Is_Entered_And_Prompt_Is_Secret_And_Mask_Is_Custom()
     {
         // Given
         var console = new TestConsole();
         console.Input.PushKey(ConsoleKey.Enter);
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .Secret('-')
-                .DefaultValue("Banana"));
+                .DefaultValue("Banana"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("SecretDefaultValueNullMask")]
-    public Task Should_Choose_Empty_Masked_Default_Value_If_Nothing_Is_Entered_And_Prompt_Is_Secret_And_Mask_Is_Null()
+    public async Task Should_Choose_Empty_Masked_Default_Value_If_Nothing_Is_Entered_And_Prompt_Is_Secret_And_Mask_Is_Null()
     {
         // Given
         var console = new TestConsole();
         console.Input.PushKey(ConsoleKey.Enter);
 
         // When
-        console.Prompt(
+        await console.PromptAsync(
             new TextPrompt<string>("Favorite fruit?")
                 .Secret(null)
-                .DefaultValue("Banana"));
+                .DefaultValue("Banana"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("NoSuffix")]
-    public Task Should_Not_Append_Questionmark_Or_Colon_If_No_Choices_Are_Set()
+    public async Task Should_Not_Append_Questionmark_Or_Colon_If_No_Choices_Are_Set()
     {
         // Given
         var console = new TestConsole();
         console.Input.PushTextWithEnter("Orange");
 
         // When
-        console.Prompt(
-            new TextPrompt<string>("Enter command$"));
+        await console.PromptAsync(
+            new TextPrompt<string>("Enter command$"), CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("DefaultValueStyleNotSet")]
-    public Task Uses_default_style_for_default_value_if_no_style_is_set()
+    public async Task Uses_default_style_for_default_value_if_no_style_is_set()
     {
         // Given
         var console = new TestConsole
@@ -335,15 +335,15 @@ public sealed class TextPromptTests
                 .DefaultValue("default");
 
         // When
-        console.Prompt(prompt);
+        await console.PromptAsync(prompt, CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("DefaultValueStyleSet")]
-    public Task Uses_specified_default_value_style()
+    public async Task Uses_specified_default_value_style()
     {
         // Given
         var console = new TestConsole
@@ -358,15 +358,15 @@ public sealed class TextPromptTests
                 .DefaultValueStyle(Color.Red);
 
         // When
-        console.Prompt(prompt);
+        await console.PromptAsync(prompt, CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("ChoicesStyleNotSet")]
-    public Task Uses_default_style_for_choices_if_no_style_is_set()
+    public async Task Uses_default_style_for_choices_if_no_style_is_set()
     {
         // Given
         var console = new TestConsole
@@ -381,15 +381,15 @@ public sealed class TextPromptTests
                 .AddChoice("Choice 2");
 
         // When
-        console.Prompt(prompt);
+        await console.PromptAsync(prompt, CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 
     [Fact]
     [Expectation("ChoicesStyleSet")]
-    public Task Uses_the_specified_choices_style()
+    public async Task Uses_the_specified_choices_style()
     {
         // Given
         var console = new TestConsole
@@ -405,9 +405,9 @@ public sealed class TextPromptTests
                 .ChoicesStyle(Color.Red);
 
         // When
-        console.Prompt(prompt);
+        await console.PromptAsync(prompt, CancellationToken.None);
 
         // Then
-        return Verifier.Verify(console.Output);
+        await Verifier.Verify(console.Output);
     }
 }

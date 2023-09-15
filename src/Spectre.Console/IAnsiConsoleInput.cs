@@ -17,6 +17,7 @@ public interface IAnsiConsoleInput
     /// </summary>
     /// <param name="intercept">Whether or not to intercept the key.</param>
     /// <returns>The key that was read.</returns>
+    [Obsolete("Use ReadKeyAsync(bool intercept, CancellationToken cancellationToken) instead.", error: true)]
     ConsoleKeyInfo? ReadKey(bool intercept);
 
     /// <summary>
@@ -25,5 +26,5 @@ public interface IAnsiConsoleInput
     /// <param name="intercept">Whether or not to intercept the key.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The key that was read.</returns>
-    Task<ConsoleKeyInfo?> ReadKeyAsync(bool intercept, CancellationToken cancellationToken);
+    Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken);
 }

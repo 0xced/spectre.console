@@ -79,17 +79,19 @@ public sealed class TestConsoleInput : IAnsiConsoleInput
     /// <inheritdoc/>
     public ConsoleKeyInfo? ReadKey(bool intercept)
     {
+        throw new NotSupportedException("Use ReadKeyAsync(bool intercept, CancellationToken cancellationToken) instead");
+    }
+
+    /// <inheritdoc/>
+    public Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
+    {
         if (_input.Count == 0)
         {
             throw new InvalidOperationException("No input available.");
         }
 
-        return _input.Dequeue();
-    }
+        cancellationToken.ThrowIfCancellationRequested();
 
-    /// <inheritdoc/>
-    public Task<ConsoleKeyInfo?> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
-    {
-        return Task.FromResult(ReadKey(intercept));
+        return Task.FromResult(_input.Dequeue());
     }
 }

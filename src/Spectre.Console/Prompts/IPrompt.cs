@@ -11,6 +11,7 @@ public interface IPrompt<T>
     /// </summary>
     /// <param name="console">The console.</param>
     /// <returns>The prompt input result.</returns>
+    [Obsolete("Use ShowAsync(IAnsiConsole console, CancellationToken cancellationToken) instead.", error: true)]
     T Show(IAnsiConsole console);
 
     /// <summary>

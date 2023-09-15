@@ -10,16 +10,16 @@ public static partial class AnsiConsole
     /// </summary>
     /// <typeparam name="T">The prompt result type.</typeparam>
     /// <param name="prompt">The prompt to display.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The prompt input result.</returns>
-    [Obsolete("Use PromptAsync(IPrompt<T> prompt, CancellationToken cancellationToken) instead.", error: true)]
-    public static T Prompt<T>(IPrompt<T> prompt)
+    public static async Task<T> PromptAsync<T>(IPrompt<T> prompt, CancellationToken cancellationToken)
     {
         if (prompt is null)
         {
             throw new ArgumentNullException(nameof(prompt));
         }
 
-        return prompt.Show(Console);
+        return await prompt.ShowAsync(Console, cancellationToken);
     }
 
     /// <summary>
@@ -27,11 +27,11 @@ public static partial class AnsiConsole
     /// </summary>
     /// <typeparam name="T">The prompt result type.</typeparam>
     /// <param name="prompt">The prompt markup text.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The prompt input result.</returns>
-    [Obsolete("Use AskAsync<T>(string prompt, CancellationToken cancellationToken) instead.", error: true)]
-    public static T Ask<T>(string prompt)
+    public static async Task<T> AskAsync<T>(string prompt, CancellationToken cancellationToken)
     {
-        return new TextPrompt<T>(prompt).Show(Console);
+        return await new TextPrompt<T>(prompt).ShowAsync(Console, cancellationToken);
     }
 
     /// <summary>
@@ -40,13 +40,13 @@ public static partial class AnsiConsole
     /// <typeparam name="T">The prompt result type.</typeparam>
     /// <param name="prompt">The prompt markup text.</param>
     /// <param name="defaultValue">The default value.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The prompt input result.</returns>
-    [Obsolete("Use AskAsync<T>(string prompt, T defaultValue, CancellationToken cancellationToken) instead.", error: true)]
-    public static T Ask<T>(string prompt, T defaultValue)
+    public static async Task<T> AskAsync<T>(string prompt, T defaultValue, CancellationToken cancellationToken)
     {
-        return new TextPrompt<T>(prompt)
+        return await new TextPrompt<T>(prompt)
             .DefaultValue(defaultValue)
-            .Show(Console);
+            .ShowAsync(Console, cancellationToken);
     }
 
     /// <summary>
@@ -54,14 +54,14 @@ public static partial class AnsiConsole
     /// </summary>
     /// <param name="prompt">The prompt markup text.</param>
     /// <param name="defaultValue">Specifies the default answer.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns><c>true</c> if the user selected "yes", otherwise <c>false</c>.</returns>
-    [Obsolete("Use ConfirmAsync(string prompt, bool defaultValue, CancellationToken cancellationToken) instead.", error: true)]
-    public static bool Confirm(string prompt, bool defaultValue = true)
+    public static async Task<bool> ConfirmAsync(string prompt, bool defaultValue = true, CancellationToken cancellationToken = default)
     {
-        return new ConfirmationPrompt(prompt)
+        return await new ConfirmationPrompt(prompt)
         {
             DefaultValue = defaultValue,
         }
-        .Show(Console);
+        .ShowAsync(Console, cancellationToken);
     }
 }

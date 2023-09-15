@@ -19,14 +19,7 @@ public static partial class AnsiConsoleExtensions
 
         while (true)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            var rawKey = await console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
-            if (rawKey == null)
-            {
-                continue;
-            }
-
-            var key = rawKey.Value;
+            var key = await console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
             if (key.Key == ConsoleKey.Enter)
             {
                 return text;

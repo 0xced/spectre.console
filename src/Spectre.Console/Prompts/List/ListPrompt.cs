@@ -52,14 +52,7 @@ internal sealed class ListPrompt<T>
 
             while (true)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                var rawKey = await _console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
-                if (rawKey == null)
-                {
-                    continue;
-                }
-
-                var key = rawKey.Value;
+                var key = await _console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
                 var result = _strategy.HandleInput(key, state);
                 if (result == ListPromptInputResult.Submit)
                 {

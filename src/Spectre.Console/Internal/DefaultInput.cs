@@ -19,6 +19,7 @@ internal sealed class DefaultInput : IAnsiConsoleInput
         return System.Console.KeyAvailable;
     }
 
+    [Obsolete("Use ReadKeyAsync(bool intercept, CancellationToken cancellationToken) instead.", error: true)]
     public ConsoleKeyInfo? ReadKey(bool intercept)
     {
         if (!_profile.Capabilities.Interactive)
@@ -29,28 +30,18 @@ internal sealed class DefaultInput : IAnsiConsoleInput
         return System.Console.ReadKey(intercept);
     }
 
-    public async Task<ConsoleKeyInfo?> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
+    public async Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
     {
         if (!_profile.Capabilities.Interactive)
         {
             throw new InvalidOperationException("Failed to read input in non-interactive mode.");
         }
 
-        while (true)
+        while (!System.Console.KeyAvailable)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                return null;
-            }
-
-            if (System.Console.KeyAvailable)
-            {
-                break;
-            }
-
             await Task.Delay(5, cancellationToken).ConfigureAwait(false);
         }
 
-        return ReadKey(intercept);
+        return System.Console.ReadKey(intercept);
     }
 }
