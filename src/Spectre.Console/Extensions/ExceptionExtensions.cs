@@ -13,10 +13,7 @@ public static class ExceptionExtensions
     /// <returns>A <see cref="IRenderable"/> representing the exception.</returns>
     public static IRenderable GetRenderable(this Exception exception, ExceptionFormats format = ExceptionFormats.Default)
     {
-        if (exception is null)
-        {
-            throw new ArgumentNullException(nameof(exception));
-        }
+        ArgumentNullException.ThrowIfNull(exception);
 
         return GetRenderable(exception, new ExceptionSettings
         {
@@ -32,15 +29,9 @@ public static class ExceptionExtensions
     /// <returns>A <see cref="IRenderable"/> representing the exception.</returns>
     public static IRenderable GetRenderable(this Exception exception, ExceptionSettings settings)
     {
-        if (exception is null)
-        {
-            throw new ArgumentNullException(nameof(exception));
-        }
+        ArgumentNullException.ThrowIfNull(exception);
 
-        if (settings is null)
-        {
-            throw new ArgumentNullException(nameof(settings));
-        }
+        ArgumentNullException.ThrowIfNull(settings);
 
         return ExceptionFormatter.Format(exception, settings);
     }

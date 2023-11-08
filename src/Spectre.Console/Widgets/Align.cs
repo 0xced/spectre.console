@@ -35,7 +35,7 @@ public sealed class Align : Renderable
     /// <param name="vertical">The vertical alignment, or <c>null</c> if none.</param>
     public Align(IRenderable renderable, HorizontalAlignment horizontal, VerticalAlignment? vertical = null)
     {
-        _renderable = renderable ?? throw new ArgumentNullException(nameof(renderable));
+        _renderable = renderable ?? throw new System.ArgumentNullException(nameof(renderable));
 
         Horizontal = horizontal;
         Vertical = vertical;

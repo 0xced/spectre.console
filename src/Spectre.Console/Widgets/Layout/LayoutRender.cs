@@ -9,6 +9,6 @@ internal sealed class LayoutRender
     public LayoutRender(Region region, List<SegmentLine> render)
     {
         Region = region;
-        Render = render ?? throw new ArgumentNullException(nameof(render));
+        Render = render ?? throw new System.ArgumentNullException(nameof(render));
     }
 }

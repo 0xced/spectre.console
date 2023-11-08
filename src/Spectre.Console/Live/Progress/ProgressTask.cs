@@ -110,10 +110,10 @@ public sealed class ProgressTask : IProgress<double>
         _value = 0;
 
         _description = description?.RemoveNewLines()?.Trim() ??
-                       throw new ArgumentNullException(nameof(description));
+                       throw new System.ArgumentNullException(nameof(description));
         if (string.IsNullOrWhiteSpace(_description))
         {
-            throw new ArgumentException("Task name cannot be empty", nameof(description));
+            throw new System.ArgumentException("Task name cannot be empty", nameof(description));
         }
 
         Id = id;

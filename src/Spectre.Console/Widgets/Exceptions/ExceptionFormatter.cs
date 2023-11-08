@@ -4,20 +4,14 @@ internal static class ExceptionFormatter
 {
     public static IRenderable Format(Exception exception, ExceptionSettings settings)
     {
-        if (exception is null)
-        {
-            throw new ArgumentNullException(nameof(exception));
-        }
+        ArgumentNullException.ThrowIfNull(exception);
 
         return GetException(exception, settings);
     }
 
     private static IRenderable GetException(Exception exception, ExceptionSettings settings)
     {
-        if (exception is null)
-        {
-            throw new ArgumentNullException(nameof(exception));
-        }
+        ArgumentNullException.ThrowIfNull(exception);
 
         return new Rows(GetMessage(exception, settings), GetStackFrames(exception, settings)).Expand();
     }
@@ -397,7 +391,7 @@ internal static class ExceptionFormatter
     {
         // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Private.CoreLib/src/System/Diagnostics/StackTrace.cs#L400-L455
         declaringType = method.DeclaringType ??
-                        throw new ArgumentException("Method must have a declaring type.", nameof(method));
+                        throw new System.ArgumentException("Method must have a declaring type.", nameof(method));
 
         var parentType = declaringType.DeclaringType;
         if (parentType == null)

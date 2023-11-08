@@ -39,8 +39,8 @@ public sealed class FigletText : Renderable, IHasJustification
     /// <param name="text">The text.</param>
     public FigletText(FigletFont font, string text)
     {
-        _font = font ?? throw new ArgumentNullException(nameof(font));
-        _text = text ?? throw new ArgumentNullException(nameof(text));
+        _font = font ?? throw new System.ArgumentNullException(nameof(font));
+        _text = text ?? throw new System.ArgumentNullException(nameof(text));
     }
 
     /// <inheritdoc/>

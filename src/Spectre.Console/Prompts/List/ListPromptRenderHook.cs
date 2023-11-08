@@ -13,8 +13,8 @@ internal sealed class ListPromptRenderHook<T> : IRenderHook
         IAnsiConsole console,
         Func<IRenderable> builder)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
-        _builder = builder ?? throw new ArgumentNullException(nameof(builder));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
+        _builder = builder ?? throw new System.ArgumentNullException(nameof(builder));
 
         _live = new LiveRenderable(console);
         _lock = new object();

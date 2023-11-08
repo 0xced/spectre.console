@@ -9,7 +9,7 @@ internal sealed class ExplainCommand : Command<ExplainCommand.Settings>
 
     public ExplainCommand(IConfiguration configuration, CommandModel commandModel)
     {
-        _commandModel = commandModel ?? throw new ArgumentNullException(nameof(commandModel));
+        _commandModel = commandModel ?? throw new System.ArgumentNullException(nameof(commandModel));
         _writer = configuration.Settings.Console.GetConsole();
     }
 

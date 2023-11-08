@@ -39,7 +39,7 @@ public sealed class Rule : Renderable, IHasJustification, IHasBoxBorder
     /// <param name="title">The rule title markup text.</param>
     public Rule(string title)
     {
-        Title = title ?? throw new ArgumentNullException(nameof(title));
+        Title = title ?? throw new System.ArgumentNullException(nameof(title));
     }
 
     /// <inheritdoc/>

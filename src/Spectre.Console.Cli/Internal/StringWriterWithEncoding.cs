@@ -6,6 +6,6 @@ internal sealed class StringWriterWithEncoding : StringWriter
 
     public StringWriterWithEncoding(Encoding encoding)
     {
-        Encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
+        Encoding = encoding ?? throw new System.ArgumentNullException(nameof(encoding));
     }
 }

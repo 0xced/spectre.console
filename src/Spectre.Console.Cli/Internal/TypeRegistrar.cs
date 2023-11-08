@@ -6,7 +6,7 @@ internal sealed class TypeRegistrar : ITypeRegistrarFrontend
 
     internal TypeRegistrar(ITypeRegistrar registrar)
     {
-        _registrar = registrar ?? throw new ArgumentNullException(nameof(registrar));
+        _registrar = registrar ?? throw new System.ArgumentNullException(nameof(registrar));
     }
 
     public void Register<TService, TImplementation>()
@@ -17,10 +17,7 @@ internal sealed class TypeRegistrar : ITypeRegistrarFrontend
 
     public void RegisterInstance<TImplementation>(TImplementation instance)
     {
-        if (instance == null)
-        {
-            throw new ArgumentNullException(nameof(instance));
-        }
+        ArgumentNullException.ThrowIfNull(instance);
 
         _registrar.RegisterInstance(typeof(TImplementation), instance);
     }
@@ -28,10 +25,7 @@ internal sealed class TypeRegistrar : ITypeRegistrarFrontend
     public void RegisterInstance<TService, TImplementation>(TImplementation instance)
         where TImplementation : TService
     {
-        if (instance == null)
-        {
-            throw new ArgumentNullException(nameof(instance));
-        }
+        ArgumentNullException.ThrowIfNull(instance);
 
         _registrar.RegisterInstance(typeof(TService), instance);
     }

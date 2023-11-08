@@ -14,10 +14,7 @@ public static class StatusExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Status AutoRefresh(this Status status, bool enabled)
     {
-        if (status is null)
-        {
-            throw new ArgumentNullException(nameof(status));
-        }
+        ArgumentNullException.ThrowIfNull(status);
 
         status.AutoRefresh = enabled;
         return status;
@@ -31,10 +28,7 @@ public static class StatusExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Status Spinner(this Status status, Spinner spinner)
     {
-        if (status is null)
-        {
-            throw new ArgumentNullException(nameof(status));
-        }
+        ArgumentNullException.ThrowIfNull(status);
 
         status.Spinner = spinner;
         return status;
@@ -48,10 +42,7 @@ public static class StatusExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Status SpinnerStyle(this Status status, Style? style)
     {
-        if (status is null)
-        {
-            throw new ArgumentNullException(nameof(status));
-        }
+        ArgumentNullException.ThrowIfNull(status);
 
         status.SpinnerStyle = style;
         return status;

@@ -42,18 +42,9 @@ internal static class AnsiBuilder
 
     private static string Build(Profile profile, string text, Style style)
     {
-        if (profile is null)
-        {
-            throw new ArgumentNullException(nameof(profile));
-        }
-        else if (text is null)
-        {
-            throw new ArgumentNullException(nameof(text));
-        }
-        else if (style is null)
-        {
-            throw new ArgumentNullException(nameof(style));
-        }
+        ArgumentNullException.ThrowIfNull(profile);
+        ArgumentNullException.ThrowIfNull(text);
+        ArgumentNullException.ThrowIfNull(style);
 
         var codes = AnsiDecorationBuilder.GetAnsiCodes(style.Decoration);
 

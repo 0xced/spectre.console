@@ -15,8 +15,8 @@ internal sealed class DefaultProgressRenderer : ProgressRenderer
 
     public DefaultProgressRenderer(IAnsiConsole console, List<ProgressColumn> columns, TimeSpan refreshRate, bool hideCompleted, Func<IRenderable, IReadOnlyList<ProgressTask>, IRenderable> renderHook)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
-        _columns = columns ?? throw new ArgumentNullException(nameof(columns));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
+        _columns = columns ?? throw new System.ArgumentNullException(nameof(columns));
         _live = new LiveRenderable(console);
         _lock = new object();
         _stopwatch = new Stopwatch();

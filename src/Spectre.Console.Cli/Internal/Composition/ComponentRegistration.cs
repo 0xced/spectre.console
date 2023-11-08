@@ -17,7 +17,7 @@ internal sealed class ComponentRegistration
 
         ImplementationType = type;
         RegistrationTypes = registrations;
-        Activator = activator ?? throw new ArgumentNullException(nameof(activator));
+        Activator = activator ?? throw new System.ArgumentNullException(nameof(activator));
     }
 
     public ComponentRegistration CreateCopy()

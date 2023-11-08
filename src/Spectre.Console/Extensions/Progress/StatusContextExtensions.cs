@@ -13,10 +13,7 @@ public static class StatusContextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static StatusContext Status(this StatusContext context, string status)
     {
-        if (context is null)
-        {
-            throw new ArgumentNullException(nameof(context));
-        }
+        ArgumentNullException.ThrowIfNull(context);
 
         context.Status = status;
         return context;
@@ -30,10 +27,7 @@ public static class StatusContextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static StatusContext Spinner(this StatusContext context, Spinner spinner)
     {
-        if (context is null)
-        {
-            throw new ArgumentNullException(nameof(context));
-        }
+        ArgumentNullException.ThrowIfNull(context);
 
         context.Spinner = spinner;
         return context;
@@ -47,10 +41,7 @@ public static class StatusContextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static StatusContext SpinnerStyle(this StatusContext context, Style? style)
     {
-        if (context is null)
-        {
-            throw new ArgumentNullException(nameof(context));
-        }
+        ArgumentNullException.ThrowIfNull(context);
 
         context.SpinnerStyle = style;
         return context;

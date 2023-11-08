@@ -22,7 +22,7 @@ public sealed class TableTitle
     /// <param name="style">The title style.</param>
     public TableTitle(string text, Style? style = null)
     {
-        Text = text ?? throw new ArgumentNullException(nameof(text));
+        Text = text ?? throw new System.ArgumentNullException(nameof(text));
         Style = style;
     }
 
@@ -44,10 +44,7 @@ public sealed class TableTitle
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public TableTitle SetStyle(string style)
     {
-        if (style is null)
-        {
-            throw new ArgumentNullException(nameof(style));
-        }
+        ArgumentNullException.ThrowIfNull(style);
 
         Style = Style.Parse(style);
         return this;

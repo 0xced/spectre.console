@@ -14,10 +14,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator SetHelpProvider(this IConfigurator configurator, IHelpProvider helpProvider)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.SetHelpProvider(helpProvider);
         return configurator;
@@ -32,10 +29,7 @@ public static class ConfiguratorExtensions
     public static IConfigurator SetHelpProvider<T>(this IConfigurator configurator)
         where T : IHelpProvider
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.SetHelpProvider<T>();
         return configurator;
@@ -49,10 +43,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator SetApplicationName(this IConfigurator configurator, string name)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.ApplicationName = name;
         return configurator;
@@ -66,10 +57,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator SetApplicationVersion(this IConfigurator configurator, string version)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.ApplicationVersion = version;
         return configurator;
@@ -83,10 +71,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator HideOptionDefaultValues(this IConfigurator configurator)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.ShowOptionDefaultValues = false;
         return configurator;
@@ -100,10 +85,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator ConfigureConsole(this IConfigurator configurator, IAnsiConsole console)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.Console = console;
         return configurator;
@@ -116,10 +98,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator UseStrictParsing(this IConfigurator configurator)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.StrictParsing = true;
         return configurator;
@@ -133,10 +112,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator TrimTrailingPeriods(this IConfigurator configurator, bool trimTrailingPeriods)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.TrimTrailingPeriod = trimTrailingPeriods;
         return configurator;
@@ -150,10 +126,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator PropagateExceptions(this IConfigurator configurator)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.PropagateExceptions = true;
         return configurator;
@@ -167,10 +140,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator CaseSensitivity(this IConfigurator configurator, CaseSensitivity sensitivity)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.CaseSensitivity = sensitivity;
         return configurator;
@@ -184,10 +154,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator ValidateExamples(this IConfigurator configurator)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.ValidateExamples = true;
         return configurator;
@@ -201,10 +168,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator SetInterceptor(this IConfigurator configurator, ICommandInterceptor interceptor)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.Interceptor = interceptor;
         return configurator;
@@ -222,10 +186,7 @@ public static class ConfiguratorExtensions
         string name,
         Action<IConfigurator<CommandSettings>> action)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         return configurator.AddBranch(name, action);
     }
@@ -244,10 +205,7 @@ public static class ConfiguratorExtensions
         Action<IConfigurator<TSettings>> action)
             where TSettings : CommandSettings
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         return configurator.AddBranch(name, action);
     }
@@ -264,10 +222,7 @@ public static class ConfiguratorExtensions
         string name,
         Func<CommandContext, int> func)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         return configurator.AddDelegate<EmptyCommandSettings>(name, (c, _) => func(c));
     }
@@ -284,10 +239,7 @@ public static class ConfiguratorExtensions
         string name,
         Func<CommandContext, Task<int>> func)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         return configurator.AddAsyncDelegate<EmptyCommandSettings>(name, (c, _) => func(c));
     }
@@ -306,10 +258,7 @@ public static class ConfiguratorExtensions
         Func<CommandContext, int> func)
             where TSettings : CommandSettings
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         return configurator.AddDelegate<TSettings>(name, (c, _) => func(c));
     }
@@ -328,10 +277,7 @@ public static class ConfiguratorExtensions
         Func<CommandContext, Task<int>> func)
         where TSettings : CommandSettings
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         return configurator.AddAsyncDelegate<TSettings>(name, (c, _) => func(c));
     }
@@ -361,10 +307,7 @@ public static class ConfiguratorExtensions
     /// <returns>A configurator that can be used to configure the application further.</returns>
     public static IConfigurator SetExceptionHandler(this IConfigurator configurator, Func<Exception, int>? exceptionHandler)
     {
-        if (configurator == null)
-        {
-            throw new ArgumentNullException(nameof(configurator));
-        }
+        ArgumentNullException.ThrowIfNull(configurator);
 
         configurator.Settings.ExceptionHandler = exceptionHandler;
         return configurator;

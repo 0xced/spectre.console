@@ -4,15 +4,9 @@ internal static class CommandModelValidator
 {
     public static void Validate(CommandModel model, CommandAppSettings settings)
     {
-        if (model is null)
-        {
-            throw new ArgumentNullException(nameof(model));
-        }
+        ArgumentNullException.ThrowIfNull(model);
 
-        if (settings is null)
-        {
-            throw new ArgumentNullException(nameof(settings));
-        }
+        ArgumentNullException.ThrowIfNull(settings);
 
         if (model.Commands.Count == 0)
         {

@@ -12,7 +12,7 @@ internal sealed class BreakdownTags : Renderable
 
     public BreakdownTags(List<IBreakdownChartItem> data)
     {
-        _data = data ?? throw new ArgumentNullException(nameof(data));
+        _data = data ?? throw new System.ArgumentNullException(nameof(data));
     }
 
     protected override Measurement Measure(RenderOptions options, int maxWidth)

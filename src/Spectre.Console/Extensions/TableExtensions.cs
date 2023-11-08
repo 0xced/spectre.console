@@ -13,15 +13,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table AddColumns(this Table table, params TableColumn[] columns)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (columns is null)
-        {
-            throw new ArgumentNullException(nameof(columns));
-        }
+        ArgumentNullException.ThrowIfNull(columns);
 
         foreach (var column in columns)
         {
@@ -39,15 +33,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table AddRow(this Table table, IEnumerable<IRenderable> columns)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (columns is null)
-        {
-            throw new ArgumentNullException(nameof(columns));
-        }
+        ArgumentNullException.ThrowIfNull(columns);
 
         table.Rows.Add(new TableRow(columns));
         return table;
@@ -61,10 +49,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table AddRow(this Table table, params IRenderable[] columns)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         return table.AddRow((IEnumerable<IRenderable>)columns);
     }
@@ -76,10 +61,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table AddEmptyRow(this Table table)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         var columns = new IRenderable[table.Columns.Count];
         Enumerable.Range(0, table.Columns.Count).ForEach(index => columns[index] = Text.Empty);
@@ -96,15 +78,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table AddColumn(this Table table, string column, Action<TableColumn>? configure = null)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (column is null)
-        {
-            throw new ArgumentNullException(nameof(column));
-        }
+        ArgumentNullException.ThrowIfNull(column);
 
         var tableColumn = new TableColumn(column);
         configure?.Invoke(tableColumn);
@@ -121,15 +97,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table AddColumns(this Table table, params string[] columns)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (columns is null)
-        {
-            throw new ArgumentNullException(nameof(columns));
-        }
+        ArgumentNullException.ThrowIfNull(columns);
 
         foreach (var column in columns)
         {
@@ -147,15 +117,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table AddRow(this Table table, params string[] columns)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (columns is null)
-        {
-            throw new ArgumentNullException(nameof(columns));
-        }
+        ArgumentNullException.ThrowIfNull(columns);
 
         table.AddRow(columns.Select(column => new Markup(column)).ToArray());
         return table;
@@ -170,15 +134,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table InsertRow(this Table table, int index, IEnumerable<IRenderable> columns)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (columns is null)
-        {
-            throw new ArgumentNullException(nameof(columns));
-        }
+        ArgumentNullException.ThrowIfNull(columns);
 
         table.Rows.Insert(index, new TableRow(columns));
         return table;
@@ -194,15 +152,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table UpdateCell(this Table table, int rowIndex, int columnIndex, IRenderable cellData)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (cellData is null)
-        {
-            throw new ArgumentNullException(nameof(cellData));
-        }
+        ArgumentNullException.ThrowIfNull(cellData);
 
         table.Rows.Update(rowIndex, columnIndex, cellData);
 
@@ -219,15 +171,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table UpdateCell(this Table table, int rowIndex, int columnIndex, string cellData)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (cellData is null)
-        {
-            throw new ArgumentNullException(nameof(cellData));
-        }
+        ArgumentNullException.ThrowIfNull(cellData);
 
         table.Rows.Update(rowIndex, columnIndex, new Markup(cellData));
 
@@ -243,10 +189,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table InsertRow(this Table table, int index, params IRenderable[] columns)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         return InsertRow(table, index, (IEnumerable<IRenderable>)columns);
     }
@@ -260,10 +203,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table InsertRow(this Table table, int index, params string[] columns)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         return InsertRow(table, index, columns.Select(column => new Markup(column)));
     }
@@ -276,10 +216,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table RemoveRow(this Table table, int index)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.Rows.RemoveAt(index);
         return table;
@@ -293,10 +230,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table Width(this Table table, int? width)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.Width = width;
         return table;
@@ -309,10 +243,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table ShowHeaders(this Table table)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.ShowHeaders = true;
         return table;
@@ -325,10 +256,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table HideHeaders(this Table table)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.ShowHeaders = false;
         return table;
@@ -341,10 +269,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table ShowRowSeparators(this Table table)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.ShowRowSeparators = true;
         return table;
@@ -357,10 +282,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table HideRowSeparators(this Table table)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.ShowRowSeparators = false;
         return table;
@@ -373,10 +295,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table ShowFooters(this Table table)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.ShowFooters = true;
         return table;
@@ -389,10 +308,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table HideFooters(this Table table)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.ShowFooters = false;
         return table;
@@ -407,15 +323,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table Title(this Table table, string text, Style? style = null)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (text is null)
-        {
-            throw new ArgumentNullException(nameof(text));
-        }
+        ArgumentNullException.ThrowIfNull(text);
 
         return Title(table, new TableTitle(text, style));
     }
@@ -428,10 +338,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table Title(this Table table, TableTitle title)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.Title = title;
         return table;
@@ -446,15 +353,9 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table Caption(this Table table, string text, Style? style = null)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
-        if (text is null)
-        {
-            throw new ArgumentNullException(nameof(text));
-        }
+        ArgumentNullException.ThrowIfNull(text);
 
         return Caption(table, new TableTitle(text, style));
     }
@@ -467,10 +368,7 @@ public static class TableExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Table Caption(this Table table, TableTitle caption)
     {
-        if (table is null)
-        {
-            throw new ArgumentNullException(nameof(table));
-        }
+        ArgumentNullException.ThrowIfNull(table);
 
         table.Caption = caption;
         return table;

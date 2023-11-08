@@ -11,7 +11,7 @@ internal abstract class TableAccessor
 
     protected TableAccessor(Table table, RenderOptions options)
     {
-        _table = table ?? throw new ArgumentNullException(nameof(table));
-        Options = options ?? throw new ArgumentNullException(nameof(options));
+        _table = table ?? throw new System.ArgumentNullException(nameof(table));
+        Options = options ?? throw new System.ArgumentNullException(nameof(options));
     }
 }

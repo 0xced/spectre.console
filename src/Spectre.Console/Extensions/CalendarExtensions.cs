@@ -52,10 +52,7 @@ public static class CalendarExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Calendar AddCalendarEvent(this Calendar calendar, string description, int year, int month, int day)
     {
-        if (calendar is null)
-        {
-            throw new ArgumentNullException(nameof(calendar));
-        }
+        ArgumentNullException.ThrowIfNull(calendar);
 
         calendar.CalendarEvents.Add(new CalendarEvent(description, year, month, day));
         return calendar;
@@ -69,10 +66,7 @@ public static class CalendarExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Calendar HighlightStyle(this Calendar calendar, Style? style)
     {
-        if (calendar is null)
-        {
-            throw new ArgumentNullException(nameof(calendar));
-        }
+        ArgumentNullException.ThrowIfNull(calendar);
 
         calendar.HighlightStyle = style ?? Style.Plain;
         return calendar;
@@ -86,10 +80,7 @@ public static class CalendarExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Calendar HeaderStyle(this Calendar calendar, Style? style)
     {
-        if (calendar is null)
-        {
-            throw new ArgumentNullException(nameof(calendar));
-        }
+        ArgumentNullException.ThrowIfNull(calendar);
 
         calendar.HeaderStyle = style ?? Style.Plain;
         return calendar;
@@ -102,10 +93,7 @@ public static class CalendarExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Calendar ShowHeader(this Calendar calendar)
     {
-        if (calendar is null)
-        {
-            throw new ArgumentNullException(nameof(calendar));
-        }
+        ArgumentNullException.ThrowIfNull(calendar);
 
         calendar.ShowHeader = true;
         return calendar;
@@ -118,10 +106,7 @@ public static class CalendarExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Calendar HideHeader(this Calendar calendar)
     {
-        if (calendar is null)
-        {
-            throw new ArgumentNullException(nameof(calendar));
-        }
+        ArgumentNullException.ThrowIfNull(calendar);
 
         calendar.ShowHeader = false;
         return calendar;

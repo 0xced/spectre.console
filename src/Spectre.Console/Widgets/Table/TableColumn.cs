@@ -53,7 +53,7 @@ public sealed class TableColumn : IColumn
     /// <param name="header">The <see cref="IRenderable"/> instance to use as the table column header.</param>
     public TableColumn(IRenderable header)
     {
-        Header = header ?? throw new ArgumentNullException(nameof(header));
+        Header = header ?? throw new System.ArgumentNullException(nameof(header));
         Width = null;
         Padding = new Padding(1, 0, 1, 0);
         NoWrap = false;

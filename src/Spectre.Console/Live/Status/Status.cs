@@ -29,7 +29,7 @@ public sealed class Status
     /// <param name="console">The console.</param>
     public Status(IAnsiConsole console)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
     }
 
     /// <summary>
@@ -69,10 +69,7 @@ public sealed class Status
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public async Task StartAsync(string status, Func<StatusContext, Task> action)
     {
-        if (action is null)
-        {
-            throw new ArgumentNullException(nameof(action));
-        }
+        ArgumentNullException.ThrowIfNull(action);
 
         _ = await StartAsync<object?>(status, async statusContext =>
         {
@@ -90,10 +87,7 @@ public sealed class Status
     /// <returns>A <see cref="Task{T}"/> representing the asynchronous operation.</returns>
     public async Task<T> StartAsync<T>(string status, Func<StatusContext, Task<T>> func)
     {
-        if (func is null)
-        {
-            throw new ArgumentNullException(nameof(func));
-        }
+        ArgumentNullException.ThrowIfNull(func);
 
         // Set the progress columns
         var spinnerColumn = new SpinnerColumn(Spinner ?? Spinner.Known.Default)

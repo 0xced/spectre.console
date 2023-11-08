@@ -39,7 +39,7 @@ public sealed class AnsiConsoleOutput : IAnsiConsoleOutput
     /// <param name="writer">The output writer.</param>
     public AnsiConsoleOutput(TextWriter writer)
     {
-        Writer = writer ?? throw new ArgumentNullException(nameof(writer));
+        Writer = writer ?? throw new System.ArgumentNullException(nameof(writer));
     }
 
     /// <inheritdoc/>

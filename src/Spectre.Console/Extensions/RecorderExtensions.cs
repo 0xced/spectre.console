@@ -15,10 +15,7 @@ public static class RecorderExtensions
     /// <returns>The recorded content as text.</returns>
     public static string ExportText(this Recorder recorder)
     {
-        if (recorder is null)
-        {
-            throw new ArgumentNullException(nameof(recorder));
-        }
+        ArgumentNullException.ThrowIfNull(recorder);
 
         return recorder.Export(_textEncoder);
     }
@@ -30,10 +27,7 @@ public static class RecorderExtensions
     /// <returns>The recorded content as HTML.</returns>
     public static string ExportHtml(this Recorder recorder)
     {
-        if (recorder is null)
-        {
-            throw new ArgumentNullException(nameof(recorder));
-        }
+        ArgumentNullException.ThrowIfNull(recorder);
 
         return recorder.Export(_htmlEncoder);
     }

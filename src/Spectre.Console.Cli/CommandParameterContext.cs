@@ -28,8 +28,8 @@ public sealed class CommandParameterContext
     /// <param name="value">The parameter value.</param>
     public CommandParameterContext(ICommandParameterInfo parameter, ITypeResolver resolver, object? value)
     {
-        Parameter = parameter ?? throw new ArgumentNullException(nameof(parameter));
-        Resolver = resolver ?? throw new ArgumentNullException(nameof(resolver));
+        Parameter = parameter ?? throw new System.ArgumentNullException(nameof(parameter));
+        Resolver = resolver ?? throw new System.ArgumentNullException(nameof(resolver));
         Value = value;
     }
 }

@@ -10,7 +10,7 @@ internal sealed class TableRowEnumerator : IEnumerator<TableRow>
 
     public TableRowEnumerator(TableRow[] items)
     {
-        _items = items ?? throw new ArgumentNullException(nameof(items));
+        _items = items ?? throw new System.ArgumentNullException(nameof(items));
         _index = -1;
     }
 

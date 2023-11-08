@@ -13,10 +13,7 @@ public static class SpinnerColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static SpinnerColumn Style(this SpinnerColumn column, Style? style)
     {
-        if (column is null)
-        {
-            throw new ArgumentNullException(nameof(column));
-        }
+        ArgumentNullException.ThrowIfNull(column);
 
         column.Style = style;
         return column;
@@ -31,10 +28,7 @@ public static class SpinnerColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static SpinnerColumn CompletedText(this SpinnerColumn column, string? text)
     {
-        if (column is null)
-        {
-            throw new ArgumentNullException(nameof(column));
-        }
+        ArgumentNullException.ThrowIfNull(column);
 
         column.CompletedText = text;
         return column;
@@ -48,10 +42,7 @@ public static class SpinnerColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static SpinnerColumn CompletedStyle(this SpinnerColumn column, Style? style)
     {
-        if (column is null)
-        {
-            throw new ArgumentNullException(nameof(column));
-        }
+        ArgumentNullException.ThrowIfNull(column);
 
         column.CompletedStyle = style;
         return column;

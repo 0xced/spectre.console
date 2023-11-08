@@ -20,8 +20,8 @@ public sealed class ProgressContext
     {
         _tasks = new List<ProgressTask>();
         _taskLock = new object();
-        _console = console ?? throw new ArgumentNullException(nameof(console));
-        _renderer = renderer ?? throw new ArgumentNullException(nameof(renderer));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
+        _renderer = renderer ?? throw new System.ArgumentNullException(nameof(renderer));
     }
 
     /// <summary>
@@ -48,10 +48,7 @@ public sealed class ProgressContext
     /// <returns>The newly created task.</returns>
     public ProgressTask AddTask(string description, ProgressTaskSettings settings)
     {
-        if (settings is null)
-        {
-            throw new ArgumentNullException(nameof(settings));
-        }
+        ArgumentNullException.ThrowIfNull(settings);
 
         lock (_taskLock)
         {

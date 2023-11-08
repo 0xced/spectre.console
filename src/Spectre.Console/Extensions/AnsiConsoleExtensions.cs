@@ -21,10 +21,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="console">The console to clear.</param>
     public static void Clear(this IAnsiConsole console)
     {
-        if (console is null)
-        {
-            throw new ArgumentNullException(nameof(console));
-        }
+        ArgumentNullException.ThrowIfNull(console);
 
         console.Clear(true);
     }
@@ -36,10 +33,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="text">The text to write.</param>
     public static void Write(this IAnsiConsole console, string text)
     {
-        if (console is null)
-        {
-            throw new ArgumentNullException(nameof(console));
-        }
+        ArgumentNullException.ThrowIfNull(console);
 
         console.Write(new Text(text, Style.Plain));
     }
@@ -52,10 +46,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="style">The text style or <see cref="Style.Plain"/> if <see langword="null"/>.</param>
     public static void Write(this IAnsiConsole console, string text, Style? style)
     {
-        if (console is null)
-        {
-            throw new ArgumentNullException(nameof(console));
-        }
+        ArgumentNullException.ThrowIfNull(console);
 
         console.Write(new Text(text, style));
     }
@@ -66,10 +57,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="console">The console to write to.</param>
     public static void WriteLine(this IAnsiConsole console)
     {
-        if (console is null)
-        {
-            throw new ArgumentNullException(nameof(console));
-        }
+        ArgumentNullException.ThrowIfNull(console);
 
         console.Write(Text.NewLine);
     }
@@ -92,15 +80,9 @@ public static partial class AnsiConsoleExtensions
     /// <param name="style">The text style or <see cref="Style.Plain"/> if <see langword="null"/>.</param>
     public static void WriteLine(this IAnsiConsole console, string text, Style? style)
     {
-        if (console is null)
-        {
-            throw new ArgumentNullException(nameof(console));
-        }
+        ArgumentNullException.ThrowIfNull(console);
 
-        if (text is null)
-        {
-            throw new ArgumentNullException(nameof(text));
-        }
+        ArgumentNullException.ThrowIfNull(text);
 
         console.Write(text + Environment.NewLine, style);
     }

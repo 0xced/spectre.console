@@ -8,7 +8,7 @@ internal sealed class AnsiConsoleCursor : IAnsiConsoleCursor
 
     public AnsiConsoleCursor(AnsiConsoleBackend backend)
     {
-        _backend = backend ?? throw new ArgumentNullException(nameof(backend));
+        _backend = backend ?? throw new System.ArgumentNullException(nameof(backend));
     }
 
     public void Show(bool show)

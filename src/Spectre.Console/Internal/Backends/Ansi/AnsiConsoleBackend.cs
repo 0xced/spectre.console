@@ -10,7 +10,7 @@ internal sealed class AnsiConsoleBackend : IAnsiConsoleBackend
 
     public AnsiConsoleBackend(IAnsiConsole console)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
         Cursor = new AnsiConsoleCursor(this);
     }
 

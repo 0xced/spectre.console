@@ -9,7 +9,7 @@ internal sealed class MarkupToken
     public MarkupToken(MarkupTokenKind kind, string value, int position)
     {
         Kind = kind;
-        Value = value ?? throw new ArgumentNullException(nameof(value));
+        Value = value ?? throw new System.ArgumentNullException(nameof(value));
         Position = position;
     }
 }

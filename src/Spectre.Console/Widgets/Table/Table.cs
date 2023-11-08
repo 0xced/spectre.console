@@ -91,10 +91,7 @@ public sealed class Table : Renderable, IHasTableBorder, IExpandable, IAlignable
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public Table AddColumn(TableColumn column)
     {
-        if (column is null)
-        {
-            throw new ArgumentNullException(nameof(column));
-        }
+        ArgumentNullException.ThrowIfNull(column);
 
         if (Rows.Count > 0)
         {
@@ -108,10 +105,7 @@ public sealed class Table : Renderable, IHasTableBorder, IExpandable, IAlignable
     /// <inheritdoc/>
     protected override Measurement Measure(RenderOptions options, int maxWidth)
     {
-        if (options is null)
-        {
-            throw new ArgumentNullException(nameof(options));
-        }
+        ArgumentNullException.ThrowIfNull(options);
 
         var measurer = new TableMeasurer(this, options);
 
@@ -128,10 +122,7 @@ public sealed class Table : Renderable, IHasTableBorder, IExpandable, IAlignable
     /// <inheritdoc/>
     protected override IEnumerable<Segment> Render(RenderOptions options, int maxWidth)
     {
-        if (options is null)
-        {
-            throw new ArgumentNullException(nameof(options));
-        }
+        ArgumentNullException.ThrowIfNull(options);
 
         var measurer = new TableMeasurer(this, options);
 

@@ -14,15 +14,9 @@ public static class PanelExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Panel Header(this Panel panel, string text, Justify? alignment = null)
     {
-        if (panel is null)
-        {
-            throw new ArgumentNullException(nameof(panel));
-        }
+        ArgumentNullException.ThrowIfNull(panel);
 
-        if (text is null)
-        {
-            throw new ArgumentNullException(nameof(text));
-        }
+        ArgumentNullException.ThrowIfNull(text);
 
         alignment ??= panel.Header?.Justification;
         return Header(panel, new PanelHeader(text, alignment));
@@ -36,10 +30,7 @@ public static class PanelExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Panel HeaderAlignment(this Panel panel, Justify alignment)
     {
-        if (panel is null)
-        {
-            throw new ArgumentNullException(nameof(panel));
-        }
+        ArgumentNullException.ThrowIfNull(panel);
 
         if (panel.Header != null)
         {
@@ -63,10 +54,7 @@ public static class PanelExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Panel Header(this Panel panel, PanelHeader header)
     {
-        if (panel is null)
-        {
-            throw new ArgumentNullException(nameof(panel));
-        }
+        ArgumentNullException.ThrowIfNull(panel);
 
         panel.Header = header;
         return panel;

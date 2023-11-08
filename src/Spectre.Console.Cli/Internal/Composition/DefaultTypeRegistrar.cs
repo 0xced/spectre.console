@@ -35,10 +35,7 @@ internal sealed class DefaultTypeRegistrar : ITypeRegistrar
 
     public void RegisterLazy(Type service, Func<object> factory)
     {
-        if (factory is null)
-        {
-            throw new ArgumentNullException(nameof(factory));
-        }
+        ArgumentNullException.ThrowIfNull(factory);
 
         _registry.Enqueue(registry =>
         {

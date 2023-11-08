@@ -13,10 +13,7 @@ public static class TreeExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Tree Style(this Tree tree, Style? style)
     {
-        if (tree is null)
-        {
-            throw new ArgumentNullException(nameof(tree));
-        }
+        ArgumentNullException.ThrowIfNull(tree);
 
         tree.Style = style;
         return tree;
@@ -30,10 +27,7 @@ public static class TreeExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Tree Guide(this Tree tree, TreeGuide guide)
     {
-        if (tree is null)
-        {
-            throw new ArgumentNullException(nameof(tree));
-        }
+        ArgumentNullException.ThrowIfNull(tree);
 
         tree.Guide = guide;
         return tree;

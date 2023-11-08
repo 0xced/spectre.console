@@ -23,6 +23,6 @@ public sealed class PairDeconstructorAttribute : Attribute
     /// </param>
     public PairDeconstructorAttribute(Type type)
     {
-        Type = type ?? throw new ArgumentNullException(nameof(type));
+        Type = type ?? throw new System.ArgumentNullException(nameof(type));
     }
 }

@@ -6,7 +6,7 @@ internal sealed class LayoutPlaceholder : Renderable
 
     public LayoutPlaceholder(Layout layout)
     {
-        Layout = layout ?? throw new ArgumentNullException(nameof(layout));
+        Layout = layout ?? throw new System.ArgumentNullException(nameof(layout));
     }
 
     protected override IEnumerable<Segment> Render(RenderOptions options, int maxWidth)

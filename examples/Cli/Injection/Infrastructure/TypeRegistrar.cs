@@ -30,10 +30,7 @@ public sealed class TypeRegistrar : ITypeRegistrar
 
     public void RegisterLazy(Type service, Func<object> func)
     {
-        if (func is null)
-        {
-            throw new ArgumentNullException(nameof(func));
-        }
+        ArgumentNullException.ThrowIfNull(func);
 
         _builder.AddSingleton(service, (provider) => func());
     }

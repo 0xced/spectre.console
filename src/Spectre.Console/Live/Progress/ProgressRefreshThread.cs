@@ -10,7 +10,7 @@ internal sealed class ProgressRefreshThread : IDisposable
 
     public ProgressRefreshThread(ProgressContext context, TimeSpan refreshRate)
     {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _context = context ?? throw new System.ArgumentNullException(nameof(context));
         _refreshRate = refreshRate;
         _running = new ManualResetEvent(false);
         _stopped = new ManualResetEvent(false);

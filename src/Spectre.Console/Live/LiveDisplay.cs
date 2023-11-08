@@ -32,8 +32,8 @@ public sealed class LiveDisplay
     /// <param name="target">The target renderable to update.</param>
     public LiveDisplay(IAnsiConsole console, IRenderable target)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
-        _target = target ?? throw new ArgumentNullException(nameof(target));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
+        _target = target ?? throw new System.ArgumentNullException(nameof(target));
     }
 
     /// <summary>
@@ -70,10 +70,7 @@ public sealed class LiveDisplay
     /// <returns>The result.</returns>
     public async Task StartAsync(Func<LiveDisplayContext, Task> func)
     {
-        if (func is null)
-        {
-            throw new ArgumentNullException(nameof(func));
-        }
+        ArgumentNullException.ThrowIfNull(func);
 
         _ = await StartAsync<object?>(async ctx =>
         {
@@ -90,10 +87,7 @@ public sealed class LiveDisplay
     /// <returns>The result.</returns>
     public async Task<T> StartAsync<T>(Func<LiveDisplayContext, Task<T>> func)
     {
-        if (func is null)
-        {
-            throw new ArgumentNullException(nameof(func));
-        }
+        ArgumentNullException.ThrowIfNull(func);
 
         return await _console.RunExclusive(async () =>
         {

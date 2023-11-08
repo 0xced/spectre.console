@@ -14,10 +14,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>The prompt input result.</returns>
     public static T Prompt<T>(this IAnsiConsole console, IPrompt<T> prompt)
     {
-        if (prompt is null)
-        {
-            throw new ArgumentNullException(nameof(prompt));
-        }
+        ArgumentNullException.ThrowIfNull(prompt);
 
         return prompt.Show(console);
     }

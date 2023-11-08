@@ -14,7 +14,7 @@ internal class CachingActivator : ComponentActivator
 
     public CachingActivator(ComponentActivator activator)
     {
-        _activator = activator ?? throw new ArgumentNullException(nameof(activator));
+        _activator = activator ?? throw new System.ArgumentNullException(nameof(activator));
         _result = null;
     }
 

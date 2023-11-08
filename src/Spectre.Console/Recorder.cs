@@ -29,7 +29,7 @@ public class Recorder : IAnsiConsole, IDisposable
     /// <param name="console">The console to record output for.</param>
     public Recorder(IAnsiConsole console)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
         _recorded = new List<IRenderable>();
     }
 
@@ -49,10 +49,7 @@ public class Recorder : IAnsiConsole, IDisposable
     /// <inheritdoc/>
     public void Write(IRenderable renderable)
     {
-        if (renderable is null)
-        {
-            throw new ArgumentNullException(nameof(renderable));
-        }
+        ArgumentNullException.ThrowIfNull(renderable);
 
         _recorded.Add(renderable);
 
@@ -73,10 +70,7 @@ public class Recorder : IAnsiConsole, IDisposable
     /// <returns>The recorded data represented as a string.</returns>
     public string Export(IAnsiConsoleEncoder encoder)
     {
-        if (encoder is null)
-        {
-            throw new ArgumentNullException(nameof(encoder));
-        }
+        ArgumentNullException.ThrowIfNull(encoder);
 
         return encoder.Encode(_console, _recorded);
     }

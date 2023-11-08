@@ -10,7 +10,7 @@ internal sealed class FigletCharacter
     public FigletCharacter(int code, IEnumerable<string> lines)
     {
         Code = code;
-        Lines = new List<string>(lines ?? throw new ArgumentNullException(nameof(lines)));
+        Lines = new List<string>(lines ?? throw new System.ArgumentNullException(nameof(lines)));
 
         var min = Lines.Min(x => x.Length);
         var max = Lines.Max(x => x.Length);

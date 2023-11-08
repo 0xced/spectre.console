@@ -13,15 +13,9 @@ public static class ProgressExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Progress Columns(this Progress progress, params ProgressColumn[] columns)
     {
-        if (progress is null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
+        ArgumentNullException.ThrowIfNull(progress);
 
-        if (columns is null)
-        {
-            throw new ArgumentNullException(nameof(columns));
-        }
+        ArgumentNullException.ThrowIfNull(columns);
 
         if (!columns.Any())
         {
@@ -56,10 +50,7 @@ public static class ProgressExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Progress AutoRefresh(this Progress progress, bool enabled)
     {
-        if (progress is null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
+        ArgumentNullException.ThrowIfNull(progress);
 
         progress.AutoRefresh = enabled;
 
@@ -76,10 +67,7 @@ public static class ProgressExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Progress AutoClear(this Progress progress, bool enabled)
     {
-        if (progress is null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
+        ArgumentNullException.ThrowIfNull(progress);
 
         progress.AutoClear = enabled;
 
@@ -96,10 +84,7 @@ public static class ProgressExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Progress HideCompleted(this Progress progress, bool enabled)
     {
-        if (progress is null)
-        {
-            throw new ArgumentNullException(nameof(progress));
-        }
+        ArgumentNullException.ThrowIfNull(progress);
 
         progress.HideCompleted = enabled;
 

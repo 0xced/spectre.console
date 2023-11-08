@@ -41,10 +41,7 @@ public sealed class CommandOptionAttribute : Attribute
     /// <param name="template">The option template.</param>
     public CommandOptionAttribute(string template)
     {
-        if (template == null)
-        {
-            throw new ArgumentNullException(nameof(template));
-        }
+        ArgumentNullException.ThrowIfNull(template);
 
         // Parse the option template.
         var result = TemplateParser.ParseOptionTemplate(template);

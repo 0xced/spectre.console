@@ -148,10 +148,7 @@ public sealed class Layout : Renderable, IRatioResolvable, IHasVisibility
     /// <returns>The specified child <see cref="Layout"/>.</returns>
     public Layout GetLayout(string name)
     {
-        if (string.IsNullOrEmpty(name))
-        {
-            throw new ArgumentException($"'{nameof(name)}' cannot be null or empty.", nameof(name));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(name);
 
         var stack = new Stack<Layout>();
         stack.Push(this);
@@ -259,8 +256,8 @@ public sealed class Layout : Renderable, IRatioResolvable, IHasVisibility
             throw new InvalidOperationException("Cannot split the same layout twice");
         }
 
-        _splitter = splitter ?? throw new ArgumentNullException(nameof(splitter));
-        _children = layouts ?? throw new ArgumentNullException(nameof(layouts));
+        _splitter = splitter ?? throw new System.ArgumentNullException(nameof(splitter));
+        _children = layouts ?? throw new System.ArgumentNullException(nameof(layouts));
     }
 
     private Dictionary<Layout, LayoutRender> MakeRenderMap(RenderOptions options, int maxWidth)

@@ -12,7 +12,7 @@ public sealed class LiveDisplayContext
 
     internal LiveDisplayContext(IAnsiConsole console, IRenderable target)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
 
         Live = new LiveRenderable(_console, target);
         Lock = new object();

@@ -14,10 +14,7 @@ public static class StyleExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Style Foreground(this Style style, Color color)
     {
-        if (style is null)
-        {
-            throw new ArgumentNullException(nameof(style));
-        }
+        ArgumentNullException.ThrowIfNull(style);
 
         return new Style(
             foreground: color,
@@ -34,10 +31,7 @@ public static class StyleExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Style Background(this Style style, Color color)
     {
-        if (style is null)
-        {
-            throw new ArgumentNullException(nameof(style));
-        }
+        ArgumentNullException.ThrowIfNull(style);
 
         return new Style(
             foreground: style.Foreground,
@@ -54,10 +48,7 @@ public static class StyleExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Style Decoration(this Style style, Decoration decoration)
     {
-        if (style is null)
-        {
-            throw new ArgumentNullException(nameof(style));
-        }
+        ArgumentNullException.ThrowIfNull(style);
 
         return new Style(
             foreground: style.Foreground,
@@ -74,10 +65,7 @@ public static class StyleExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Style Link(this Style style, string link)
     {
-        if (style is null)
-        {
-            throw new ArgumentNullException(nameof(style));
-        }
+        ArgumentNullException.ThrowIfNull(style);
 
         return new Style(
             foreground: style.Foreground,
@@ -88,10 +76,7 @@ public static class StyleExtensions
 
     internal static Style Combine(this Style style, IEnumerable<Style> source)
     {
-        if (style is null)
-        {
-            throw new ArgumentNullException(nameof(style));
-        }
+        ArgumentNullException.ThrowIfNull(style);
 
         var current = style;
         foreach (var item in source)

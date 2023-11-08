@@ -29,10 +29,7 @@ public sealed class CommandApp : ICommandApp
     /// <param name="configuration">The configuration.</param>
     public void Configure(Action<IConfigurator> configuration)
     {
-        if (configuration == null)
-        {
-            throw new ArgumentNullException(nameof(configuration));
-        }
+        ArgumentNullException.ThrowIfNull(configuration);
 
         configuration(_configurator);
     }

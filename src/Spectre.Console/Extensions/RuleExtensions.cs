@@ -13,15 +13,9 @@ public static class RuleExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Rule RuleTitle(this Rule rule, string title)
     {
-        if (rule is null)
-        {
-            throw new ArgumentNullException(nameof(rule));
-        }
+        ArgumentNullException.ThrowIfNull(rule);
 
-        if (title is null)
-        {
-            throw new ArgumentNullException(nameof(title));
-        }
+        ArgumentNullException.ThrowIfNull(title);
 
         rule.Title = title;
         return rule;
@@ -35,15 +29,9 @@ public static class RuleExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Rule RuleStyle(this Rule rule, Style style)
     {
-        if (rule is null)
-        {
-            throw new ArgumentNullException(nameof(rule));
-        }
+        ArgumentNullException.ThrowIfNull(rule);
 
-        if (style is null)
-        {
-            throw new ArgumentNullException(nameof(style));
-        }
+        ArgumentNullException.ThrowIfNull(style);
 
         rule.Style = style;
         return rule;

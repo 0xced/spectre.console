@@ -8,6 +8,6 @@ internal sealed class JsonToken
     public JsonToken(JsonTokenType type, string lexeme)
     {
         Type = type;
-        Lexeme = lexeme ?? throw new ArgumentNullException(nameof(lexeme));
+        Lexeme = lexeme ?? throw new System.ArgumentNullException(nameof(lexeme));
     }
 }

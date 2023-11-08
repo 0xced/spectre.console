@@ -15,15 +15,9 @@ public static class HasTreeNodeExtensions
     public static TreeNode AddNode<T>(this T obj, string markup)
         where T : IHasTreeNodes
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
-        if (markup is null)
-        {
-            throw new ArgumentNullException(nameof(markup));
-        }
+        ArgumentNullException.ThrowIfNull(markup);
 
         return AddNode(obj, new Markup(markup));
     }
@@ -38,15 +32,9 @@ public static class HasTreeNodeExtensions
     public static TreeNode AddNode<T>(this T obj, IRenderable renderable)
         where T : IHasTreeNodes
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
-        if (renderable is null)
-        {
-            throw new ArgumentNullException(nameof(renderable));
-        }
+        ArgumentNullException.ThrowIfNull(renderable);
 
         var node = new TreeNode(renderable);
         obj.Nodes.Add(node);
@@ -63,15 +51,9 @@ public static class HasTreeNodeExtensions
     public static TreeNode AddNode<T>(this T obj, TreeNode node)
         where T : IHasTreeNodes
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
-        if (node is null)
-        {
-            throw new ArgumentNullException(nameof(node));
-        }
+        ArgumentNullException.ThrowIfNull(node);
 
         obj.Nodes.Add(node);
         return node;
@@ -86,15 +68,9 @@ public static class HasTreeNodeExtensions
     public static void AddNodes<T>(this T obj, params string[] nodes)
         where T : IHasTreeNodes
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
-        if (nodes is null)
-        {
-            throw new ArgumentNullException(nameof(nodes));
-        }
+        ArgumentNullException.ThrowIfNull(nodes);
 
         obj.Nodes.AddRange(nodes.Select(node => new TreeNode(new Markup(node))));
     }
@@ -108,15 +84,9 @@ public static class HasTreeNodeExtensions
     public static void AddNodes<T>(this T obj, IEnumerable<string> nodes)
         where T : IHasTreeNodes
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
-        if (nodes is null)
-        {
-            throw new ArgumentNullException(nameof(nodes));
-        }
+        ArgumentNullException.ThrowIfNull(nodes);
 
         obj.Nodes.AddRange(nodes.Select(node => new TreeNode(new Markup(node))));
     }
@@ -130,15 +100,9 @@ public static class HasTreeNodeExtensions
     public static void AddNodes<T>(this T obj, params IRenderable[] nodes)
         where T : IHasTreeNodes
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
-        if (nodes is null)
-        {
-            throw new ArgumentNullException(nameof(nodes));
-        }
+        ArgumentNullException.ThrowIfNull(nodes);
 
         obj.Nodes.AddRange(nodes.Select(node => new TreeNode(node)));
     }
@@ -152,15 +116,9 @@ public static class HasTreeNodeExtensions
     public static void AddNodes<T>(this T obj, IEnumerable<IRenderable> nodes)
         where T : IHasTreeNodes
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
-        if (nodes is null)
-        {
-            throw new ArgumentNullException(nameof(nodes));
-        }
+        ArgumentNullException.ThrowIfNull(nodes);
 
         obj.Nodes.AddRange(nodes.Select(node => new TreeNode(node)));
     }
@@ -174,15 +132,9 @@ public static class HasTreeNodeExtensions
     public static void AddNodes<T>(this T obj, params TreeNode[] nodes)
         where T : IHasTreeNodes
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
-        if (nodes is null)
-        {
-            throw new ArgumentNullException(nameof(nodes));
-        }
+        ArgumentNullException.ThrowIfNull(nodes);
 
         obj.Nodes.AddRange(nodes);
     }
@@ -196,15 +148,9 @@ public static class HasTreeNodeExtensions
     public static void AddNodes<T>(this T obj, IEnumerable<TreeNode> nodes)
         where T : IHasTreeNodes
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
-        if (nodes is null)
-        {
-            throw new ArgumentNullException(nameof(nodes));
-        }
+        ArgumentNullException.ThrowIfNull(nodes);
 
         obj.Nodes.AddRange(nodes);
     }

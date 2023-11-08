@@ -15,10 +15,7 @@ public static class ExpandableExtensions
     public static T Collapse<T>(this T obj)
         where T : class, IExpandable
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.Expand = false;
         return obj;
@@ -33,10 +30,7 @@ public static class ExpandableExtensions
     public static T Expand<T>(this T obj)
         where T : class, IExpandable
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.Expand = true;
         return obj;

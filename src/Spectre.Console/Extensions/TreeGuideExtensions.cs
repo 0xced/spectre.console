@@ -13,10 +13,7 @@ public static class TreeGuideExtensions
     /// <returns>The safe border if one exist, otherwise the original border.</returns>
     public static TreeGuide GetSafeTreeGuide(this TreeGuide guide, bool safe)
     {
-        if (guide is null)
-        {
-            throw new ArgumentNullException(nameof(guide));
-        }
+        ArgumentNullException.ThrowIfNull(guide);
 
         if (safe && guide.SafeTreeGuide != null)
         {

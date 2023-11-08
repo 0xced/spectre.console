@@ -65,6 +65,6 @@ public sealed class Capabilities : IReadOnlyCapabilities
     /// </summary>
     internal Capabilities(IAnsiConsoleOutput @out)
     {
-        _out = @out ?? throw new ArgumentNullException(nameof(@out));
+        _out = @out ?? throw new System.ArgumentNullException(nameof(@out));
     }
 }

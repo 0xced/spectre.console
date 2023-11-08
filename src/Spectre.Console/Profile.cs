@@ -121,8 +121,8 @@ public sealed class Profile
     public Profile(IAnsiConsoleOutput @out, Encoding encoding)
     {
         _enrichers = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        _out = @out ?? throw new ArgumentNullException(nameof(@out));
-        _encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
+        _out = @out ?? throw new System.ArgumentNullException(nameof(@out));
+        _encoding = encoding ?? throw new System.ArgumentNullException(nameof(encoding));
         _capabilities = new Capabilities(_out);
     }
 
@@ -139,10 +139,7 @@ public sealed class Profile
 
     internal void AddEnricher(string name)
     {
-        if (name is null)
-        {
-            throw new ArgumentNullException(nameof(name));
-        }
+        ArgumentNullException.ThrowIfNull(name);
 
         _enrichers.Add(name);
     }

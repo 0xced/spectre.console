@@ -14,10 +14,7 @@ public static class VisibilityExtensions
     public static T Invisible<T>(this T obj)
         where T : class, IHasVisibility
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.IsVisible = false;
         return obj;
@@ -32,10 +29,7 @@ public static class VisibilityExtensions
     public static T Visible<T>(this T obj)
         where T : class, IHasVisibility
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.IsVisible = true;
         return obj;

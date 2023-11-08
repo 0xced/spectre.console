@@ -9,7 +9,7 @@ internal sealed class XmlDocCommand : Command<XmlDocCommand.Settings>
 
     public XmlDocCommand(IConfiguration configuration, CommandModel model)
     {
-        _model = model ?? throw new ArgumentNullException(nameof(model));
+        _model = model ?? throw new System.ArgumentNullException(nameof(model));
         _writer = configuration.Settings.Console.GetConsole();
     }
 

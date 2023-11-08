@@ -97,10 +97,7 @@ public sealed class Style : IEquatable<Style>
     /// <returns>A new style representing a combination of this and the other one.</returns>
     public Style Combine(Style other)
     {
-        if (other is null)
-        {
-            throw new ArgumentNullException(nameof(other));
-        }
+        ArgumentNullException.ThrowIfNull(other);
 
         var foreground = Foreground;
         if (!other.Foreground.IsDefault)

@@ -12,10 +12,7 @@ public static class AnsiConsoleExtensions
     /// <param name="sequence">The VT/Ansi control code sequence to write.</param>
     public static void WriteAnsi(this IAnsiConsole console, string sequence)
     {
-        if (console is null)
-        {
-            throw new ArgumentNullException(nameof(console));
-        }
+        ArgumentNullException.ThrowIfNull(console);
 
         if (console.Profile.Capabilities.Ansi)
         {

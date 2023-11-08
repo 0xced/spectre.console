@@ -13,10 +13,7 @@ public static class BoxExtensions
     /// <returns>The safe border if one exist, otherwise the original border.</returns>
     public static BoxBorder GetSafeBorder(this BoxBorder border, bool safe)
     {
-        if (border is null)
-        {
-            throw new ArgumentNullException(nameof(border));
-        }
+        ArgumentNullException.ThrowIfNull(border);
 
         if (safe && border.SafeBorder != null)
         {

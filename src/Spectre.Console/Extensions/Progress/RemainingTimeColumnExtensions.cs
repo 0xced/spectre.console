@@ -13,15 +13,9 @@ public static class RemainingTimeColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static RemainingTimeColumn Style(this RemainingTimeColumn column, Style style)
     {
-        if (column is null)
-        {
-            throw new ArgumentNullException(nameof(column));
-        }
+        ArgumentNullException.ThrowIfNull(column);
 
-        if (style is null)
-        {
-            throw new ArgumentNullException(nameof(style));
-        }
+        ArgumentNullException.ThrowIfNull(style);
 
         column.Style = style;
         return column;

@@ -8,8 +8,8 @@ internal sealed class ListPrompt<T>
 
     public ListPrompt(IAnsiConsole console, IListPromptStrategy<T> strategy)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
-        _strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
+        _strategy = strategy ?? throw new System.ArgumentNullException(nameof(strategy));
     }
 
     public async Task<ListPromptState<T>> Show(
@@ -18,10 +18,7 @@ internal sealed class ListPrompt<T>
         int requestedPageSize = 15,
         bool wrapAround = false)
     {
-        if (tree is null)
-        {
-            throw new ArgumentNullException(nameof(tree));
-        }
+        ArgumentNullException.ThrowIfNull(tree);
 
         if (!_console.Profile.Capabilities.Interactive)
         {

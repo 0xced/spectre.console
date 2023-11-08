@@ -14,10 +14,7 @@ public static class LiveDisplayExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static LiveDisplay AutoClear(this LiveDisplay live, bool enabled)
     {
-        if (live is null)
-        {
-            throw new ArgumentNullException(nameof(live));
-        }
+        ArgumentNullException.ThrowIfNull(live);
 
         live.AutoClear = enabled;
 
@@ -32,10 +29,7 @@ public static class LiveDisplayExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static LiveDisplay Overflow(this LiveDisplay live, VerticalOverflow overflow)
     {
-        if (live is null)
-        {
-            throw new ArgumentNullException(nameof(live));
-        }
+        ArgumentNullException.ThrowIfNull(live);
 
         live.Overflow = overflow;
 
@@ -50,10 +44,7 @@ public static class LiveDisplayExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static LiveDisplay Cropping(this LiveDisplay live, VerticalOverflowCropping cropping)
     {
-        if (live is null)
-        {
-            throw new ArgumentNullException(nameof(live));
-        }
+        ArgumentNullException.ThrowIfNull(live);
 
         live.Cropping = cropping;
 

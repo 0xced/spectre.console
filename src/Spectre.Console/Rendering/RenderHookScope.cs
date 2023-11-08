@@ -15,8 +15,8 @@ public sealed class RenderHookScope : IDisposable
     /// <param name="hook">The render hook.</param>
     public RenderHookScope(IAnsiConsole console, IRenderHook hook)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
-        _hook = hook ?? throw new ArgumentNullException(nameof(hook));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
+        _hook = hook ?? throw new System.ArgumentNullException(nameof(hook));
 
         _console.Pipeline.Attach(_hook);
     }

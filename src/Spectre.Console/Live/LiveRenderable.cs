@@ -19,7 +19,7 @@ internal sealed class LiveRenderable : Renderable
 
     public LiveRenderable(IAnsiConsole console)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
 
         Overflow = VerticalOverflow.Ellipsis;
         OverflowCropping = VerticalOverflowCropping.Top;
@@ -28,7 +28,7 @@ internal sealed class LiveRenderable : Renderable
     public LiveRenderable(IAnsiConsole console, IRenderable renderable)
         : this(console)
     {
-        _renderable = renderable ?? throw new ArgumentNullException(nameof(renderable));
+        _renderable = renderable ?? throw new System.ArgumentNullException(nameof(renderable));
     }
 
     public void SetRenderable(IRenderable? renderable)

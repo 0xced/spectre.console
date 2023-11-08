@@ -38,9 +38,9 @@ public sealed class StatusContext
 
     internal StatusContext(ProgressContext context, ProgressTask task, SpinnerColumn spinnerColumn)
     {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-        _task = task ?? throw new ArgumentNullException(nameof(task));
-        _spinnerColumn = spinnerColumn ?? throw new ArgumentNullException(nameof(spinnerColumn));
+        _context = context ?? throw new System.ArgumentNullException(nameof(context));
+        _task = task ?? throw new System.ArgumentNullException(nameof(task));
+        _spinnerColumn = spinnerColumn ?? throw new System.ArgumentNullException(nameof(spinnerColumn));
     }
 
     /// <summary>
@@ -53,20 +53,14 @@ public sealed class StatusContext
 
     private void SetStatus(string status)
     {
-        if (status is null)
-        {
-            throw new ArgumentNullException(nameof(status));
-        }
+        ArgumentNullException.ThrowIfNull(status);
 
         _task.Description = status;
     }
 
     private void SetSpinner(Spinner spinner)
     {
-        if (spinner is null)
-        {
-            throw new ArgumentNullException(nameof(spinner));
-        }
+        ArgumentNullException.ThrowIfNull(spinner);
 
         _spinnerColumn.Spinner = spinner;
     }

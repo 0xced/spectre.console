@@ -14,10 +14,7 @@ public static class ColumnExtensions
     public static T NoWrap<T>(this T obj)
         where T : class, IColumn
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.NoWrap = true;
         return obj;
@@ -33,10 +30,7 @@ public static class ColumnExtensions
     public static T Width<T>(this T obj, int? width)
         where T : class, IColumn
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.Width = width;
         return obj;

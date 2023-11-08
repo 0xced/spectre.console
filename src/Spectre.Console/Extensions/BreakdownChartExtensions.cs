@@ -15,10 +15,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart AddItem(this BreakdownChart chart, string label, double value, Color color)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         chart.Data.Add(new BreakdownChartItem(label, value, color));
         return chart;
@@ -34,10 +31,7 @@ public static class BreakdownChartExtensions
     public static BreakdownChart AddItem<T>(this BreakdownChart chart, T item)
         where T : IBreakdownChartItem
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         if (item is BreakdownChartItem chartItem)
         {
@@ -65,15 +59,9 @@ public static class BreakdownChartExtensions
     public static BreakdownChart AddItems<T>(this BreakdownChart chart, IEnumerable<T> items)
         where T : IBreakdownChartItem
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
-        if (items is null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
+        ArgumentNullException.ThrowIfNull(items);
 
         foreach (var item in items)
         {
@@ -93,20 +81,11 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart AddItems<T>(this BreakdownChart chart, IEnumerable<T> items, Func<T, IBreakdownChartItem> converter)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
-        if (items is null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
+        ArgumentNullException.ThrowIfNull(items);
 
-        if (converter is null)
-        {
-            throw new ArgumentNullException(nameof(converter));
-        }
+        ArgumentNullException.ThrowIfNull(converter);
 
         foreach (var item in items)
         {
@@ -124,10 +103,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart Width(this BreakdownChart chart, int? width)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         chart.Width = width;
         return chart;
@@ -141,10 +117,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart UseValueFormatter(this BreakdownChart chart, Func<double, CultureInfo, string>? func)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         chart.ValueFormatter = func;
         return chart;
@@ -158,10 +131,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart UseValueFormatter(this BreakdownChart chart, Func<double, string>? func)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         chart.ValueFormatter = func != null
             ? (value, _) => func(value)
@@ -177,10 +147,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart ShowPercentage(this BreakdownChart chart)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         chart.ValueFormatter = (value, culture) => string.Format(culture, "{0}%", value);
 
@@ -215,10 +182,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart ShowTags(this BreakdownChart chart, bool show)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         chart.ShowTags = show;
         return chart;
@@ -252,10 +216,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart ShowTagValues(this BreakdownChart chart, bool show)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         chart.ShowTagValues = show;
         return chart;
@@ -289,10 +250,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart Compact(this BreakdownChart chart, bool compact)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         chart.Compact = compact;
         return chart;
@@ -306,10 +264,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart WithValueColor(this BreakdownChart chart, Color color)
     {
-        if (chart is null)
-        {
-            throw new ArgumentNullException(nameof(chart));
-        }
+        ArgumentNullException.ThrowIfNull(chart);
 
         chart.ValueColor = color;
         return chart;

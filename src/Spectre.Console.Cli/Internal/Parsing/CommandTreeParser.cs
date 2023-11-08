@@ -19,7 +19,7 @@ internal class CommandTreeParser
 
     public CommandTreeParser(CommandModel configuration, CaseSensitivity caseSensitivity, ParsingMode? parsingMode = null, bool? convertFlagsToRemainingArguments = null)
     {
-        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _configuration = configuration ?? throw new System.ArgumentNullException(nameof(configuration));
         _parsingMode = parsingMode ?? _configuration.ParsingMode;
         _help = new CommandOptionAttribute("-h|--help");
         _convertFlagsToRemainingArguments = convertFlagsToRemainingArguments ?? false;

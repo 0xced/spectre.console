@@ -13,10 +13,7 @@ public static class ConfirmationPromptExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ConfirmationPrompt ShowChoices(this ConfirmationPrompt obj, bool show)
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.ShowChoices = show;
         return obj;
@@ -50,10 +47,7 @@ public static class ConfirmationPromptExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ConfirmationPrompt ShowDefaultValue(this ConfirmationPrompt obj, bool show)
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.ShowDefaultValue = show;
         return obj;
@@ -87,10 +81,7 @@ public static class ConfirmationPromptExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ConfirmationPrompt InvalidChoiceMessage(this ConfirmationPrompt obj, string message)
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.InvalidChoiceMessage = message;
         return obj;
@@ -104,10 +95,7 @@ public static class ConfirmationPromptExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ConfirmationPrompt Yes(this ConfirmationPrompt obj, char character)
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.Yes = character;
         return obj;
@@ -121,10 +109,7 @@ public static class ConfirmationPromptExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ConfirmationPrompt No(this ConfirmationPrompt obj, char character)
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.No = character;
         return obj;

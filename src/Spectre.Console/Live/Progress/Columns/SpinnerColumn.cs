@@ -90,7 +90,7 @@ public sealed class SpinnerColumn : ProgressColumn
     /// <param name="spinner">The spinner to use.</param>
     public SpinnerColumn(Spinner spinner)
     {
-        _spinner = spinner ?? throw new ArgumentNullException(nameof(spinner));
+        _spinner = spinner ?? throw new System.ArgumentNullException(nameof(spinner));
         _lock = new object();
     }
 

@@ -48,7 +48,7 @@ public sealed class Progress
     /// <param name="console">The console to render to.</param>
     public Progress(IAnsiConsole console)
     {
-        _console = console ?? throw new ArgumentNullException(nameof(console));
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
 
         // Initialize with default columns
         Columns = new List<ProgressColumn>
@@ -93,10 +93,7 @@ public sealed class Progress
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public async Task StartAsync(Func<ProgressContext, Task> action)
     {
-        if (action is null)
-        {
-            throw new ArgumentNullException(nameof(action));
-        }
+        ArgumentNullException.ThrowIfNull(action);
 
         _ = await StartAsync<object?>(async progressContext =>
         {
@@ -113,10 +110,7 @@ public sealed class Progress
     /// <returns>A <see cref="Task{T}"/> representing the asynchronous operation.</returns>
     public async Task<T> StartAsync<T>(Func<ProgressContext, Task<T>> action)
     {
-        if (action is null)
-        {
-            throw new ArgumentNullException(nameof(action));
-        }
+        ArgumentNullException.ThrowIfNull(action);
 
         return await _console.RunExclusive(async () =>
         {

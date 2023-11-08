@@ -15,10 +15,7 @@ public static class HasBoxBorderExtensions
     public static T Border<T>(this T obj, BoxBorder border)
         where T : class, IHasBoxBorder
     {
-        if (obj is null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
 
         obj.Border = border;
         return obj;

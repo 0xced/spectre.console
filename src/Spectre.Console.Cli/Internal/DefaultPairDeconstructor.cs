@@ -10,10 +10,7 @@ internal sealed class DefaultPairDeconstructor : IPairDeconstructor
         Type valueType,
         string? value)
     {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
+        ArgumentNullException.ThrowIfNull(value);
 
         var parts = value.Split(new[] { '=' }, StringSplitOptions.None);
         if (parts.Length < 1 || parts.Length > 2)

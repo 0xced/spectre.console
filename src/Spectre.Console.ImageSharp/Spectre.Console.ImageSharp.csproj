@@ -8,11 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Spectre.Console\Internal\Polyfill\ArgumentNullException.cs" Link="Internal\Polyfill\ArgumentNullException.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="Properties/stylecop.json" />
     <None Include="../../resources/gfx/small-logo.png" Pack="true" PackagePath="\" Link="Properties/small-logo.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="PolySharp" Version="1.13.2" PrivateAssets="all" />
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
   </ItemGroup>
 

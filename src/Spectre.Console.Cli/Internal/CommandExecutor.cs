@@ -6,16 +6,13 @@ internal sealed class CommandExecutor
 
     public CommandExecutor(ITypeRegistrar registrar)
     {
-        _registrar = registrar ?? throw new ArgumentNullException(nameof(registrar));
+        _registrar = registrar ?? throw new System.ArgumentNullException(nameof(registrar));
         _registrar.Register(typeof(DefaultPairDeconstructor), typeof(DefaultPairDeconstructor));
     }
 
     public async Task<int> Execute(IConfiguration configuration, IEnumerable<string> args)
     {
-        if (configuration == null)
-        {
-            throw new ArgumentNullException(nameof(configuration));
-        }
+        ArgumentNullException.ThrowIfNull(configuration);
 
         args ??= new List<string>();
 

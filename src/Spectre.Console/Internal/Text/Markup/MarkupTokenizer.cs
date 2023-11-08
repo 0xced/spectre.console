@@ -8,7 +8,7 @@ internal sealed class MarkupTokenizer : IDisposable
 
     public MarkupTokenizer(string text)
     {
-        _reader = new StringBuffer(text ?? throw new ArgumentNullException(nameof(text)));
+        _reader = new StringBuffer(text ?? throw new System.ArgumentNullException(nameof(text)));
     }
 
     public void Dispose()

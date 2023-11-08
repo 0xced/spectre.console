@@ -13,15 +13,9 @@ public static partial class AnsiConsoleExtensions
     [Obsolete("Consider using IAnsiConsole.Write instead.")]
     public static void Render(this IAnsiConsole console, IRenderable renderable)
     {
-        if (console is null)
-        {
-            throw new ArgumentNullException(nameof(console));
-        }
+        ArgumentNullException.ThrowIfNull(console);
 
-        if (renderable is null)
-        {
-            throw new ArgumentNullException(nameof(renderable));
-        }
+        ArgumentNullException.ThrowIfNull(renderable);
 
         console.Write(renderable);
     }

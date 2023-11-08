@@ -42,12 +42,12 @@ public sealed class Canvas : Renderable
     {
         if (width < 1)
         {
-            throw new ArgumentException("Must be > 1", nameof(width));
+            throw new System.ArgumentException("Must be > 1", nameof(width));
         }
 
         if (height < 1)
         {
-            throw new ArgumentException("Must be > 1", nameof(height));
+            throw new System.ArgumentException("Must be > 1", nameof(height));
         }
 
         Width = width;

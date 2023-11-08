@@ -40,7 +40,7 @@ internal sealed class TableRendererContext : TableAccessor
     public TableRendererContext(Table table, RenderOptions options, IEnumerable<TableRow> rows, int tableWidth, int maxWidth)
         : base(table, options)
     {
-        _table = table ?? throw new ArgumentNullException(nameof(table));
+        _table = table ?? throw new System.ArgumentNullException(nameof(table));
         _rows = new List<TableRow>(rows ?? Enumerable.Empty<TableRow>());
 
         ShowBorder = _table.Border.Visible;

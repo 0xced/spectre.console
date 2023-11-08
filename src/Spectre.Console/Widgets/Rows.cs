@@ -25,7 +25,7 @@ public sealed class Rows : Renderable, IExpandable
     /// <param name="children">The items to render as rows.</param>
     public Rows(IEnumerable<IRenderable> children)
     {
-        _children = new List<IRenderable>(children ?? throw new ArgumentNullException(nameof(children)));
+        _children = new List<IRenderable>(children ?? throw new System.ArgumentNullException(nameof(children)));
     }
 
     /// <inheritdoc/>

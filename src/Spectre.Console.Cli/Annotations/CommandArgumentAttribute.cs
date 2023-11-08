@@ -34,10 +34,7 @@ public sealed class CommandArgumentAttribute : Attribute
     /// <param name="template">The argument template. Wrap in &lt;&gt; for required arguments, [] for optional ones. For example "[MyArgument]".</param>
     public CommandArgumentAttribute(int position, string template)
     {
-        if (template == null)
-        {
-            throw new ArgumentNullException(nameof(template));
-        }
+        ArgumentNullException.ThrowIfNull(template);
 
         // Parse the option template.
         var result = TemplateParser.ParseArgumentTemplate(template);

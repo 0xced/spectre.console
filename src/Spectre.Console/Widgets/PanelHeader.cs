@@ -22,7 +22,7 @@ public sealed class PanelHeader : IHasJustification
     /// <param name="alignment">The panel header alignment.</param>
     public PanelHeader(string text, Justify? alignment = null)
     {
-        Text = text ?? throw new ArgumentNullException(nameof(text));
+        Text = text ?? throw new System.ArgumentNullException(nameof(text));
         Justification = alignment;
     }
 

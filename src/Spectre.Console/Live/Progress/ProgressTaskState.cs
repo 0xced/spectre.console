@@ -52,13 +52,10 @@ public sealed class ProgressTaskState
     public T Update<T>(string key, Func<T, T> func)
         where T : struct
     {
+        ArgumentNullException.ThrowIfNull(func);
+
         lock (_lock)
         {
-            if (func is null)
-            {
-                throw new ArgumentNullException(nameof(func));
-            }
-
             var old = default(T);
             if (_state.TryGetValue(key, out var value))
             {

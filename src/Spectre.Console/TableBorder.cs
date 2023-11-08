@@ -36,15 +36,9 @@ public abstract partial class TableBorder
     /// <returns>A string representing the column row.</returns>
     public virtual string GetColumnRow(TablePart part, IReadOnlyList<int> widths, IReadOnlyList<IColumn> columns)
     {
-        if (widths is null)
-        {
-            throw new ArgumentNullException(nameof(widths));
-        }
+        ArgumentNullException.ThrowIfNull(widths);
 
-        if (columns is null)
-        {
-            throw new ArgumentNullException(nameof(columns));
-        }
+        ArgumentNullException.ThrowIfNull(columns);
 
         var (left, center, separator, right) = GetTableParts(part);
 
