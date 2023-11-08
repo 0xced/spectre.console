@@ -230,41 +230,14 @@ public sealed partial class CommandAppTests
             return Verifier.Verify(result.Output);
         }
 
-        [Fact]
-        [Expectation("Default_Without_Args_Additional")]
-        public Task Should_Output_Default_Command_And_Additional_Commands_When_Default_Command_Has_Required_Parameters_And_Is_Called_Without_Args()
-        {
-            // Given
-            var fixture = new CommandAppTester();
-            fixture.SetDefaultCommand<LionCommand>();
-            fixture.Configure(configurator =>
-            {
-                configurator.AddExample("20", "--alive");
-                configurator.SetApplicationName("myapp");
-                configurator.AddCommand<GiraffeCommand>("giraffe");
-            });
-
-            // When
-            var result = fixture.Run();
-
-            // Then
-            return Verifier.Verify(result.Output);
-        }
-
-        // Localised version of the above test, in French
         [Theory]
-        [InlineData(null, "EN")]
-        [InlineData("", "EN")]
-        [InlineData("en", "EN")]
-        [InlineData("en-EN", "EN")]
-        [InlineData("fr", "FR")]
-        [InlineData("fr-FR", "FR")]
-        [InlineData("sv", "SV")]
-        [InlineData("sv-SE", "SV")]
-        [InlineData("de", "DE")]
-        [InlineData("de-DE", "DE")]
+        [InlineData(null)]
+        [InlineData(Language.English)]
+        [InlineData(Language.French)]
+        [InlineData(Language.Swedish)]
+        [InlineData(Language.German)]
         [Expectation("Default_Without_Args_Additional")]
-        public Task Should_Output_Default_Command_And_Additional_Commands_When_Default_Command_Has_Required_Parameters_And_Is_Called_Without_Args_Localised(string culture, string expectationPrefix)
+        public Task Should_Output_Default_Command_And_Additional_Commands_When_Default_Command_Has_Required_Parameters_And_Is_Called_Without_Args_Localised(Language? language)
         {
             // Given
             var fixture = new CommandAppTester();
@@ -272,7 +245,11 @@ public sealed partial class CommandAppTests
             fixture.Configure(configurator =>
             {
                 configurator.AddExample("20", "--alive");
-                configurator.SetApplicationCulture(string.IsNullOrEmpty(culture) ? null : new CultureInfo(culture));
+                if (language.HasValue)
+                {
+                    configurator.SetApplicationLanguage(language.Value);
+                }
+
                 configurator.SetApplicationName("myapp");
                 configurator.AddCommand<GiraffeCommand>("giraffe");
             });
@@ -281,9 +258,7 @@ public sealed partial class CommandAppTests
             var result = fixture.Run();
 
             // Then
-            var settings = new VerifySettings();
-            settings.DisableRequireUniquePrefix();
-            return Verifier.Verify(result.Output, settings).UseTextForParameters(expectationPrefix);
+            return Verifier.Verify(result.Output).UseParameters(language?.ToString() ?? nameof(Language.English)).DisableRequireUniquePrefix();
         }
 
         [Fact]

@@ -1,5 +1,3 @@
-using Spectre.Console.Cli.Resources;
-
 namespace Spectre.Console.Cli.Help;
 
 /// <summary>
@@ -10,7 +8,7 @@ namespace Spectre.Console.Cli.Help;
 /// </remarks>
 public class HelpProvider : IHelpProvider
 {
-    private HelpProviderResources resources;
+    private readonly HelpProviderResources resources;
 
     /// <summary>
     /// Gets a value indicating how many examples from direct children to show in the help text.
@@ -104,7 +102,7 @@ public class HelpProvider : IHelpProvider
         this.MaximumIndirectExamples = settings.MaximumIndirectExamples;
         this.TrimTrailingPeriod = settings.TrimTrailingPeriod;
 
-        resources = new HelpProviderResources(settings.Culture);
+        resources = new HelpProviderResources(settings.Language);
     }
 
     /// <inheritdoc/>

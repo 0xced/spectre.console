@@ -1,5 +1,3 @@
-using System.Resources;
-
 namespace Spectre.Console.Cli.Help;
 
 /// <summary>
@@ -7,125 +5,120 @@ namespace Spectre.Console.Cli.Help;
 /// </summary>
 internal class HelpProviderResources
 {
-    private readonly ResourceManager resourceManager = new ResourceManager("Spectre.Console.Cli.Resources.HelpProvider", typeof(HelpProvider).Assembly);
-    private readonly CultureInfo? resourceCulture = null;
+    private readonly Language _language;
 
-    public HelpProviderResources()
+    public HelpProviderResources(Language language)
     {
-    }
-
-    public HelpProviderResources(CultureInfo? culture)
-    {
-        resourceCulture = culture;
+        _language = language;
     }
 
     /// <summary>
     /// Gets the localised string for ARGUMENTS.
     /// </summary>
-    internal string Arguments
+    internal string Arguments => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("Arguments", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "ARGUMENTE",
+        Language.French => "ARGUMENTS",
+        Language.Swedish => "ARGUMENT",
+        _ => "ARGUMENTS",
+    };
 
     /// <summary>
     /// Gets the localised string for COMMAND.
     /// </summary>
-    internal string Command
+    internal string Command => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("Command", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "KOMMANDO",
+        Language.French => "COMMANDE",
+        Language.Swedish => "KOMMANDO",
+        _ => "COMMAND",
+    };
 
     /// <summary>
     /// Gets the localised string for COMMANDS.
     /// </summary>
-    internal string Commands
+    internal string Commands => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("Commands", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "KOMMANDOS",
+        Language.French => "COMMANDES",
+        Language.Swedish => "KOMMANDON",
+        _ => "COMMANDS",
+    };
 
     /// <summary>
     /// Gets the localised string for DEFAULT.
     /// </summary>
-    internal string Default
+    internal string Default => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("Default", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "STANDARDWERT",
+        Language.French => "DÉFAUT",
+        Language.Swedish => "STANDARD",
+        _ => "DEFAULT",
+    };
 
     /// <summary>
     /// Gets the localised string for DESCRIPTION.
     /// </summary>
-    internal string Description
+    internal string Description => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("Description", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "BESCHREIBUNG",
+        Language.French => "DESCRIPTION",
+        Language.Swedish => "BESKRIVNING",
+        _ => "DESCRIPTION",
+    };
 
     /// <summary>
     /// Gets the localised string for EXAMPLES.
     /// </summary>
-    internal string Examples
+    internal string Examples => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("Examples", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "BEISPIELE",
+        Language.French => "EXEMPLES",
+        Language.Swedish => "EXEMPEL",
+        _ => "EXAMPLES",
+    };
 
     /// <summary>
     /// Gets the localised string for OPTIONS.
     /// </summary>
-    internal string Options
+    internal string Options => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("Options", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "OPTIONEN",
+        Language.French => "OPTIONS",
+        Language.Swedish => "VAL",
+        _ => "OPTIONS",
+    };
 
     /// <summary>
     /// Gets the localised string for Prints help information.
     /// </summary>
-    internal string PrintHelpDescription
+    internal string PrintHelpDescription => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("PrintHelpDescription", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "Zeigt Hilfe an",
+        Language.French => "Affiche l'aide",
+        Language.Swedish => "Skriver ut hjälpinformation",
+        _ => "Prints help information",
+    };
 
     /// <summary>
     /// Gets the localised string for Prints version information.
     /// </summary>
-    internal string PrintVersionDescription
+    internal string PrintVersionDescription => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("PrintVersionDescription", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "Zeigt Versionsinformationen an",
+        Language.French => "Affiche la version",
+        Language.Swedish => "Skriver ut versionsnummer",
+        _ => "Prints version information",
+    };
 
     /// <summary>
     /// Gets the localised string for USAGE.
     /// </summary>
-    internal string Usage
+    internal string Usage => _language switch
     {
-        get
-        {
-            return resourceManager.GetString("Usage", resourceCulture) ?? string.Empty;
-        }
-    }
+        Language.German => "VERWENDUNG",
+        Language.French => "UTILISATION",
+        Language.Swedish => "ANVÄNDING",
+        _ => "USAGE",
+    };
 }
