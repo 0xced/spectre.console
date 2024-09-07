@@ -17,7 +17,7 @@ public interface IAnsiConsoleInput
     /// </summary>
     /// <param name="intercept">Whether or not to intercept the key.</param>
     /// <returns>The key that was read.</returns>
-    [Obsolete("Use ReadKeyAsync(bool intercept, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use ReadKeyAsync(bool intercept, CancellationToken cancellationToken) instead.", error: false)]
     ConsoleKeyInfo? ReadKey(bool intercept);
 
     /// <summary>

@@ -106,7 +106,7 @@ public sealed class TextPrompt<T> : IPrompt<T>, IHasCulture
     /// <param name="console">The console to show the prompt in.</param>
     /// <returns>The user input converted to the expected type.</returns>
     /// <inheritdoc/>
-    [Obsolete("Use ShowAsync(IAnsiConsole console, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use ShowAsync(IAnsiConsole console, CancellationToken cancellationToken) instead.", error: false)]
     public T Show(IAnsiConsole console)
     {
         return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();

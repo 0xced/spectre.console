@@ -68,7 +68,7 @@ public sealed class ConfirmationPrompt : IPrompt<bool>
     }
 
     /// <inheritdoc/>
-    [Obsolete("Use ShowAsync(IAnsiConsole console, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use ShowAsync(IAnsiConsole console, CancellationToken cancellationToken) instead.", error: false)]
     public bool Show(IAnsiConsole console)
     {
         return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();

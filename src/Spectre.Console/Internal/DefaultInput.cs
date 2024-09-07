@@ -19,7 +19,7 @@ internal sealed class DefaultInput : IAnsiConsoleInput
         return System.Console.KeyAvailable;
     }
 
-    [Obsolete("Use ReadKeyAsync(bool intercept, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use ReadKeyAsync(bool intercept, CancellationToken cancellationToken) instead.", error: false)]
     public ConsoleKeyInfo? ReadKey(bool intercept)
     {
         if (!_profile.Capabilities.Interactive)

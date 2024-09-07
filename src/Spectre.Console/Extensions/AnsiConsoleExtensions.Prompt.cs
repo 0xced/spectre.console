@@ -12,7 +12,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="console">The console.</param>
     /// <param name="prompt">The prompt to display.</param>
     /// <returns>The prompt input result.</returns>
-    [Obsolete("Use PromptAsync<T>(this IAnsiConsole console, IPrompt<T> prompt, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use PromptAsync<T>(this IAnsiConsole console, IPrompt<T> prompt, CancellationToken cancellationToken) instead.", error: false)]
     public static T Prompt<T>(this IAnsiConsole console, IPrompt<T> prompt)
     {
         if (prompt is null)
@@ -30,7 +30,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="console">The console.</param>
     /// <param name="prompt">The prompt markup text.</param>
     /// <returns>The prompt input result.</returns>
-    [Obsolete("Use AskAsync<T>(this IAnsiConsole console, string prompt, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use AskAsync<T>(this IAnsiConsole console, string prompt, CancellationToken cancellationToken) instead.", error: false)]
     public static T Ask<T>(this IAnsiConsole console, string prompt)
     {
         return new TextPrompt<T>(prompt).Show(console);
@@ -44,7 +44,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="prompt">The prompt markup text.</param>
     /// <param name="culture">Specific CultureInfo to use when converting input.</param>
     /// <returns>The prompt input result.</returns>
-    [Obsolete("Use AskAsync<T>(this IAnsiConsole console, string prompt, CultureInfo? culture, CancellationToken cancellationToken).", error: true)]
+    [Obsolete("Use AskAsync<T>(this IAnsiConsole console, string prompt, CultureInfo? culture, CancellationToken cancellationToken).", error: false)]
     public static T Ask<T>(this IAnsiConsole console, string prompt, CultureInfo? culture)
     {
         var textPrompt = new TextPrompt<T>(prompt);
@@ -59,7 +59,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="prompt">The prompt markup text.</param>
     /// <param name="defaultValue">Specifies the default answer.</param>
     /// <returns><c>true</c> if the user selected "yes", otherwise <c>false</c>.</returns>
-    [Obsolete("Use ConfirmAsync(this IAnsiConsole console, string prompt, bool defaultValue, CancellationToken cancellationToken).", error: true)]
+    [Obsolete("Use ConfirmAsync(this IAnsiConsole console, string prompt, bool defaultValue, CancellationToken cancellationToken).", error: false)]
     public static bool Confirm(this IAnsiConsole console, string prompt, bool defaultValue = true)
     {
         return new ConfirmationPrompt(prompt)

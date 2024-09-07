@@ -11,7 +11,7 @@ public static partial class AnsiConsole
     /// <typeparam name="T">The prompt result type.</typeparam>
     /// <param name="prompt">The prompt to display.</param>
     /// <returns>The prompt input result.</returns>
-    [Obsolete("Use PromptAsync(IPrompt<T> prompt, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use PromptAsync(IPrompt<T> prompt, CancellationToken cancellationToken) instead.", error: false)]
     public static T Prompt<T>(IPrompt<T> prompt)
     {
         if (prompt is null)
@@ -28,7 +28,7 @@ public static partial class AnsiConsole
     /// <typeparam name="T">The prompt result type.</typeparam>
     /// <param name="prompt">The prompt markup text.</param>
     /// <returns>The prompt input result.</returns>
-    [Obsolete("Use AskAsync<T>(string prompt, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use AskAsync<T>(string prompt, CancellationToken cancellationToken) instead.", error: false)]
     public static T Ask<T>(string prompt)
     {
         return new TextPrompt<T>(prompt).Show(Console);
@@ -41,7 +41,7 @@ public static partial class AnsiConsole
     /// <param name="prompt">The prompt markup text.</param>
     /// <param name="defaultValue">The default value.</param>
     /// <returns>The prompt input result.</returns>
-    [Obsolete("Use AskAsync<T>(string prompt, T defaultValue, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use AskAsync<T>(string prompt, T defaultValue, CancellationToken cancellationToken) instead.", error: false)]
     public static T Ask<T>(string prompt, T defaultValue)
     {
         return new TextPrompt<T>(prompt)
@@ -55,7 +55,7 @@ public static partial class AnsiConsole
     /// <param name="prompt">The prompt markup text.</param>
     /// <param name="defaultValue">Specifies the default answer.</param>
     /// <returns><c>true</c> if the user selected "yes", otherwise <c>false</c>.</returns>
-    [Obsolete("Use ConfirmAsync(string prompt, bool defaultValue, CancellationToken cancellationToken) instead.", error: true)]
+    [Obsolete("Use ConfirmAsync(string prompt, bool defaultValue, CancellationToken cancellationToken) instead.", error: false)]
     public static bool Confirm(string prompt, bool defaultValue = true)
     {
         return new ConfirmationPrompt(prompt)
