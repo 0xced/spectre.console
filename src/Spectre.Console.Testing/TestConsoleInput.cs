@@ -77,13 +77,7 @@ public sealed class TestConsoleInput : IAnsiConsoleInput
     }
 
     /// <inheritdoc/>
-    public ConsoleKeyInfo? ReadKey(bool intercept)
-    {
-        throw new NotSupportedException("Use ReadKeyAsync(bool intercept, CancellationToken cancellationToken) instead");
-    }
-
-    /// <inheritdoc/>
-    public Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
+    public ConsoleKeyInfo ReadKey(bool intercept, CancellationToken cancellationToken = default)
     {
         if (_input.Count == 0)
         {
@@ -92,6 +86,12 @@ public sealed class TestConsoleInput : IAnsiConsoleInput
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        return Task.FromResult(_input.Dequeue());
+        return _input.Dequeue();
+    }
+
+    /// <inheritdoc/>
+    public Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(ReadKey(intercept, cancellationToken));
     }
 }

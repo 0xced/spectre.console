@@ -84,10 +84,9 @@ public sealed class MultiSelectionPrompt<T> : IPrompt<List<T>>, IListPromptStrat
     }
 
     /// <inheritdoc/>
-    [Obsolete("Use ShowAsync(IAnsiConsole console, CancellationToken cancellationToken) instead.", error: false)]
-    public List<T> Show(IAnsiConsole console)
+    public List<T> Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
+        return ShowAsync(console, cancellationToken).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>

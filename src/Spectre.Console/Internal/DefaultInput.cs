@@ -2,6 +2,8 @@ namespace Spectre.Console;
 
 internal sealed class DefaultInput : IAnsiConsoleInput
 {
+    private static readonly TimeSpan _keyAvailableDelay = TimeSpan.FromMilliseconds(5);
+
     private readonly Profile _profile;
 
     public DefaultInput(Profile profile)
@@ -19,12 +21,12 @@ internal sealed class DefaultInput : IAnsiConsoleInput
         return System.Console.KeyAvailable;
     }
 
-    [Obsolete("Use ReadKeyAsync(bool intercept, CancellationToken cancellationToken) instead.", error: false)]
-    public ConsoleKeyInfo? ReadKey(bool intercept)
+    public ConsoleKeyInfo ReadKey(bool intercept, CancellationToken cancellationToken)
     {
-        if (!_profile.Capabilities.Interactive)
+        while (!IsKeyAvailable())
         {
-            throw new InvalidOperationException("Failed to read input in non-interactive mode.");
+            cancellationToken.ThrowIfCancellationRequested();
+            Thread.Sleep(_keyAvailableDelay);
         }
 
         return System.Console.ReadKey(intercept);
@@ -32,14 +34,9 @@ internal sealed class DefaultInput : IAnsiConsoleInput
 
     public async Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
     {
-        if (!_profile.Capabilities.Interactive)
+        while (!IsKeyAvailable())
         {
-            throw new InvalidOperationException("Failed to read input in non-interactive mode.");
-        }
-
-        while (!System.Console.KeyAvailable)
-        {
-            await Task.Delay(5, cancellationToken).ConfigureAwait(false);
+            await Task.Delay(_keyAvailableDelay, cancellationToken).ConfigureAwait(false);
         }
 
         return System.Console.ReadKey(intercept);

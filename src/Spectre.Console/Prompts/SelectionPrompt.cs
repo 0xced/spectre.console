@@ -89,10 +89,9 @@ public sealed class SelectionPrompt<T> : IPrompt<T>, IListPromptStrategy<T>
     }
 
     /// <inheritdoc/>
-    [Obsolete("Use ShowAsync(IAnsiConsole console, CancellationToken cancellationToken) instead.", error: false)]
-    public T Show(IAnsiConsole console)
+    public T Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
+        return ShowAsync(console, cancellationToken).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>

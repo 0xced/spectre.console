@@ -5,7 +5,7 @@ public sealed class SelectionPromptTests
     private const string ESC = "\u001b";
 
     [Fact]
-    public async Task Should_Not_Throw_When_Selecting_An_Item_With_Escaped_Markup()
+    public void Should_Not_Throw_When_Selecting_An_Item_With_Escaped_Markup()
     {
         // Given
         var console = new TestConsole();
@@ -17,14 +17,14 @@ public sealed class SelectionPromptTests
         var prompt = new SelectionPrompt<string>()
                 .Title("Select one")
                 .AddChoices(input);
-        await prompt.ShowAsync(console, CancellationToken.None);
+        prompt.Show(console);
 
         // Then
         console.Output.ShouldContain(@"[red]This text will never be red[/]");
     }
 
     [Fact]
-    public async Task Should_Select_The_First_Leaf_Item()
+    public void Should_Select_The_First_Leaf_Item()
     {
         // Given
         var console = new TestConsole();
@@ -37,14 +37,14 @@ public sealed class SelectionPromptTests
                 .Mode(SelectionMode.Leaf)
                 .AddChoiceGroup("Group one", "A", "B")
                 .AddChoiceGroup("Group two", "C", "D");
-        var selection = await prompt.ShowAsync(console, CancellationToken.None);
+        var selection = prompt.Show(console);
 
         // Then
         selection.ShouldBe("A");
     }
 
     [Fact]
-    public async Task Should_Select_The_Last_Leaf_Item_When_Wrapping_Around()
+    public void Should_Select_The_Last_Leaf_Item_When_Wrapping_Around()
     {
         // Given
         var console = new TestConsole();
@@ -59,14 +59,14 @@ public sealed class SelectionPromptTests
             .WrapAround()
             .AddChoiceGroup("Group one", "A", "B")
             .AddChoiceGroup("Group two", "C", "D");
-        var selection = await prompt.ShowAsync(console, CancellationToken.None);
+        var selection = prompt.Show(console);
 
         // Then
         selection.ShouldBe("D");
     }
 
     [Fact]
-    public async Task Should_Highlight_Search_Term()
+    public void Should_Highlight_Search_Term()
     {
         // Given
         var console = new TestConsole();
@@ -80,7 +80,7 @@ public sealed class SelectionPromptTests
             .Title("Select one")
             .EnableSearch()
             .AddChoices("Item 1");
-        await prompt.ShowAsync(console, CancellationToken.None);
+        prompt.Show(console);
 
         // Then
         console.Output.ShouldContain($"{ESC}[38;5;12m> Item {ESC}[0m{ESC}[1;38;5;12;48;5;11m1{ESC}[0m");
