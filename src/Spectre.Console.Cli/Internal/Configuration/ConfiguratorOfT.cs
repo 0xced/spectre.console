@@ -50,7 +50,7 @@ internal sealed class Configurator<TSettings> : IUnsafeBranchConfigurator, IConf
         where TDerivedSettings : TSettings
     {
         var command = ConfiguredCommand.FromDelegate<TDerivedSettings>(
-            name, (context, settings) => Task.FromResult(func(context, (TDerivedSettings)settings)));
+            name, (context, settings, _) => Task.FromResult(func(context, (TDerivedSettings)settings)));
 
         _command.Children.Add(command);
         return new CommandConfigurator(command);
@@ -60,7 +60,17 @@ internal sealed class Configurator<TSettings> : IUnsafeBranchConfigurator, IConf
         where TDerivedSettings : TSettings
     {
         var command = ConfiguredCommand.FromDelegate<TDerivedSettings>(
-            name, (context, settings) => func(context, (TDerivedSettings)settings));
+            name, (context, settings, _) => func(context, (TDerivedSettings)settings));
+
+        _command.Children.Add(command);
+        return new CommandConfigurator(command);
+    }
+
+    public ICommandConfigurator AddAsyncDelegate<TDerivedSettings>(string name, Func<CommandContext, TDerivedSettings, CancellationToken, Task<int>> func)
+        where TDerivedSettings : TSettings
+    {
+        var command = ConfiguredCommand.FromDelegate<TDerivedSettings>(
+            name, (context, settings, cancellationToken) => func(context, (TDerivedSettings)settings, cancellationToken));
 
         _command.Children.Add(command);
         return new CommandConfigurator(command);

@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Spectre.Console.Testing;
 
 /// <summary>
@@ -73,7 +75,7 @@ public sealed class CommandAppTester
 
         try
         {
-            Run(args, console, c => c.PropagateExceptions());
+            RunImpl(args, console, async: false, config: c => c.PropagateExceptions()).GetAwaiter().GetResult();
             throw new InvalidOperationException("Expected an exception to be thrown, but there was none.");
         }
         catch (T ex)
@@ -105,56 +107,23 @@ public sealed class CommandAppTester
     public CommandAppResult Run(params string[] args)
     {
         var console = new TestConsole().Width(int.MaxValue);
-        return Run(args, console);
-    }
-
-    private CommandAppResult Run(string[] args, TestConsole console, Action<IConfigurator>? config = null)
-    {
-        CommandContext? context = null;
-        CommandSettings? settings = null;
-
-        var app = new CommandApp(Registrar);
-        _appConfiguration?.Invoke(app);
-
-        if (_configuration != null)
-        {
-            app.Configure(_configuration);
-        }
-
-        if (config != null)
-        {
-            app.Configure(config);
-        }
-
-        app.Configure(c => c.ConfigureConsole(console));
-        app.Configure(c => c.SetInterceptor(new CallbackCommandInterceptor((ctx, s) =>
-        {
-            context = ctx;
-            settings = s;
-        })));
-
-        var result = app.Run(args);
-
-        var output = console.Output
-            .NormalizeLineEndings()
-            .TrimLines()
-            .Trim();
-
-        return new CommandAppResult(result, output, context, settings);
+        return RunImpl(args, console, async: false).GetAwaiter().GetResult();
     }
 
     /// <summary>
     /// Runs the command application asynchronously.
     /// </summary>
     /// <param name="args">The arguments.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The result.</returns>
-    public async Task<CommandAppResult> RunAsync(params string[] args)
+    public async Task<CommandAppResult> RunAsync(string[]? args = null, CancellationToken cancellationToken = default)
     {
         var console = new TestConsole().Width(int.MaxValue);
-        return await RunAsync(args, console);
+        return await RunImpl(args ?? [], console, async: true, cancellationToken: cancellationToken);
     }
 
-    private async Task<CommandAppResult> RunAsync(string[] args, TestConsole console, Action<IConfigurator>? config = null)
+    [SuppressMessage("ReSharper", "MethodHasAsyncOverload")]
+    private async Task<CommandAppResult> RunImpl(string[] args, TestConsole console, bool async, Action<IConfigurator>? config = null, CancellationToken cancellationToken = default)
     {
         CommandContext? context = null;
         CommandSettings? settings = null;
@@ -179,7 +148,15 @@ public sealed class CommandAppTester
             settings = s;
         })));
 
-        var result = await app.RunAsync(args);
+        int result;
+        if (async)
+        {
+            result = await app.RunAsync(args, cancellationToken);
+        }
+        else
+        {
+            result = app.Run(args, cancellationToken);
+        }
 
         var output = console.Output
             .NormalizeLineEndings()

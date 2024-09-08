@@ -68,6 +68,16 @@ public interface IConfigurator<in TSettings>
         where TDerivedSettings : TSettings;
 
     /// <summary>
+    /// Adds a command that executes an async delegate.
+    /// </summary>
+    /// <typeparam name="TDerivedSettings">The derived command setting type.</typeparam>
+    /// <param name="name">The name of the command.</param>
+    /// <param name="func">The delegate, with cancellation support, to execute as part of command execution.</param>
+    /// <returns>A command configurator that can be used to configure the command further.</returns>
+    ICommandConfigurator AddAsyncDelegate<TDerivedSettings>(string name, Func<CommandContext, TDerivedSettings, CancellationToken, Task<int>> func)
+        where TDerivedSettings : TSettings;
+
+    /// <summary>
     /// Adds a command branch.
     /// </summary>
     /// <typeparam name="TDerivedSettings">The derived command setting type.</typeparam>
