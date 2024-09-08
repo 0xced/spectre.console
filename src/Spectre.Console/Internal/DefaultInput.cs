@@ -19,38 +19,22 @@ internal sealed class DefaultInput : IAnsiConsoleInput
         return System.Console.KeyAvailable;
     }
 
-    public ConsoleKeyInfo? ReadKey(bool intercept)
+    public ConsoleKeyInfo ReadKey(bool intercept, CancellationToken cancellationToken)
     {
-        if (!_profile.Capabilities.Interactive)
+        cancellationToken.ThrowIfCancellationRequested();
+
+        while (!IsKeyAvailable())
         {
-            throw new InvalidOperationException("Failed to read input in non-interactive mode.");
+            cancellationToken.ThrowIfCancellationRequested();
+            Thread.Sleep(5);
         }
 
         return System.Console.ReadKey(intercept);
     }
 
-    public async Task<ConsoleKeyInfo?> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
+    [Obsolete("This method will be removed in a future release. Use the synchronous ReadKey() method instead.", error: true)]
+    public Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
     {
-        if (!_profile.Capabilities.Interactive)
-        {
-            throw new InvalidOperationException("Failed to read input in non-interactive mode.");
-        }
-
-        while (true)
-        {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                return null;
-            }
-
-            if (System.Console.KeyAvailable)
-            {
-                break;
-            }
-
-            await Task.Delay(5, cancellationToken).ConfigureAwait(false);
-        }
-
-        return ReadKey(intercept);
+        return Task.FromResult(ReadKey(intercept, cancellationToken));
     }
 }

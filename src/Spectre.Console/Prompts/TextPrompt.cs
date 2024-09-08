@@ -104,22 +104,17 @@ public sealed class TextPrompt<T> : IPrompt<T>, IHasCulture
     /// Shows the prompt and requests input from the user.
     /// </summary>
     /// <param name="console">The console to show the prompt in.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The user input converted to the expected type.</returns>
     /// <inheritdoc/>
-    public T Show(IAnsiConsole console)
-    {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
-    }
-
-    /// <inheritdoc/>
-    public async Task<T> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    public T Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
         if (console is null)
         {
             throw new ArgumentNullException(nameof(console));
         }
 
-        return await console.RunExclusive(async () =>
+        return console.RunExclusive(() =>
         {
             var promptStyle = PromptStyle ?? Style.Plain;
             var converter = Converter ?? TypeConverterHelper.ConvertToString;
@@ -130,7 +125,7 @@ public sealed class TextPrompt<T> : IPrompt<T>, IHasCulture
 
             while (true)
             {
-                var input = await console.ReadLine(promptStyle, IsSecret, Mask, choices, cancellationToken).ConfigureAwait(false);
+                var input = console.ReadLine(promptStyle, IsSecret, Mask, choices, cancellationToken);
 
                 // Nothing entered?
                 if (string.IsNullOrWhiteSpace(input))
@@ -182,7 +177,14 @@ public sealed class TextPrompt<T> : IPrompt<T>, IHasCulture
 
                 return result;
             }
-        }).ConfigureAwait(false);
+        });
+    }
+
+    /// <inheritdoc/>
+    [Obsolete("This method will be removed in a future release. Use the synchronous Show() method instead.", error: false)]
+    public Task<T> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(Show(console, cancellationToken));
     }
 
     /// <summary>

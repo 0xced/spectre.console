@@ -15,15 +15,23 @@ public interface IAnsiConsoleInput
     /// <summary>
     /// Reads a key from the console.
     /// </summary>
-    /// <param name="intercept">Whether or not to intercept the key.</param>
+    /// <param name="intercept">
+    /// Determines whether to display the pressed key in the console window.
+    /// <see langword="true"/> to not display the pressed key; otherwise, <see langword="false"/>.
+    /// </param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The key that was read.</returns>
-    ConsoleKeyInfo? ReadKey(bool intercept);
+    ConsoleKeyInfo ReadKey(bool intercept, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Reads a key from the console.
     /// </summary>
-    /// <param name="intercept">Whether or not to intercept the key.</param>
+    /// <param name="intercept">
+    /// Determines whether to display the pressed key in the console window.
+    /// <see langword="true"/> to not display the pressed key; otherwise, <see langword="false"/>.
+    /// </param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The key that was read.</returns>
-    Task<ConsoleKeyInfo?> ReadKeyAsync(bool intercept, CancellationToken cancellationToken);
+    [Obsolete("This method will be removed in a future release. Use the synchronous ReadKey() method instead.", error: false)]
+    Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken);
 }

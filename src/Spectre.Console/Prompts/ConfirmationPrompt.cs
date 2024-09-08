@@ -68,13 +68,7 @@ public sealed class ConfirmationPrompt : IPrompt<bool>
     }
 
     /// <inheritdoc/>
-    public bool Show(IAnsiConsole console)
-    {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
-    }
-
-    /// <inheritdoc/>
-    public async Task<bool> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    public bool Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
         var comparer = Comparer ?? StringComparer.CurrentCultureIgnoreCase;
 
@@ -89,8 +83,15 @@ public sealed class ConfirmationPrompt : IPrompt<bool>
             .AddChoice(Yes)
             .AddChoice(No);
 
-        var result = await prompt.ShowAsync(console, cancellationToken).ConfigureAwait(false);
+        var result = prompt.Show(console, cancellationToken);
 
         return comparer.Compare(Yes.ToString(), result.ToString()) == 0;
+    }
+
+    /// <inheritdoc/>
+    [Obsolete("This method will be removed in a future release. Use the synchronous Show() method instead.", error: false)]
+    public Task<bool> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(Show(console, cancellationToken));
     }
 }

@@ -5,6 +5,9 @@ Highlights:
     - Display multiple items for a user to scroll and choose from.
     - Custom page sizes.
     - Provide groups of selectable items.
+Reference:
+    - T:Spectre.Console.MultiSelectionPrompt`1
+    - M:Spectre.Console.AnsiConsole.Prompt``1(Spectre.Console.IPrompt{``0},System.Threading.CancellationToken)
 ---
 
 The `MultiSelectionPrompt` can be used when you want the user to select

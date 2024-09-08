@@ -3,7 +3,7 @@ Order: 1
 Description: "The **SelectionPrompt** can be used when you want the user to select a single item from a provided list."
 Reference: 
     - T:Spectre.Console.SelectionPrompt`1
-    - M:Spectre.Console.AnsiConsole.Prompt``1(Spectre.Console.IPrompt{``0})
+    - M:Spectre.Console.AnsiConsole.Prompt``1(Spectre.Console.IPrompt{``0},System.Threading.CancellationToken)
 ---
 
 The `SelectionPrompt` can be used when you want the user to select

@@ -77,18 +77,21 @@ public sealed class TestConsoleInput : IAnsiConsoleInput
     }
 
     /// <inheritdoc/>
-    public ConsoleKeyInfo? ReadKey(bool intercept)
+    public ConsoleKeyInfo ReadKey(bool intercept, CancellationToken cancellationToken = default)
     {
         if (_input.Count == 0)
         {
             throw new InvalidOperationException("No input available.");
         }
 
+        cancellationToken.ThrowIfCancellationRequested();
+
         return _input.Dequeue();
     }
 
     /// <inheritdoc/>
-    public Task<ConsoleKeyInfo?> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
+    [Obsolete("This method will be removed in a future release. Use the synchronous ReadKey() method instead.", error: false)]
+    public Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
     {
         return Task.FromResult(ReadKey(intercept));
     }

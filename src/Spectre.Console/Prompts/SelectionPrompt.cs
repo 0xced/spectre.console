@@ -89,21 +89,22 @@ public sealed class SelectionPrompt<T> : IPrompt<T>, IListPromptStrategy<T>
     }
 
     /// <inheritdoc/>
-    public T Show(IAnsiConsole console)
-    {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
-    }
-
-    /// <inheritdoc/>
-    public async Task<T> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    public T Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
         // Create the list prompt
         var prompt = new ListPrompt<T>(console, this);
         var converter = Converter ?? TypeConverterHelper.ConvertToString;
-        var result = await prompt.Show(_tree, converter, Mode, true, SearchEnabled, PageSize, WrapAround, cancellationToken).ConfigureAwait(false);
+        var result = prompt.Show(_tree, converter, Mode, true, SearchEnabled, PageSize, WrapAround, cancellationToken);
 
         // Return the selected item
         return result.Items[result.Index].Data;
+    }
+
+    /// <inheritdoc/>
+    [Obsolete("This method will be removed in a future release. Use the synchronous Show() method instead.", error: false)]
+    public Task<T> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(Show(console, cancellationToken));
     }
 
     /// <inheritdoc/>

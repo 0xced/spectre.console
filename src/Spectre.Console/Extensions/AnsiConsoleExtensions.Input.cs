@@ -5,7 +5,7 @@ namespace Spectre.Console;
 /// </summary>
 public static partial class AnsiConsoleExtensions
 {
-    internal static async Task<string> ReadLine(this IAnsiConsole console, Style? style, bool secret, char? mask, IEnumerable<string>? items = null, CancellationToken cancellationToken = default)
+    internal static string ReadLine(this IAnsiConsole console, Style? style, bool secret, char? mask, IEnumerable<string>? items = null, CancellationToken cancellationToken = default)
     {
         if (console is null)
         {
@@ -19,14 +19,7 @@ public static partial class AnsiConsoleExtensions
 
         while (true)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            var rawKey = await console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
-            if (rawKey == null)
-            {
-                continue;
-            }
-
-            var key = rawKey.Value;
+            var key = console.Input.ReadKey(true, cancellationToken);
             if (key.Key == ConsoleKey.Enter)
             {
                 return text;

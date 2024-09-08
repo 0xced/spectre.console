@@ -84,18 +84,12 @@ public sealed class MultiSelectionPrompt<T> : IPrompt<List<T>>, IListPromptStrat
     }
 
     /// <inheritdoc/>
-    public List<T> Show(IAnsiConsole console)
-    {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
-    }
-
-    /// <inheritdoc/>
-    public async Task<List<T>> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    public List<T> Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
         // Create the list prompt
         var prompt = new ListPrompt<T>(console, this);
         var converter = Converter ?? TypeConverterHelper.ConvertToString;
-        var result = await prompt.Show(Tree, converter, Mode, false, false, PageSize, WrapAround, cancellationToken).ConfigureAwait(false);
+        var result = prompt.Show(Tree, converter, Mode, false, false, PageSize, WrapAround, cancellationToken);
 
         if (Mode == SelectionMode.Leaf)
         {
@@ -109,6 +103,13 @@ public sealed class MultiSelectionPrompt<T> : IPrompt<List<T>>, IListPromptStrat
             .Where(x => x.IsSelected)
             .Select(x => x.Data)
             .ToList();
+    }
+
+    /// <inheritdoc/>
+    [Obsolete("This method will be removed in a future release. Use the synchronous Show() method instead.", error: false)]
+    public Task<List<T>> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(Show(console, cancellationToken));
     }
 
     /// <summary>

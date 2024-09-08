@@ -12,7 +12,7 @@ internal sealed class ListPrompt<T>
         _strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
     }
 
-    public async Task<ListPromptState<T>> Show(
+    public ListPromptState<T> Show(
         ListPromptTree<T> tree,
         Func<T, string> converter,
         SelectionMode selectionMode,
@@ -57,14 +57,7 @@ internal sealed class ListPrompt<T>
 
             while (true)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                var rawKey = await _console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
-                if (rawKey == null)
-                {
-                    continue;
-                }
-
-                var key = rawKey.Value;
+                var key = _console.Input.ReadKey(true, cancellationToken);
                 var result = _strategy.HandleInput(key, state);
                 if (result == ListPromptInputResult.Submit)
                 {
