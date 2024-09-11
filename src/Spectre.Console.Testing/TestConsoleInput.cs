@@ -77,8 +77,10 @@ public sealed class TestConsoleInput : IAnsiConsoleInput
     }
 
     /// <inheritdoc/>
-    public ConsoleKeyInfo? ReadKey(bool intercept)
+    public ConsoleKeyInfo ReadKey(bool intercept, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         if (_input.Count == 0)
         {
             throw new InvalidOperationException("No input available.");
@@ -88,8 +90,8 @@ public sealed class TestConsoleInput : IAnsiConsoleInput
     }
 
     /// <inheritdoc/>
-    public Task<ConsoleKeyInfo?> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
+    public Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
     {
-        return Task.FromResult(ReadKey(intercept));
+        return Task.FromResult(ReadKey(intercept, cancellationToken));
     }
 }

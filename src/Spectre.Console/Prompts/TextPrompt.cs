@@ -104,85 +104,113 @@ public sealed class TextPrompt<T> : IPrompt<T>, IHasCulture
     /// Shows the prompt and requests input from the user.
     /// </summary>
     /// <param name="console">The console to show the prompt in.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The user input converted to the expected type.</returns>
-    /// <inheritdoc/>
-    public T Show(IAnsiConsole console)
+    public T Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
+        return ShowImpl(console, async: false, cancellationToken).GetAwaiter().GetResult();
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Shows the prompt asynchronously and requests input from the user.
+    /// </summary>
+    /// <param name="console">The console to show the prompt in.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>The user input converted to the expected type.</returns>
     public async Task<T> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    {
+        return await ShowImpl(console, async: true, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<T> ShowImpl(IAnsiConsole console, bool async, CancellationToken cancellationToken)
     {
         if (console is null)
         {
             throw new ArgumentNullException(nameof(console));
         }
 
-        return await console.RunExclusive(async () =>
+        if (async)
         {
-            var promptStyle = PromptStyle ?? Style.Plain;
-            var converter = Converter ?? TypeConverterHelper.ConvertToString;
-            var choices = Choices.Select(choice => converter(choice)).ToList();
-            var choiceMap = Choices.ToDictionary(choice => converter(choice), choice => choice, _comparer);
+            return await console.RunExclusive(async () => await ShowExclusiveImpl(console, async: true, cancellationToken).ConfigureAwait(false)).ConfigureAwait(false);
+        }
+        else
+        {
+            return console.RunExclusive(() => ShowExclusiveImpl(console, async: false, cancellationToken).GetAwaiter().GetResult());
+        }
+    }
 
-            WritePrompt(console);
+    [SuppressMessage("ReSharper", "MethodHasAsyncOverload")]
+    private async Task<T> ShowExclusiveImpl(IAnsiConsole console, bool async, CancellationToken cancellationToken)
+    {
+        var promptStyle = PromptStyle ?? Style.Plain;
+        var converter = Converter ?? TypeConverterHelper.ConvertToString;
+        var choices = Choices.Select(choice => converter(choice)).ToList();
+        var choiceMap = Choices.ToDictionary(choice => converter(choice), choice => choice, _comparer);
 
-            while (true)
+        WritePrompt(console);
+
+        while (true)
+        {
+            string input;
+            if (async)
             {
-                var input = await console.ReadLine(promptStyle, IsSecret, Mask, choices, cancellationToken).ConfigureAwait(false);
-
-                // Nothing entered?
-                if (string.IsNullOrWhiteSpace(input))
-                {
-                    if (DefaultValue != null)
-                    {
-                        var defaultValue = converter(DefaultValue.Value);
-                        console.Write(IsSecret ? defaultValue.Mask(Mask) : defaultValue, promptStyle);
-                        console.WriteLine();
-                        return DefaultValue.Value;
-                    }
-
-                    if (!AllowEmpty)
-                    {
-                        continue;
-                    }
-                }
-
-                console.WriteLine();
-
-                T? result;
-                if (Choices.Count > 0)
-                {
-                    if (choiceMap.TryGetValue(input, out result) && result != null)
-                    {
-                        return result;
-                    }
-                    else
-                    {
-                        console.MarkupLine(InvalidChoiceMessage);
-                        WritePrompt(console);
-                        continue;
-                    }
-                }
-                else if (!TypeConverterHelper.TryConvertFromStringWithCulture<T>(input, Culture, out result) || result == null)
-                {
-                    console.MarkupLine(ValidationErrorMessage);
-                    WritePrompt(console);
-                    continue;
-                }
-
-                // Run all validators
-                if (!ValidateResult(result, out var validationMessage))
-                {
-                    console.MarkupLine(validationMessage);
-                    WritePrompt(console);
-                    continue;
-                }
-
-                return result;
+                input = await console.ReadLineAsync(promptStyle, IsSecret, Mask, choices, cancellationToken).ConfigureAwait(false);
             }
-        }).ConfigureAwait(false);
+            else
+            {
+                input = console.ReadLine(promptStyle, IsSecret, Mask, choices, cancellationToken);
+            }
+
+            // Nothing entered?
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                if (DefaultValue != null)
+                {
+                    var defaultValue = converter(DefaultValue.Value);
+                    console.Write(IsSecret ? defaultValue.Mask(Mask) : defaultValue, promptStyle);
+                    console.WriteLine();
+                    return DefaultValue.Value;
+                }
+
+                if (!AllowEmpty)
+                {
+                    continue;
+                }
+            }
+
+            console.WriteLine();
+
+            T? result;
+            if (Choices.Count > 0)
+            {
+                if (choiceMap.TryGetValue(input, out result) && result != null)
+                {
+                    return result;
+                }
+                else
+                {
+                    console.MarkupLine(InvalidChoiceMessage);
+                    WritePrompt(console);
+                    continue;
+                }
+            }
+            else if (!TypeConverterHelper.TryConvertFromStringWithCulture<T>(input, Culture, out result) || result == null)
+            {
+                console.MarkupLine(ValidationErrorMessage);
+                WritePrompt(console);
+                continue;
+            }
+
+            // Run all validators
+            if (!ValidateResult(result, out var validationMessage))
+            {
+                console.MarkupLine(validationMessage);
+                WritePrompt(console);
+                continue;
+            }
+
+            return result;
+        }
     }
 
     /// <summary>

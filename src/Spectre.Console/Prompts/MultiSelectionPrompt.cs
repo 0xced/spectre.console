@@ -84,18 +84,32 @@ public sealed class MultiSelectionPrompt<T> : IPrompt<List<T>>, IListPromptStrat
     }
 
     /// <inheritdoc/>
-    public List<T> Show(IAnsiConsole console)
+    public List<T> Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
+        return ShowImpl(console, async: false, cancellationToken).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
     public async Task<List<T>> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
     {
+        return await ShowImpl(console, async: true, cancellationToken).ConfigureAwait(false);
+    }
+
+    [SuppressMessage("ReSharper", "MethodHasAsyncOverload")]
+    private async Task<List<T>> ShowImpl(IAnsiConsole console, bool async, CancellationToken cancellationToken)
+    {
         // Create the list prompt
         var prompt = new ListPrompt<T>(console, this);
         var converter = Converter ?? TypeConverterHelper.ConvertToString;
-        var result = await prompt.Show(Tree, converter, Mode, false, false, PageSize, WrapAround, cancellationToken).ConfigureAwait(false);
+        ListPromptState<T> result;
+        if (async)
+        {
+            result = await prompt.ShowAsync(Tree, converter, Mode, false, false, PageSize, WrapAround, cancellationToken).ConfigureAwait(false);
+        }
+        else
+        {
+            result = prompt.Show(Tree, converter, Mode, false, false, PageSize, WrapAround, cancellationToken);
+        }
 
         if (Mode == SelectionMode.Leaf)
         {

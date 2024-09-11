@@ -68,13 +68,18 @@ public sealed class ConfirmationPrompt : IPrompt<bool>
     }
 
     /// <inheritdoc/>
-    public bool Show(IAnsiConsole console)
+    public bool Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
+        return ShowImpl(console, async: false, cancellationToken).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
     public async Task<bool> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
+    {
+        return await ShowImpl(console, async: true, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<bool> ShowImpl(IAnsiConsole console, bool async, CancellationToken cancellationToken)
     {
         var comparer = Comparer ?? StringComparer.CurrentCultureIgnoreCase;
 
@@ -89,7 +94,15 @@ public sealed class ConfirmationPrompt : IPrompt<bool>
             .AddChoice(Yes)
             .AddChoice(No);
 
-        var result = await prompt.ShowAsync(console, cancellationToken).ConfigureAwait(false);
+        char result;
+        if (async)
+        {
+            result = await prompt.ShowAsync(console, cancellationToken).ConfigureAwait(false);
+        }
+        else
+        {
+            result = prompt.Show(console, cancellationToken);
+        }
 
         return comparer.Compare(Yes.ToString(), result.ToString()) == 0;
     }

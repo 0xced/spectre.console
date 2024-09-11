@@ -11,46 +11,45 @@ internal sealed class DefaultInput : IAnsiConsoleInput
 
     public bool IsKeyAvailable()
     {
-        if (!_profile.Capabilities.Interactive)
-        {
-            throw new InvalidOperationException("Failed to read input in non-interactive mode.");
-        }
+        EnsureInteractive();
 
         return System.Console.KeyAvailable;
     }
 
-    public ConsoleKeyInfo? ReadKey(bool intercept)
+    public ConsoleKeyInfo ReadKey(bool intercept, CancellationToken cancellationToken)
     {
-        if (!_profile.Capabilities.Interactive)
+        cancellationToken.ThrowIfCancellationRequested();
+
+        EnsureInteractive();
+
+        while (!System.Console.KeyAvailable)
         {
-            throw new InvalidOperationException("Failed to read input in non-interactive mode.");
+            cancellationToken.ThrowIfCancellationRequested();
+            Thread.Sleep(5);
         }
 
         return System.Console.ReadKey(intercept);
     }
 
-    public async Task<ConsoleKeyInfo?> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
+    public async Task<ConsoleKeyInfo> ReadKeyAsync(bool intercept, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        EnsureInteractive();
+
+        while (!System.Console.KeyAvailable)
+        {
+            await Task.Delay(5, cancellationToken).ConfigureAwait(false);
+        }
+
+        return System.Console.ReadKey(intercept);
+    }
+
+    private void EnsureInteractive()
     {
         if (!_profile.Capabilities.Interactive)
         {
             throw new InvalidOperationException("Failed to read input in non-interactive mode.");
         }
-
-        while (true)
-        {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                return null;
-            }
-
-            if (System.Console.KeyAvailable)
-            {
-                break;
-            }
-
-            await Task.Delay(5, cancellationToken).ConfigureAwait(false);
-        }
-
-        return ReadKey(intercept);
     }
 }

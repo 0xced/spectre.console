@@ -10,8 +10,9 @@ public interface IPrompt<T>
     /// Shows the prompt.
     /// </summary>
     /// <param name="console">The console.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>The prompt input result.</returns>
-    T Show(IAnsiConsole console);
+    T Show(IAnsiConsole console, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Shows the prompt asynchronously.

@@ -12,7 +12,7 @@ internal sealed class ListPrompt<T>
         _strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
     }
 
-    public async Task<ListPromptState<T>> Show(
+    public ListPromptState<T> Show(
         ListPromptTree<T> tree,
         Func<T, string> converter,
         SelectionMode selectionMode,
@@ -20,7 +20,35 @@ internal sealed class ListPrompt<T>
         bool searchEnabled,
         int requestedPageSize,
         bool wrapAround,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
+    {
+        return ShowImpl(tree, converter, selectionMode, skipUnselectableItems, searchEnabled, requestedPageSize, wrapAround, async: false, cancellationToken).GetAwaiter().GetResult();
+    }
+
+    public async Task<ListPromptState<T>> ShowAsync(
+        ListPromptTree<T> tree,
+        Func<T, string> converter,
+        SelectionMode selectionMode,
+        bool skipUnselectableItems,
+        bool searchEnabled,
+        int requestedPageSize,
+        bool wrapAround,
+        CancellationToken cancellationToken)
+    {
+        return await ShowImpl(tree, converter, selectionMode, skipUnselectableItems, searchEnabled, requestedPageSize, wrapAround, async: true, cancellationToken).ConfigureAwait(false);
+    }
+
+    [SuppressMessage("ReSharper", "MethodHasAsyncOverload")]
+    private async Task<ListPromptState<T>> ShowImpl(
+        ListPromptTree<T> tree,
+        Func<T, string> converter,
+        SelectionMode selectionMode,
+        bool skipUnselectableItems,
+        bool searchEnabled,
+        int requestedPageSize,
+        bool wrapAround,
+        bool async,
+        CancellationToken cancellationToken)
     {
         if (tree is null)
         {
@@ -57,14 +85,16 @@ internal sealed class ListPrompt<T>
 
             while (true)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                var rawKey = await _console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
-                if (rawKey == null)
+                ConsoleKeyInfo key;
+                if (async)
                 {
-                    continue;
+                    key = await _console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
+                }
+                else
+                {
+                    key = _console.Input.ReadKey(true, cancellationToken);
                 }
 
-                var key = rawKey.Value;
                 var result = _strategy.HandleInput(key, state);
                 if (result == ListPromptInputResult.Submit)
                 {

@@ -89,18 +89,32 @@ public sealed class SelectionPrompt<T> : IPrompt<T>, IListPromptStrategy<T>
     }
 
     /// <inheritdoc/>
-    public T Show(IAnsiConsole console)
+    public T Show(IAnsiConsole console, CancellationToken cancellationToken = default)
     {
-        return ShowAsync(console, CancellationToken.None).GetAwaiter().GetResult();
+        return ShowImpl(console, async: false, cancellationToken).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
     public async Task<T> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
     {
+        return await ShowImpl(console, async: true, cancellationToken).ConfigureAwait(false);
+    }
+
+    [SuppressMessage("ReSharper", "MethodHasAsyncOverload")]
+    private async Task<T> ShowImpl(IAnsiConsole console, bool async, CancellationToken cancellationToken)
+    {
         // Create the list prompt
         var prompt = new ListPrompt<T>(console, this);
         var converter = Converter ?? TypeConverterHelper.ConvertToString;
-        var result = await prompt.Show(_tree, converter, Mode, true, SearchEnabled, PageSize, WrapAround, cancellationToken).ConfigureAwait(false);
+        ListPromptState<T> result;
+        if (async)
+        {
+            result = await prompt.ShowAsync(_tree, converter, Mode, true, SearchEnabled, PageSize, WrapAround, cancellationToken).ConfigureAwait(false);
+        }
+        else
+        {
+            result = prompt.Show(_tree, converter, Mode, true, SearchEnabled, PageSize, WrapAround, cancellationToken);
+        }
 
         // Return the selected item
         return result.Items[result.Index].Data;

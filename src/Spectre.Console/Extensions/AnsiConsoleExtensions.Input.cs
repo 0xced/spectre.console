@@ -5,7 +5,18 @@ namespace Spectre.Console;
 /// </summary>
 public static partial class AnsiConsoleExtensions
 {
-    internal static async Task<string> ReadLine(this IAnsiConsole console, Style? style, bool secret, char? mask, IEnumerable<string>? items = null, CancellationToken cancellationToken = default)
+    internal static string ReadLine(this IAnsiConsole console, Style? style, bool secret, char? mask, IEnumerable<string>? items = null, CancellationToken cancellationToken = default)
+    {
+        return ReadLineImpl(console, style, secret, mask, async: false, items, cancellationToken).GetAwaiter().GetResult();
+    }
+
+    internal static async Task<string> ReadLineAsync(this IAnsiConsole console, Style? style, bool secret, char? mask, IEnumerable<string>? items = null, CancellationToken cancellationToken = default)
+    {
+        return await ReadLineImpl(console, style, secret, mask, async: true, items, cancellationToken).ConfigureAwait(false);
+    }
+
+    [SuppressMessage("ReSharper", "MethodHasAsyncOverload")]
+    private static async Task<string> ReadLineImpl(IAnsiConsole console, Style? style, bool secret, char? mask, bool async, IEnumerable<string>? items = null, CancellationToken cancellationToken = default)
     {
         if (console is null)
         {
@@ -19,14 +30,16 @@ public static partial class AnsiConsoleExtensions
 
         while (true)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            var rawKey = await console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
-            if (rawKey == null)
+            ConsoleKeyInfo key;
+            if (async)
             {
-                continue;
+                key = await console.Input.ReadKeyAsync(true, cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                key = console.Input.ReadKey(true, cancellationToken);
             }
 
-            var key = rawKey.Value;
             if (key.Key == ConsoleKey.Enter)
             {
                 return text;
