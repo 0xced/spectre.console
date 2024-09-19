@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,45 +9,27 @@ using Generator.Models;
 using Scriban;
 using Scriban.Runtime;
 using Spectre.Console.Cli;
-using Spectre.IO;
-using Path = Spectre.IO.Path;
-using SpectreEnvironment = Spectre.IO.Environment;
 
 namespace Generator.Commands
 {
-    public sealed class EmojiGeneratorCommand : AsyncCommand<EmojiGeneratorCommand.Settings>
+    public sealed class EmojiGeneratorCommand : GeneratorCommand<EmojiGeneratorCommand.Settings>
     {
-        private readonly IFileSystem _fileSystem;
-        private readonly IEnvironment _environment;
-        private readonly IHtmlParser _parser;
+        private readonly IHtmlParser _parser = new HtmlParser();
 
         private readonly Dictionary<string, string> _templates = new Dictionary<string, string>
         {
-            { "Templates/Emoji.Generated.template", "Emoji.Generated.cs" },
-            { "Templates/Emoji.Json.template", "emojis.json" }, // For documentation
+            { "Emoji.Generated.template", "Emoji.Generated.cs" },
+            { "Emoji.Json.template", "emojis.json" }, // For documentation
         };
 
         public sealed class Settings : GeneratorSettings
         {
             [CommandOption("-i|--input <PATH>")]
-            public string Input { get; set; }
-        }
-
-        public EmojiGeneratorCommand()
-        {
-            _fileSystem = new FileSystem();
-            _environment = new SpectreEnvironment();
-            _parser = new HtmlParser();
+            public DirectoryInfo Input { get; set; } = new(Environment.CurrentDirectory);
         }
 
         public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
         {
-            var output = new DirectoryPath(settings.Output);
-            if (!_fileSystem.Directory.Exists(settings.Output))
-            {
-                _fileSystem.Directory.Create(settings.Output);
-            }
-
             var stream = await FetchEmojis(settings);
             var document = await _parser.ParseDocumentAsync(stream);
             var emojis = Emoji.Parse(document).OrderBy(x => x.Name)
@@ -56,10 +39,10 @@ namespace Generator.Commands
             // Render all templates
             foreach (var (templateFilename, outputFilename) in _templates)
             {
-                var result = await RenderTemplate(new FilePath(templateFilename), emojis);
+                var result = await RenderTemplate(templateFilename, emojis);
 
-                var outputPath = output.CombineWithFilePath(outputFilename);
-                await File.WriteAllTextAsync(outputPath.FullPath, result);
+                var outputPath = Path.Combine(settings.Output.FullName, outputFilename);
+                await File.WriteAllTextAsync(outputPath, result);
             }
 
             return 0;
@@ -67,16 +50,13 @@ namespace Generator.Commands
 
         private async Task<Stream> FetchEmojis(Settings settings)
         {
-            var input = string.IsNullOrEmpty(settings.Input)
-                ? _environment.WorkingDirectory
-                : new DirectoryPath(settings.Input);
 
-            var file = _fileSystem.File.Retrieve(input.CombineWithFilePath("emoji-list.html"));
+            var file = new FileInfo(Path.Combine(settings.Input.FullName, "emoji-list.html"));
             if (!file.Exists)
             {
                 using var http = new HttpClient();
-                using var httpStream = await http.GetStreamAsync("http://www.unicode.org/emoji/charts/emoji-list.html");
-                using var outStream = file.OpenWrite();
+                await using var httpStream = await http.GetStreamAsync("http://www.unicode.org/emoji/charts/emoji-list.html");
+                await using var outStream = file.OpenWrite();
 
                 await httpStream.CopyToAsync(outStream);
             }
@@ -84,9 +64,9 @@ namespace Generator.Commands
             return file.OpenRead();
         }
 
-        private static async Task<string> RenderTemplate(Path path, IReadOnlyCollection<Emoji> emojis)
+        private static async Task<string> RenderTemplate(string templateFilename, IReadOnlyCollection<Emoji> emojis)
         {
-            var text = await File.ReadAllTextAsync(path.FullPath);
+            var text = GetTemplate(templateFilename).Text;
 
             var template = Template.Parse(text);
             var templateContext = new TemplateContext

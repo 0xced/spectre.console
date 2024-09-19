@@ -23,6 +23,8 @@ namespace Generator.Models
 
                 var frames = item.Value.Frames;
                 item.Value.Frames = frames.Select(f => f.Replace("\\", "\\\\")).ToList();
+
+                item.Value.Unicode = item.Value.Frames.Any(frame => frame.Any(c => (uint)c > '\x00ff'));
             }
 
             return data.Values;

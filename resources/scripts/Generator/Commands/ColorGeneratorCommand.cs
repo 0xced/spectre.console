@@ -1,58 +1,40 @@
 using System.IO;
+using System.Threading.Tasks;
 using Generator.Models;
 using Scriban;
 using Spectre.Console.Cli;
-using Spectre.IO;
 
 namespace Generator.Commands
 {
-    public sealed class ColorGeneratorCommand : Command<ColorGeneratorCommand.Settings>
+    public sealed class ColorGeneratorCommand : GeneratorCommand<GeneratorSettings>
     {
-        private readonly IFileSystem _fileSystem;
-
-        public ColorGeneratorCommand()
+        public override Task<int> ExecuteAsync(CommandContext context, GeneratorSettings settings)
         {
-            _fileSystem = new FileSystem();
-        }
-
-        public sealed class Settings : GeneratorSettings
-        {
-            [CommandOption("-i|--input <PATH>")]
-            public string Input { get; set; }
-        }
-
-        public override int Execute(CommandContext context, Settings settings)
-        {
-            var templates = new FilePath[]
-            {
-                "Templates/ColorPalette.Generated.template",
-                "Templates/Color.Generated.template",
-                "Templates/ColorTable.Generated.template"
-            };
+            string[] templates =
+            [
+                "ColorPalette.Generated.template",
+                "Color.Generated.template",
+                "ColorTable.Generated.template",
+            ];
 
             // Read the color model.
-            var model = Color.Parse(File.ReadAllText("Data/colors.json"));
+            var model = Color.Parse(ReadData("colors.json"));
 
-            var output = new DirectoryPath(settings.Output);
-            if (!_fileSystem.Directory.Exists(settings.Output))
-            {
-                _fileSystem.Directory.Create(settings.Output);
-            }
-
-            foreach (var templatePath in templates)
+            foreach (var templateFilename in templates)
             {
                 // Parse the Scriban template.
-                var template = Template.Parse(File.ReadAllText(templatePath.FullPath));
+                var (file, text) = GetTemplate(templateFilename);
+                var template = Template.Parse(text);
 
                 // Render the template with the model.
                 var result = template.Render(new { Colors = model });
 
                 // Write output to file
-                var file = output.CombineWithFilePath(templatePath.GetFilename().ChangeExtension(".cs"));
-                File.WriteAllText(file.FullPath, result);
+                var outputPath = Path.Combine(settings.Output.FullName, Path.ChangeExtension(file.Name, "cs"));
+                File.WriteAllText(outputPath, result);
             }
 
-            return 0;
+            return Task.FromResult(0);
         }
     }
 }
