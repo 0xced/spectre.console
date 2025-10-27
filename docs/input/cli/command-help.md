@@ -49,10 +49,15 @@ Whilst it shouldn't be common place to implement your own help provider, it is h
 
 You are able to implement your own `IHelpProvider` and configure a `CommandApp` to use that instead of the Spectre.Console help provider. 
 
-```csharp
+<!-- snippet: command-help -->
+<a id='snippet-command-help'></a>
+```cs
+using System.Collections.Generic;
+using System.Threading;
+using Spectre.Console;
 using Spectre.Console.Cli;
-
-namespace Help;
+using Spectre.Console.Cli.Help;
+using Spectre.Console.Rendering;
 
 public static class Program
 {
@@ -69,7 +74,32 @@ public static class Program
         return app.Run(args);
     }
 }
+
+internal class CustomHelpProvider(ICommandAppSettings settings) : HelpProvider(settings)
+{
+    public override IEnumerable<IRenderable> GetHeader(ICommandModel model, ICommandInfo? command)
+    {
+        return
+        [
+            new Text("--------------------------------------"), Text.NewLine,
+            new Text("---       CUSTOM HELP HEADER       ---"), Text.NewLine,
+            new Text("--------------------------------------"), Text.NewLine,
+            Text.NewLine,
+        ];
+    }
+}
+
+internal class DefaultCommand(IAnsiConsole console) : Command
+{
+    public override int Execute(CommandContext context, CancellationToken cancellationToken)
+    {
+        console.WriteLine("Hello world");
+        return 0;
+    }
+}
 ```
+<sup><a href='/docs/snippets/input/cli/command-help.cs#L3-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-command-help' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 There is a working [example of a custom help provider](https://github.com/spectreconsole/examples/tree/main/examples/Cli/Help) demonstrating this.
 

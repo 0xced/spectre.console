@@ -13,9 +13,24 @@ A `Spectre.Console.Cli` app will be comprised of Commands and a matching Setting
 
 The following example demonstrates these concepts coming together.
 
-```csharp
-var app = new CommandApp<FileSizeCommand>();
-return app.Run(args);
+<!-- snippet: getting-started -->
+<a id='snippet-getting-started'></a>
+```cs
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using Spectre.Console;
+using Spectre.Console.Cli;
+
+public class Program
+{
+    public static int Main(string[] args)
+    {
+        var app = new CommandApp<FileSizeCommand>();
+        return app.Run(args);
+    }
+}
 
 internal sealed class FileSizeCommand : Command<FileSizeCommand.Settings>
 {
@@ -56,6 +71,8 @@ internal sealed class FileSizeCommand : Command<FileSizeCommand.Settings>
     }
 }
 ```
+<sup><a href='/docs/snippets/input/cli/getting-started.cs#L3-L58' title='Snippet source file'>snippet source</a> | <a href='#snippet-getting-started' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 In our `Main()` method, an instance of `Spectre.Console.Cli`'s  `CommandApp` is instantiated specifying `FileSizeCommand` will be the app's default and only command. `FileSizeCommand` is defined as inheriting from `Spectre.Console.Cli`'s generic `Command` class specifying the settings for the command are `FileSizeCommand.Settings`. The settings are defined  using a nested class, but they can exist anywhere in the project as long as they inherit from `CommandSettings`.
 
