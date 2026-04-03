@@ -4,8 +4,8 @@ internal static class AnsiMarkupHighlighter
 {
     public static string Highlight(string markup, string query, Style style)
     {
-        ArgumentNullException.ThrowIfNull(markup);
-        ArgumentNullException.ThrowIfNull(query);
+        if (markup is null) throw new ArgumentNullException(nameof(markup));
+        if (query is null) throw new ArgumentNullException(nameof(query));
 
         if (query.Length == 0)
         {

@@ -70,7 +70,7 @@ public sealed class LiveDisplay
     /// <returns>The result.</returns>
     public async Task StartAsync(Func<LiveDisplayContext, Task> func)
     {
-        ArgumentNullException.ThrowIfNull(func);
+        if (func is null) throw new ArgumentNullException(nameof(func));
 
         _ = await StartAsync<object?>(async ctx =>
         {
@@ -87,7 +87,7 @@ public sealed class LiveDisplay
     /// <returns>The result.</returns>
     public async Task<T> StartAsync<T>(Func<LiveDisplayContext, Task<T>> func)
     {
-        ArgumentNullException.ThrowIfNull(func);
+        if (func is null) throw new ArgumentNullException(nameof(func));
 
         return await _console.RunExclusive(async () =>
         {
@@ -128,7 +128,7 @@ public static class LiveDisplayExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static LiveDisplay AutoClear(this LiveDisplay live, bool enabled)
     {
-        ArgumentNullException.ThrowIfNull(live);
+        if (live is null) throw new ArgumentNullException(nameof(live));
 
         live.AutoClear = enabled;
 
@@ -143,7 +143,7 @@ public static class LiveDisplayExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static LiveDisplay Overflow(this LiveDisplay live, VerticalOverflow overflow)
     {
-        ArgumentNullException.ThrowIfNull(live);
+        if (live is null) throw new ArgumentNullException(nameof(live));
 
         live.Overflow = overflow;
 
@@ -158,7 +158,7 @@ public static class LiveDisplayExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static LiveDisplay Cropping(this LiveDisplay live, VerticalOverflowCropping cropping)
     {
-        ArgumentNullException.ThrowIfNull(live);
+        if (live is null) throw new ArgumentNullException(nameof(live));
 
         live.Cropping = cropping;
 

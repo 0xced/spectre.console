@@ -158,8 +158,8 @@ public static class RuleExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Rule RuleTitle(this Rule rule, string title)
     {
-        ArgumentNullException.ThrowIfNull(rule);
-        ArgumentNullException.ThrowIfNull(title);
+        if (rule is null) throw new ArgumentNullException(nameof(rule));
+        if (title is null) throw new ArgumentNullException(nameof(title));
 
         rule.Title = title;
         return rule;
@@ -173,7 +173,7 @@ public static class RuleExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Rule RuleStyle(this Rule rule, Style style)
     {
-        ArgumentNullException.ThrowIfNull(rule);
+        if (rule is null) throw new ArgumentNullException(nameof(rule));
 
         rule.Style = style;
         return rule;

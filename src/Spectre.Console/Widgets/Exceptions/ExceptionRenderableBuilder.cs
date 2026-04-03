@@ -11,14 +11,14 @@ internal static class ExceptionRenderableBuilder
 
     public static IRenderable Format(Exception exception, ExceptionSettings settings)
     {
-        ArgumentNullException.ThrowIfNull(exception);
+        if (exception is null) throw new ArgumentNullException(nameof(exception));
 
         return GetException(exception, settings);
     }
 
     private static IRenderable GetException(Exception exception, ExceptionSettings settings)
     {
-        ArgumentNullException.ThrowIfNull(exception);
+        if (exception is null) throw new ArgumentNullException(nameof(exception));
 
         var renderable = new Rows(
                 GetMessage(exception, settings),

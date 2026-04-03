@@ -16,7 +16,7 @@ public static class SpinnerExtensions
     public static async Task Spinner(this Task task, Spinner? spinner = null, Style? style = null,
         IAnsiConsole? ansiConsole = null)
     {
-        ArgumentNullException.ThrowIfNull(task);
+        if (task is null) throw new ArgumentNullException(nameof(task));
 
         await SpinnerInternal<object>(task, spinner ?? Console.Spinner.Known.Default, style, ansiConsole);
     }
@@ -33,7 +33,7 @@ public static class SpinnerExtensions
     public static async Task<T> Spinner<T>(this Task<T> task, Spinner? spinner = null, Style? style = null,
         IAnsiConsole? ansiConsole = null)
     {
-        ArgumentNullException.ThrowIfNull(task);
+        if (task is null) throw new ArgumentNullException(nameof(task));
 
         return (await SpinnerInternal<T>(task, spinner ?? Console.Spinner.Known.Default, style, ansiConsole))!;
     }

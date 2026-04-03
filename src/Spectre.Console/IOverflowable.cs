@@ -25,7 +25,7 @@ public static class OverflowableExtensions
     public static T Fold<T>(this T obj)
         where T : class, IOverflowable
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return Overflow(obj, Console.Overflow.Fold);
     }
@@ -39,7 +39,7 @@ public static class OverflowableExtensions
     public static T Crop<T>(this T obj)
         where T : class, IOverflowable
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return Overflow(obj, Console.Overflow.Crop);
     }
@@ -53,7 +53,7 @@ public static class OverflowableExtensions
     public static T Ellipsis<T>(this T obj)
         where T : class, IOverflowable
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return Overflow(obj, Console.Overflow.Ellipsis);
     }
@@ -68,7 +68,7 @@ public static class OverflowableExtensions
     public static T Overflow<T>(this T obj, Overflow overflow)
         where T : class, IOverflowable
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Overflow = overflow;
         return obj;

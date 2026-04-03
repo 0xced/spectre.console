@@ -15,7 +15,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> Mode<T>(this SelectionPrompt<T> obj, SelectionMode mode)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Mode = mode;
         return obj;
@@ -31,7 +31,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> AddChoices<T>(this SelectionPrompt<T> obj, params T[] choices)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         foreach (var choice in choices)
         {
@@ -51,7 +51,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> AddChoices<T>(this SelectionPrompt<T> obj, IEnumerable<T> choices)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         foreach (var choice in choices)
         {
@@ -72,7 +72,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> AddChoiceGroup<T>(this SelectionPrompt<T> obj, T group, IEnumerable<T> choices)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         var root = obj.AddChoice(group);
         foreach (var choice in choices)
@@ -94,7 +94,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> AddChoiceGroup<T>(this SelectionPrompt<T> obj, T group, params T[] choices)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         var root = obj.AddChoice(group);
         foreach (var choice in choices)
@@ -115,7 +115,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> Title<T>(this SelectionPrompt<T> obj, string? title)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Title = title;
         return obj;
@@ -131,7 +131,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> PageSize<T>(this SelectionPrompt<T> obj, int pageSize)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         if (pageSize <= 2)
         {
@@ -152,7 +152,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> WrapAround<T>(this SelectionPrompt<T> obj, bool shouldWrap = true)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.WrapAround = shouldWrap;
         return obj;
@@ -167,7 +167,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> EnableSearch<T>(this SelectionPrompt<T> obj)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.SearchEnabled = true;
         return obj;
@@ -182,7 +182,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> DisableSearch<T>(this SelectionPrompt<T> obj)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.SearchEnabled = false;
         return obj;
@@ -198,7 +198,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> SearchPlaceholderText<T>(this SelectionPrompt<T> obj, string? text)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.SearchPlaceholderText = text;
         return obj;
@@ -214,7 +214,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> AddCancelResult<T>(this SelectionPrompt<T> obj, Func<T> cancelResultFunc)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.CancelResult = cancelResultFunc;
         return obj;
@@ -230,7 +230,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> AddCancelResult<T>(this SelectionPrompt<T> obj, T cancelResult)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return obj.AddCancelResult(() => cancelResult);
     }
@@ -245,7 +245,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> HighlightStyle<T>(this SelectionPrompt<T> obj, Style highlightStyle)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.HighlightStyle = highlightStyle;
         return obj;
@@ -261,7 +261,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> MoreChoicesText<T>(this SelectionPrompt<T> obj, string? text)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.MoreChoicesText = text;
         return obj;
@@ -277,7 +277,7 @@ public static class SelectionPromptExtensions
     public static SelectionPrompt<T> UseConverter<T>(this SelectionPrompt<T> obj, Func<T, string>? displaySelector)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Converter = displaySelector;
         return obj;

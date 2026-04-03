@@ -49,7 +49,7 @@ public class Recorder : IAnsiConsole, IDisposable
     /// <inheritdoc/>
     public void Write(IRenderable renderable)
     {
-        ArgumentNullException.ThrowIfNull(renderable);
+        if (renderable is null) throw new ArgumentNullException(nameof(renderable));
 
         _recorded.Add(renderable);
         _console.Write(renderable);
@@ -75,7 +75,7 @@ public class Recorder : IAnsiConsole, IDisposable
     /// <returns>The recorded data represented as a string.</returns>
     public string Export(IAnsiConsoleEncoder encoder)
     {
-        ArgumentNullException.ThrowIfNull(encoder);
+        if (encoder is null) throw new ArgumentNullException(nameof(encoder));
 
         return encoder.Encode(_console, _recorded);
     }
@@ -96,7 +96,7 @@ public static class RecorderExtensions
     /// <returns>The recorded content as text.</returns>
     public static string ExportText(this Recorder recorder)
     {
-        ArgumentNullException.ThrowIfNull(recorder);
+        if (recorder is null) throw new ArgumentNullException(nameof(recorder));
 
         return recorder.Export(_textEncoder);
     }
@@ -108,7 +108,7 @@ public static class RecorderExtensions
     /// <returns>The recorded content as HTML.</returns>
     public static string ExportHtml(this Recorder recorder)
     {
-        ArgumentNullException.ThrowIfNull(recorder);
+        if (recorder is null) throw new ArgumentNullException(nameof(recorder));
 
         return recorder.Export(_htmlEncoder);
     }

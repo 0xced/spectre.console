@@ -12,7 +12,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>A recorder for the specified console.</returns>
     public static Recorder CreateRecorder(this IAnsiConsole console)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         return new Recorder(console);
     }

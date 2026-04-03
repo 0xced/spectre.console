@@ -7,7 +7,7 @@ internal sealed class AnsiConsoleFactory
 {
     public static IAnsiConsole Create(AnsiConsoleSettings settings)
     {
-        ArgumentNullException.ThrowIfNull(settings);
+        if (settings is null) throw new ArgumentNullException(nameof(settings));
 
         var output = settings.Out ?? new AnsiConsoleOutput(System.Console.Out);
         if (output.Writer == null)

@@ -13,8 +13,8 @@ public static partial class AnsiConsoleExtensions
     /// <returns>A <see cref="LiveDisplay"/> instance.</returns>
     public static LiveDisplay Live(this IAnsiConsole console, IRenderable target)
     {
-        ArgumentNullException.ThrowIfNull(console);
-        ArgumentNullException.ThrowIfNull(target);
+        if (console is null) throw new ArgumentNullException(nameof(console));
+        if (target is null) throw new ArgumentNullException(nameof(target));
 
         return new LiveDisplay(console, target);
     }

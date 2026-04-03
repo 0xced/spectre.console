@@ -37,7 +37,7 @@ public sealed class Capabilities : AnsiCapabilities, IReadOnlyCapabilities
     /// <returns>A <see cref="Capabilities"/> instance.</returns>
     public static Capabilities Create(TextWriter writer, AnsiConsoleSettings settings, out Encoding encoding)
     {
-        ArgumentNullException.ThrowIfNull(writer);
+        if (writer is null) throw new ArgumentNullException(nameof(writer));
 
         var ansiCaps = AnsiCapabilities.Create(writer, new AnsiWriterSettings
         {

@@ -47,7 +47,7 @@ public sealed class AnsiMarkup
     /// <returns>One or more segments that represents the parsed markup.</returns>
     public static IEnumerable<AnsiMarkupSegment> Parse(string markup, Style? style = null)
     {
-        ArgumentNullException.ThrowIfNull(markup);
+        if (markup is null) throw new ArgumentNullException(nameof(markup));
 
         style ??= Style.Plain;
 

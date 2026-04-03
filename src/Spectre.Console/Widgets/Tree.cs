@@ -147,7 +147,7 @@ public static class TreeExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Tree Style(this Tree tree, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(tree);
+        if (tree is null) throw new ArgumentNullException(nameof(tree));
 
         tree.Style = style;
         return tree;
@@ -161,7 +161,7 @@ public static class TreeExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Tree Guide(this Tree tree, TreeGuide guide)
     {
-        ArgumentNullException.ThrowIfNull(tree);
+        if (tree is null) throw new ArgumentNullException(nameof(tree));
 
         tree.Guide = guide;
         return tree;

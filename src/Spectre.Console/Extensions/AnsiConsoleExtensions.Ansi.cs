@@ -12,7 +12,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="sequence">The VT/Ansi control code sequence to write.</param>
     public static void WriteAnsi(this IAnsiConsole console, string sequence)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         if (console.Profile.Capabilities.Ansi)
         {
@@ -28,7 +28,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>The VT/ANSI control code sequence.</returns>
     public static string ToAnsi(this IAnsiConsole console, IRenderable renderable)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         // TODO: Make this a bit more efficient
         var buffer = new StringWriter();

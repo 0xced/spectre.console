@@ -28,8 +28,8 @@ public sealed class ControlCode : Renderable
         IReadOnlyCapabilities capabilities,
         Action<AnsiWriter> action)
     {
-        ArgumentNullException.ThrowIfNull(capabilities);
-        ArgumentNullException.ThrowIfNull(action);
+        if (capabilities is null) throw new ArgumentNullException(nameof(capabilities));
+        if (action is null) throw new ArgumentNullException(nameof(action));
 
         return new ControlCode(
             AnsiStringWriter.Shared.Write(
@@ -46,8 +46,8 @@ public sealed class ControlCode : Renderable
         IAnsiConsole console,
         Action<AnsiWriter> action)
     {
-        ArgumentNullException.ThrowIfNull(console);
-        ArgumentNullException.ThrowIfNull(action);
+        if (console is null) throw new ArgumentNullException(nameof(console));
+        if (action is null) throw new ArgumentNullException(nameof(action));
 
         return new ControlCode(
             AnsiStringWriter.Shared.Write(

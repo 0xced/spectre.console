@@ -225,7 +225,7 @@ public readonly partial struct Color : IEquatable<Color>
     /// <returns>The color created from the hexadecimal string.</returns>
     public static Color FromHex(string hex)
     {
-        ArgumentNullException.ThrowIfNull(hex);
+        if (hex is null) throw new ArgumentNullException(nameof(hex));
 
         if (hex.StartsWith("#"))
         {

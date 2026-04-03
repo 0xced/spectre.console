@@ -254,7 +254,7 @@ public static class HasTableBorderExtensions
     public static T Border<T>(this T obj, TableBorder border)
         where T : class, IHasTableBorder
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Border = border;
         return obj;

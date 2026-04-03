@@ -26,7 +26,7 @@ public static class PaddableExtensions
     public static T PadLeft<T>(this T obj, int left)
         where T : class, IPaddable
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return Padding(obj, new Padding(left, obj.Padding.GetTopSafe(), obj.Padding.GetRightSafe(), obj.Padding.GetBottomSafe()));
     }
@@ -41,7 +41,7 @@ public static class PaddableExtensions
     public static T PadTop<T>(this T obj, int top)
         where T : class, IPaddable
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return Padding(obj, new Padding(obj.Padding.GetLeftSafe(), top, obj.Padding.GetRightSafe(), obj.Padding.GetBottomSafe()));
     }
@@ -56,7 +56,7 @@ public static class PaddableExtensions
     public static T PadRight<T>(this T obj, int right)
         where T : class, IPaddable
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return Padding(obj, new Padding(obj.Padding.GetLeftSafe(), obj.Padding.GetTopSafe(), right, obj.Padding.GetBottomSafe()));
     }
@@ -71,7 +71,7 @@ public static class PaddableExtensions
     public static T PadBottom<T>(this T obj, int bottom)
         where T : class, IPaddable
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return Padding(obj, new Padding(obj.Padding.GetLeftSafe(), obj.Padding.GetTopSafe(), obj.Padding.GetRightSafe(), bottom));
     }
@@ -116,7 +116,7 @@ public static class PaddableExtensions
     public static T Padding<T>(this T obj, Padding padding)
         where T : class, IPaddable
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Padding = padding;
         return obj;

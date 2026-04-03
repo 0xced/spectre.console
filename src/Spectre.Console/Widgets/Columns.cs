@@ -32,7 +32,7 @@ public sealed class Columns : Renderable, IPaddable, IExpandable
     /// <param name="items">The items to render as columns.</param>
     public Columns(IEnumerable<IRenderable> items)
     {
-        ArgumentNullException.ThrowIfNull(items);
+        if (items is null) throw new ArgumentNullException(nameof(items));
 
         _items = new List<IRenderable>(items);
     }
@@ -43,7 +43,7 @@ public sealed class Columns : Renderable, IPaddable, IExpandable
     /// <param name="items">The items to render.</param>
     public Columns(IEnumerable<string> items)
     {
-        ArgumentNullException.ThrowIfNull(items);
+        if (items is null) throw new ArgumentNullException(nameof(items));
 
         _items = new List<IRenderable>(items.Select(item => new Markup(item)));
     }

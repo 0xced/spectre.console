@@ -11,7 +11,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="console">The console to clear.</param>
     public static void Clear(this IAnsiConsole console)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         console.Clear(true);
     }

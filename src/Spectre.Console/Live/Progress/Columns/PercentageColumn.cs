@@ -43,7 +43,7 @@ public static class PercentageColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static PercentageColumn Style(this PercentageColumn column, Style style)
     {
-        ArgumentNullException.ThrowIfNull(column);
+        if (column is null) throw new ArgumentNullException(nameof(column));
 
         column.Style = style;
         return column;
@@ -57,7 +57,7 @@ public static class PercentageColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static PercentageColumn CompletedStyle(this PercentageColumn column, Style style)
     {
-        ArgumentNullException.ThrowIfNull(column);
+        if (column is null) throw new ArgumentNullException(nameof(column));
 
         column.CompletedStyle = style;
         return column;

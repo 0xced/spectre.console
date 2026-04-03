@@ -195,7 +195,7 @@ public sealed class ProgressContext
 
     private ProgressTask AddTaskAtInternal(string description, ProgressTaskSettings settings, int position)
     {
-        ArgumentNullException.ThrowIfNull(settings);
+        if (settings is null) throw new ArgumentNullException(nameof(settings));
 
         var task = new ProgressTask(_taskId++, description, settings.MaxValue, settings.AutoStart, _timeProvider);
 

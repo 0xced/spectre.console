@@ -14,7 +14,7 @@ public static class ExceptionExtensions
     [RequiresDynamicCode(ExceptionRenderableBuilder.AotWarning)]
     public static IRenderable GetRenderable(this Exception exception, ExceptionFormats format = ExceptionFormats.Default)
     {
-        ArgumentNullException.ThrowIfNull(exception);
+        if (exception is null) throw new ArgumentNullException(nameof(exception));
 
         return GetRenderable(exception, new ExceptionSettings
         {
@@ -31,9 +31,9 @@ public static class ExceptionExtensions
     [RequiresDynamicCode(ExceptionRenderableBuilder.AotWarning)]
     public static IRenderable GetRenderable(this Exception exception, ExceptionSettings settings)
     {
-        ArgumentNullException.ThrowIfNull(exception);
+        if (exception is null) throw new ArgumentNullException(nameof(exception));
 
-        ArgumentNullException.ThrowIfNull(settings);
+        if (settings is null) throw new ArgumentNullException(nameof(settings));
 
         return ExceptionRenderableBuilder.Format(exception, settings);
     }

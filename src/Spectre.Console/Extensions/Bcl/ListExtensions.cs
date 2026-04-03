@@ -4,7 +4,7 @@ internal static class ListExtensions
 {
     public static void RemoveLast<T>(this List<T> list)
     {
-        ArgumentNullException.ThrowIfNull(list);
+        if (list is null) throw new ArgumentNullException(nameof(list));
 
         if (list.Count > 0)
         {
@@ -14,7 +14,7 @@ internal static class ListExtensions
 
     public static void AddOrReplaceLast<T>(this List<T> list, T item)
     {
-        ArgumentNullException.ThrowIfNull(list);
+        if (list is null) throw new ArgumentNullException(nameof(list));
 
         if (list.Count == 0)
         {

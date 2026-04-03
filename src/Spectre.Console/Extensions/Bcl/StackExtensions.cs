@@ -4,7 +4,7 @@ internal static class StackExtensions
 {
     public static void PushRange<T>(this Stack<T> stack, IEnumerable<T> source)
     {
-        ArgumentNullException.ThrowIfNull(stack);
+        if (stack is null) throw new ArgumentNullException(nameof(stack));
 
         if (source != null)
         {

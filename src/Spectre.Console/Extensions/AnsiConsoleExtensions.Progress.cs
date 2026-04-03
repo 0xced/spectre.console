@@ -12,7 +12,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>A <see cref="Progress"/> instance.</returns>
     public static Progress Progress(this IAnsiConsole console)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         return new Progress(console);
     }
@@ -24,7 +24,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>A <see cref="Status"/> instance.</returns>
     public static Status Status(this IAnsiConsole console)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         return new Status(console);
     }

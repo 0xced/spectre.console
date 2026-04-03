@@ -11,7 +11,7 @@ public static partial class AnsiConsole
     /// <param name="renderable">The object to render.</param>
     public static void Write(IRenderable renderable)
     {
-        ArgumentNullException.ThrowIfNull(renderable);
+        if (renderable is null) throw new ArgumentNullException(nameof(renderable));
 
         Console.Write(renderable);
     }
@@ -224,7 +224,7 @@ public static partial class AnsiConsole
     /// <param name="value">The value to write.</param>
     public static void Write(IFormatProvider provider, char[] value)
     {
-        ArgumentNullException.ThrowIfNull(value);
+        if (value is null) throw new ArgumentNullException(nameof(value));
 
         for (var index = 0; index < value.Length; index++)
         {

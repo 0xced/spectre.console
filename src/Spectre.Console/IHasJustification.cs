@@ -26,7 +26,7 @@ public static class HasJustificationExtensions
     public static T Justify<T>(this T obj, Justify? alignment)
         where T : class, IHasJustification
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Justification = alignment;
         return obj;
@@ -41,7 +41,7 @@ public static class HasJustificationExtensions
     public static T LeftJustified<T>(this T obj)
         where T : class, IHasJustification
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Justification = Console.Justify.Left;
         return obj;
@@ -56,7 +56,7 @@ public static class HasJustificationExtensions
     public static T Centered<T>(this T obj)
         where T : class, IHasJustification
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Justification = Console.Justify.Center;
         return obj;
@@ -71,7 +71,7 @@ public static class HasJustificationExtensions
     public static T RightJustified<T>(this T obj)
         where T : class, IHasJustification
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Justification = Console.Justify.Right;
         return obj;

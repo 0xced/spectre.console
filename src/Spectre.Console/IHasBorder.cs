@@ -32,7 +32,7 @@ public static class HasBorderExtensions
     public static T SafeBorder<T>(this T obj)
         where T : class, IHasBorder
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.UseSafeBorder = true;
         return obj;
@@ -47,7 +47,7 @@ public static class HasBorderExtensions
     public static T NoSafeBorder<T>(this T obj)
         where T : class, IHasBorder
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.UseSafeBorder = false;
         return obj;
@@ -63,7 +63,7 @@ public static class HasBorderExtensions
     public static T BorderStyle<T>(this T obj, Style style)
         where T : class, IHasBorder
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.BorderStyle = style;
         return obj;
@@ -79,7 +79,7 @@ public static class HasBorderExtensions
     public static T BorderColor<T>(this T obj, Color color)
         where T : class, IHasBorder
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.BorderStyle = (obj.BorderStyle ?? Style.Plain).Foreground(color);
         return obj;

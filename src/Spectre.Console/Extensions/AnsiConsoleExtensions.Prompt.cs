@@ -14,7 +14,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>The prompt input result.</returns>
     public static T Prompt<T>(this IAnsiConsole console, IPrompt<T> prompt)
     {
-        ArgumentNullException.ThrowIfNull(prompt);
+        if (prompt is null) throw new ArgumentNullException(nameof(prompt));
 
         return prompt.Show(console);
     }
@@ -28,7 +28,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>The prompt input result.</returns>
     public static T Ask<T>(this IAnsiConsole console, string prompt)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         return new TextPrompt<T>(prompt).Show(console);
     }
@@ -43,7 +43,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>The prompt input result.</returns>
     public static T Ask<T>(this IAnsiConsole console, string prompt, CultureInfo? culture)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         var textPrompt = new TextPrompt<T>(prompt);
         textPrompt.Culture = culture;
@@ -59,7 +59,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns><c>true</c> if the user selected "yes", otherwise <c>false</c>.</returns>
     public static bool Confirm(this IAnsiConsole console, string prompt, bool defaultValue = true)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         return new ConfirmationPrompt(prompt)
         {
@@ -78,8 +78,8 @@ public static partial class AnsiConsoleExtensions
     /// <returns>The prompt input result.</returns>
     public static Task<T> PromptAsync<T>(this IAnsiConsole console, IPrompt<T> prompt, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(console);
-        ArgumentNullException.ThrowIfNull(prompt);
+        if (console is null) throw new ArgumentNullException(nameof(console));
+        if (prompt is null) throw new ArgumentNullException(nameof(prompt));
 
         return prompt.ShowAsync(console, cancellationToken);
     }
@@ -94,7 +94,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>The prompt input result.</returns>
     public static Task<T> AskAsync<T>(this IAnsiConsole console, string prompt, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         return new TextPrompt<T>(prompt).ShowAsync(console, cancellationToken);
     }
@@ -110,7 +110,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns>The prompt input result.</returns>
     public static Task<T> AskAsync<T>(this IAnsiConsole console, string prompt, CultureInfo? culture, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         var textPrompt = new TextPrompt<T>(prompt);
         textPrompt.Culture = culture;
@@ -127,7 +127,7 @@ public static partial class AnsiConsoleExtensions
     /// <returns><c>true</c> if the user selected "yes", otherwise <c>false</c>.</returns>
     public static Task<bool> ConfirmAsync(this IAnsiConsole console, string prompt, bool defaultValue = true, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         return new ConfirmationPrompt(prompt)
         {

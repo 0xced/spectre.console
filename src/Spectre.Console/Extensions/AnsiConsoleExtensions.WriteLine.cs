@@ -11,7 +11,7 @@ public static partial class AnsiConsoleExtensions
     /// <param name="console">The console to write to.</param>
     public static void WriteLine(this IAnsiConsole console)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         console.Write(Text.NewLine);
     }
@@ -23,8 +23,8 @@ public static partial class AnsiConsoleExtensions
     /// <param name="text">The text to write.</param>
     public static void WriteLine(this IAnsiConsole console, string text)
     {
-        ArgumentNullException.ThrowIfNull(console);
-        ArgumentNullException.ThrowIfNull(text);
+        if (console is null) throw new ArgumentNullException(nameof(console));
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         WriteLine(console, text, Style.Plain);
     }
@@ -37,8 +37,8 @@ public static partial class AnsiConsoleExtensions
     /// <param name="style">The text style or <see cref="Style.Plain"/> if <see langword="null"/>.</param>
     public static void WriteLine(this IAnsiConsole console, string text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(console);
-        ArgumentNullException.ThrowIfNull(text);
+        if (console is null) throw new ArgumentNullException(nameof(console));
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         console.Write(text + Environment.NewLine, style);
     }

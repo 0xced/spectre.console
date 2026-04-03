@@ -118,7 +118,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText BracesStyle(this JsonText text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.BracesStyle = style;
         return text;
@@ -132,7 +132,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText BracketStyle(this JsonText text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.BracketsStyle = style;
         return text;
@@ -146,7 +146,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText MemberStyle(this JsonText text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.MemberStyle = style;
         return text;
@@ -160,7 +160,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText ColonStyle(this JsonText text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.ColonStyle = style;
         return text;
@@ -174,7 +174,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText CommaStyle(this JsonText text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.CommaStyle = style;
         return text;
@@ -188,7 +188,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText StringStyle(this JsonText text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.StringStyle = style;
         return text;
@@ -202,7 +202,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText NumberStyle(this JsonText text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.NumberStyle = style;
         return text;
@@ -216,7 +216,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText BooleanStyle(this JsonText text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.BooleanStyle = style;
         return text;
@@ -230,7 +230,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText NullStyle(this JsonText text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.NullStyle = style;
         return text;
@@ -244,7 +244,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText BracesColor(this JsonText text, Color color)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.BracesStyle = new Style(color);
         return text;
@@ -258,7 +258,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText BracketColor(this JsonText text, Color color)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.BracketsStyle = new Style(color);
         return text;
@@ -272,7 +272,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText MemberColor(this JsonText text, Color color)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.MemberStyle = new Style(color);
         return text;
@@ -286,7 +286,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText ColonColor(this JsonText text, Color color)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.ColonStyle = new Style(color);
         return text;
@@ -300,7 +300,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText CommaColor(this JsonText text, Color color)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.CommaStyle = new Style(color);
         return text;
@@ -314,7 +314,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText StringColor(this JsonText text, Color color)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.StringStyle = new Style(color);
         return text;
@@ -328,7 +328,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText NumberColor(this JsonText text, Color color)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.NumberStyle = new Style(color);
         return text;
@@ -342,7 +342,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText BooleanColor(this JsonText text, Color color)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.BooleanStyle = new Style(color);
         return text;
@@ -356,7 +356,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText NullColor(this JsonText text, Color color)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.NullStyle = new Style(color);
         return text;
@@ -370,7 +370,7 @@ public static class JsonTextExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static JsonText Indentation(this JsonText text, string indentation = "   ")
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         text.Indentation = indentation;
         return text;

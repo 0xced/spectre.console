@@ -69,7 +69,7 @@ public sealed class Status
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public async Task StartAsync(string status, Func<StatusContext, Task> action)
     {
-        ArgumentNullException.ThrowIfNull(action);
+        if (action is null) throw new ArgumentNullException(nameof(action));
 
         _ = await StartAsync<object?>(status, async statusContext =>
         {
@@ -87,7 +87,7 @@ public sealed class Status
     /// <returns>A <see cref="Task{T}"/> representing the asynchronous operation.</returns>
     public async Task<T> StartAsync<T>(string status, Func<StatusContext, Task<T>> func)
     {
-        ArgumentNullException.ThrowIfNull(func);
+        if (func is null) throw new ArgumentNullException(nameof(func));
 
         // Set the progress columns
         var spinnerColumn = new SpinnerColumn(Spinner ?? Spinner.Known.Default)
@@ -130,7 +130,7 @@ public static class StatusExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Status AutoRefresh(this Status status, bool enabled)
     {
-        ArgumentNullException.ThrowIfNull(status);
+        if (status is null) throw new ArgumentNullException(nameof(status));
 
         status.AutoRefresh = enabled;
         return status;
@@ -144,7 +144,7 @@ public static class StatusExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Status Spinner(this Status status, Spinner spinner)
     {
-        ArgumentNullException.ThrowIfNull(status);
+        if (status is null) throw new ArgumentNullException(nameof(status));
 
         status.Spinner = spinner;
         return status;
@@ -158,7 +158,7 @@ public static class StatusExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Status SpinnerStyle(this Status status, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(status);
+        if (status is null) throw new ArgumentNullException(nameof(status));
 
         status.SpinnerStyle = style;
         return status;

@@ -60,7 +60,7 @@ public static class TreeNodeExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static TreeNode Expand(this TreeNode node, bool expand)
     {
-        ArgumentNullException.ThrowIfNull(node);
+        if (node is null) throw new ArgumentNullException(nameof(node));
 
         node.Expanded = expand;
         return node;

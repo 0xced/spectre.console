@@ -19,8 +19,8 @@ public static partial class Emoji
     /// <param name="emoji">The emoji.</param>
     public static void Remap(string tag, string emoji)
     {
-        ArgumentNullException.ThrowIfNull(tag);
-        ArgumentNullException.ThrowIfNull(emoji);
+        if (tag is null) throw new ArgumentNullException(nameof(tag));
+        if (emoji is null) throw new ArgumentNullException(nameof(emoji));
 
         tag = tag.TrimStart(':').TrimEnd(':');
         emoji = emoji.TrimStart(':').TrimEnd(':');

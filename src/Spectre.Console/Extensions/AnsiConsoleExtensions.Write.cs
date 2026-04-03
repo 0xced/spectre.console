@@ -12,8 +12,8 @@ public static partial class AnsiConsoleExtensions
     /// <param name="text">The text to write.</param>
     public static void Write(this IAnsiConsole console, string text)
     {
-        ArgumentNullException.ThrowIfNull(console);
-        ArgumentNullException.ThrowIfNull(text);
+        if (console is null) throw new ArgumentNullException(nameof(console));
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         console.Write(new Text(text, Style.Plain));
     }
@@ -26,8 +26,8 @@ public static partial class AnsiConsoleExtensions
     /// <param name="style">The text style or <see cref="Style.Plain"/> if <see langword="null"/>.</param>
     public static void Write(this IAnsiConsole console, string text, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(console);
-        ArgumentNullException.ThrowIfNull(text);
+        if (console is null) throw new ArgumentNullException(nameof(console));
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         console.Write(new Text(text, style));
     }

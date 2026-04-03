@@ -41,8 +41,8 @@ public abstract partial class TableBorder
     /// <returns>A string representing the column row.</returns>
     public virtual string GetColumnRow(TablePart part, IReadOnlyList<int> widths, IReadOnlyList<IColumn> columns)
     {
-        ArgumentNullException.ThrowIfNull(widths);
-        ArgumentNullException.ThrowIfNull(columns);
+        if (widths is null) throw new ArgumentNullException(nameof(widths));
+        if (columns is null) throw new ArgumentNullException(nameof(columns));
 
         var (left, center, separator, right) = GetTableParts(part);
 
@@ -118,7 +118,7 @@ public static class TableBorderExtensions
     /// <returns>The safe border if one exist, otherwise the original border.</returns>
     public static TableBorder GetSafeBorder(this TableBorder border, bool safe)
     {
-        ArgumentNullException.ThrowIfNull(border);
+        if (border is null) throw new ArgumentNullException(nameof(border));
 
         if (safe && border.SafeBorder != null)
         {

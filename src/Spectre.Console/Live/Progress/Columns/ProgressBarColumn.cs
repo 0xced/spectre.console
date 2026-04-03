@@ -60,7 +60,7 @@ public static class ProgressBarColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ProgressBarColumn CompletedStyle(this ProgressBarColumn column, Style style)
     {
-        ArgumentNullException.ThrowIfNull(column);
+        if (column is null) throw new ArgumentNullException(nameof(column));
 
         column.CompletedStyle = style;
         return column;
@@ -74,7 +74,7 @@ public static class ProgressBarColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ProgressBarColumn FinishedStyle(this ProgressBarColumn column, Style style)
     {
-        ArgumentNullException.ThrowIfNull(column);
+        if (column is null) throw new ArgumentNullException(nameof(column));
 
         column.FinishedStyle = style;
         return column;
@@ -88,7 +88,7 @@ public static class ProgressBarColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ProgressBarColumn RemainingStyle(this ProgressBarColumn column, Style style)
     {
-        ArgumentNullException.ThrowIfNull(column);
+        if (column is null) throw new ArgumentNullException(nameof(column));
 
         column.RemainingStyle = style;
         return column;

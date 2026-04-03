@@ -202,7 +202,7 @@ public static class TextPathExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static TextPath SeparatorStyle(this TextPath obj, Style style)
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.SeparatorStyle = style;
         return obj;
@@ -227,7 +227,7 @@ public static class TextPathExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static TextPath RootStyle(this TextPath obj, Style style)
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.RootStyle = style;
         return obj;
@@ -252,7 +252,7 @@ public static class TextPathExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static TextPath StemStyle(this TextPath obj, Style style)
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.StemStyle = style;
         return obj;
@@ -277,7 +277,7 @@ public static class TextPathExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static TextPath LeafStyle(this TextPath obj, Style style)
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.LeafStyle = style;
         return obj;

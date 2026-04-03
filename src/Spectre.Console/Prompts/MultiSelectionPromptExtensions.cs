@@ -15,7 +15,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> Mode<T>(this MultiSelectionPrompt<T> obj, SelectionMode mode)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Mode = mode;
         return obj;
@@ -32,9 +32,9 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> AddChoices<T>(this MultiSelectionPrompt<T> obj, T choice, Action<IMultiSelectionItem<T>> configurator)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
-        ArgumentNullException.ThrowIfNull(configurator);
+        if (configurator is null) throw new ArgumentNullException(nameof(configurator));
 
         var result = obj.AddChoice(choice);
         configurator(result);
@@ -52,7 +52,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> AddChoices<T>(this MultiSelectionPrompt<T> obj, params T[] choices)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         foreach (var choice in choices)
         {
@@ -72,7 +72,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> AddChoices<T>(this MultiSelectionPrompt<T> obj, IEnumerable<T> choices)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         foreach (var choice in choices)
         {
@@ -93,7 +93,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> AddChoiceGroup<T>(this MultiSelectionPrompt<T> obj, T group, IEnumerable<T> choices)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         var root = obj.AddChoice(group);
         foreach (var choice in choices)
@@ -115,7 +115,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> AddChoiceGroup<T>(this MultiSelectionPrompt<T> obj, T group, params T[] choices)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         var root = obj.AddChoice(group);
         foreach (var choice in choices)
@@ -136,7 +136,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> Select<T>(this MultiSelectionPrompt<T> obj, T item)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         var node = obj.Tree.Find(item);
         node?.Select();
@@ -154,7 +154,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> Title<T>(this MultiSelectionPrompt<T> obj, string? title)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Title = title;
         return obj;
@@ -170,7 +170,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> PageSize<T>(this MultiSelectionPrompt<T> obj, int pageSize)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         if (pageSize <= 2)
         {
@@ -191,7 +191,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> WrapAround<T>(this MultiSelectionPrompt<T> obj, bool shouldWrap = true)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.WrapAround = shouldWrap;
         return obj;
@@ -207,7 +207,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> HighlightStyle<T>(this MultiSelectionPrompt<T> obj, Style highlightStyle)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.HighlightStyle = highlightStyle;
         return obj;
@@ -223,7 +223,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> MoreChoicesText<T>(this MultiSelectionPrompt<T> obj, string? text)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.MoreChoicesText = text;
         return obj;
@@ -239,7 +239,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> InstructionsText<T>(this MultiSelectionPrompt<T> obj, string? text)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.InstructionsText = text;
         return obj;
@@ -279,7 +279,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> Required<T>(this MultiSelectionPrompt<T> obj, bool required)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Required = required;
         return obj;
@@ -295,7 +295,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> UseConverter<T>(this MultiSelectionPrompt<T> obj, Func<T, string>? displaySelector)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.Converter = displaySelector;
         return obj;
@@ -311,7 +311,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> AddCancelResult<T>(this MultiSelectionPrompt<T> obj, Func<List<T>> cancelResultFunc)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         obj.CancelResult = cancelResultFunc;
         return obj;
@@ -328,7 +328,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> AddCancelResult<T>(this MultiSelectionPrompt<T> obj, List<T> cancelResult)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return obj.AddCancelResult(() => cancelResult);
     }
@@ -344,7 +344,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> AddCancelResult<T>(this MultiSelectionPrompt<T> obj, T cancelResult)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return obj.AddCancelResult([cancelResult]);
     }
@@ -359,7 +359,7 @@ public static class MultiSelectionPromptExtensions
     public static MultiSelectionPrompt<T> AddCancelResult<T>(this MultiSelectionPrompt<T> obj)
         where T : notnull
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return obj.AddCancelResult([]);
     }

@@ -49,8 +49,8 @@ public sealed class MinimalistTableBorder : TableBorder
     /// <inheritdoc/>
     public override string GetColumnRow(TablePart part, IReadOnlyList<int> widths, IReadOnlyList<IColumn> columns)
     {
-        ArgumentNullException.ThrowIfNull(widths);
-        ArgumentNullException.ThrowIfNull(columns);
+        if (widths is null) throw new ArgumentNullException(nameof(widths));
+        if (columns is null) throw new ArgumentNullException(nameof(columns));
 
         var (_, center, separator, _) = GetTableParts(part);
 

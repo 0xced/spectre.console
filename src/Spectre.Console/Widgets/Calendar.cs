@@ -319,7 +319,7 @@ public static class CalendarExtensions
     public static Calendar AddCalendarEvent(this Calendar calendar, string description, int year, int month, int day,
         Style? customEventHighlightStyle = null)
     {
-        ArgumentNullException.ThrowIfNull(calendar);
+        if (calendar is null) throw new ArgumentNullException(nameof(calendar));
 
         calendar.CalendarEvents.Add(new CalendarEvent(description, year, month, day, customEventHighlightStyle));
         return calendar;
@@ -333,7 +333,7 @@ public static class CalendarExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Calendar HighlightStyle(this Calendar calendar, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(calendar);
+        if (calendar is null) throw new ArgumentNullException(nameof(calendar));
 
         calendar.HighlightStyle = style ?? Style.Plain;
         return calendar;
@@ -347,7 +347,7 @@ public static class CalendarExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Calendar HeaderStyle(this Calendar calendar, Style? style)
     {
-        ArgumentNullException.ThrowIfNull(calendar);
+        if (calendar is null) throw new ArgumentNullException(nameof(calendar));
 
         calendar.HeaderStyle = style ?? Style.Plain;
         return calendar;
@@ -360,7 +360,7 @@ public static class CalendarExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Calendar ShowHeader(this Calendar calendar)
     {
-        ArgumentNullException.ThrowIfNull(calendar);
+        if (calendar is null) throw new ArgumentNullException(nameof(calendar));
 
         calendar.ShowHeader = true;
         return calendar;
@@ -373,7 +373,7 @@ public static class CalendarExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static Calendar HideHeader(this Calendar calendar)
     {
-        ArgumentNullException.ThrowIfNull(calendar);
+        if (calendar is null) throw new ArgumentNullException(nameof(calendar));
 
         calendar.ShowHeader = false;
         return calendar;

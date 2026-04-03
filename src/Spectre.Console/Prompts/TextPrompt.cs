@@ -124,7 +124,7 @@ public sealed class TextPrompt<T> : IPrompt<T>, IHasCulture
     /// <inheritdoc/>
     public async Task<T> ShowAsync(IAnsiConsole console, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         return await console.RunExclusive(async () =>
         {
@@ -216,7 +216,7 @@ public sealed class TextPrompt<T> : IPrompt<T>, IHasCulture
     /// <param name="console">The console to write the prompt to.</param>
     private void WritePrompt(IAnsiConsole console)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         var builder = new StringBuilder();
         builder.Append(_prompt.TrimEnd());
@@ -282,7 +282,7 @@ public sealed class TextPrompt<T> : IPrompt<T>, IHasCulture
             return;
         }
 
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         if (!console.Profile.Capabilities.Ansi)
         {

@@ -8,7 +8,7 @@ public static partial class AnsiConsoleExtensions
     internal static async Task<string> ReadLine(this IAnsiConsole console, Style? style, bool secret, char? mask,
         IEnumerable<string>? items = null, string? initialInput = null, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         style ??= Style.Plain;
         var text = string.Empty;

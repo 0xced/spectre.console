@@ -15,7 +15,7 @@ public static partial class AnsiConsoleExtensions
     public static void WriteException(this IAnsiConsole console, Exception exception,
         ExceptionFormats format = ExceptionFormats.Default)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         console.Write(exception.GetRenderable(format));
     }
@@ -29,7 +29,7 @@ public static partial class AnsiConsoleExtensions
     [RequiresDynamicCode(ExceptionRenderableBuilder.AotWarning)]
     public static void WriteException(this IAnsiConsole console, Exception exception, ExceptionSettings settings)
     {
-        ArgumentNullException.ThrowIfNull(console);
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         console.Write(exception.GetRenderable(settings));
     }

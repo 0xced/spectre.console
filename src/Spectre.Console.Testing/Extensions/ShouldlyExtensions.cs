@@ -18,7 +18,7 @@ public static class ShouldlyExtensions
     [DebuggerStepThrough]
     public static T And<T>(this T item, Action<T> action)
     {
-        ArgumentNullException.ThrowIfNull(action);
+        if (action is null) throw new ArgumentNullException(nameof(action));
 
         action(item);
         return item;

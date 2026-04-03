@@ -26,8 +26,8 @@ public static class HasCultureExtensions
     public static T Culture<T>(this T obj, CultureInfo culture)
         where T : class, IHasCulture
     {
-        ArgumentNullException.ThrowIfNull(obj);
-        ArgumentNullException.ThrowIfNull(culture);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
+        if (culture is null) throw new ArgumentNullException(nameof(culture));
 
         obj.Culture = culture;
         return obj;
@@ -43,8 +43,8 @@ public static class HasCultureExtensions
     public static T Culture<T>(this T obj, string name)
         where T : class, IHasCulture
     {
-        ArgumentNullException.ThrowIfNull(obj);
-        ArgumentNullException.ThrowIfNull(name);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
+        if (name is null) throw new ArgumentNullException(nameof(name));
 
         return Culture(obj, CultureInfo.GetCultureInfo(name));
     }
@@ -59,7 +59,7 @@ public static class HasCultureExtensions
     public static T Culture<T>(this T obj, int culture)
         where T : class, IHasCulture
     {
-        ArgumentNullException.ThrowIfNull(obj);
+        if (obj is null) throw new ArgumentNullException(nameof(obj));
 
         return Culture(obj, CultureInfo.GetCultureInfo(culture));
     }

@@ -264,7 +264,7 @@ public sealed class AnsiWriter
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public AnsiWriter BeginLink(Link link)
     {
-        ArgumentNullException.ThrowIfNull(link);
+        if (link is null) throw new ArgumentNullException(nameof(link));
         return BeginLink(link.Url, link.Id);
     }
 
@@ -279,7 +279,7 @@ public sealed class AnsiWriter
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public AnsiWriter BeginLink(string link, int? linkId = null)
     {
-        ArgumentNullException.ThrowIfNull(link);
+        if (link is null) throw new ArgumentNullException(nameof(link));
 
         if (Capabilities is { Ansi: true, Links: true })
         {

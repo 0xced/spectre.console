@@ -381,7 +381,7 @@ public static class ProgressTaskExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ProgressTask Description(this ProgressTask task, string description)
     {
-        ArgumentNullException.ThrowIfNull(task);
+        if (task is null) throw new ArgumentNullException(nameof(task));
 
         task.Description = description;
         return task;
@@ -395,7 +395,7 @@ public static class ProgressTaskExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ProgressTask MaxValue(this ProgressTask task, double value)
     {
-        ArgumentNullException.ThrowIfNull(task);
+        if (task is null) throw new ArgumentNullException(nameof(task));
 
         task.MaxValue = value;
         return task;
@@ -409,7 +409,7 @@ public static class ProgressTaskExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ProgressTask Value(this ProgressTask task, double value)
     {
-        ArgumentNullException.ThrowIfNull(task);
+        if (task is null) throw new ArgumentNullException(nameof(task));
 
         task.Value = value;
         return task;
@@ -423,7 +423,7 @@ public static class ProgressTaskExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ProgressTask IsIndeterminate(this ProgressTask task, bool indeterminate = true)
     {
-        ArgumentNullException.ThrowIfNull(task);
+        if (task is null) throw new ArgumentNullException(nameof(task));
 
         task.IsIndeterminate = indeterminate;
         return task;
@@ -437,7 +437,7 @@ public static class ProgressTaskExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ProgressTask HideWhenCompleted(this ProgressTask task, bool hideWhenCompleted = true)
     {
-        ArgumentNullException.ThrowIfNull(task);
+        if (task is null) throw new ArgumentNullException(nameof(task));
 
         task.HideWhenCompleted = hideWhenCompleted;
         return task;
@@ -451,7 +451,7 @@ public static class ProgressTaskExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static ProgressTask Tag(this ProgressTask task, object? tag)
     {
-        ArgumentNullException.ThrowIfNull(task);
+        if (task is null) throw new ArgumentNullException(nameof(task));
 
         task.Tag = tag;
         return task;

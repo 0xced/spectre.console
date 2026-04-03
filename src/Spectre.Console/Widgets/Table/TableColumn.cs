@@ -101,8 +101,8 @@ public static class TableColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static TableColumn Header(this TableColumn column, string header)
     {
-        ArgumentNullException.ThrowIfNull(column);
-        ArgumentNullException.ThrowIfNull(header);
+        if (column is null) throw new ArgumentNullException(nameof(column));
+        if (header is null) throw new ArgumentNullException(nameof(header));
 
         column.Header = new Markup(header);
         return column;
@@ -116,8 +116,8 @@ public static class TableColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static TableColumn Header(this TableColumn column, IRenderable header)
     {
-        ArgumentNullException.ThrowIfNull(column);
-        ArgumentNullException.ThrowIfNull(header);
+        if (column is null) throw new ArgumentNullException(nameof(column));
+        if (header is null) throw new ArgumentNullException(nameof(header));
 
         column.Header = header;
         return column;
@@ -131,8 +131,8 @@ public static class TableColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static TableColumn Footer(this TableColumn column, string footer)
     {
-        ArgumentNullException.ThrowIfNull(column);
-        ArgumentNullException.ThrowIfNull(footer);
+        if (column is null) throw new ArgumentNullException(nameof(column));
+        if (footer is null) throw new ArgumentNullException(nameof(footer));
 
         column.Footer = new Markup(footer);
         return column;
@@ -146,8 +146,8 @@ public static class TableColumnExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static TableColumn Footer(this TableColumn column, IRenderable footer)
     {
-        ArgumentNullException.ThrowIfNull(column);
-        ArgumentNullException.ThrowIfNull(footer);
+        if (column is null) throw new ArgumentNullException(nameof(column));
+        if (footer is null) throw new ArgumentNullException(nameof(footer));
 
         column.Footer = footer;
         return column;

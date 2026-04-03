@@ -46,7 +46,7 @@ public class AnsiCapabilities : IReadOnlyAnsiCapabilities
     /// <returns>A <see cref="AnsiCapabilities"/> instance.</returns>
     public static AnsiCapabilities Create(TextWriter writer, AnsiWriterSettings settings)
     {
-        ArgumentNullException.ThrowIfNull(writer);
+        if (writer is null) throw new ArgumentNullException(nameof(writer));
 
         // Detect if the terminal support ANSI or not
         var (supportsAnsi, legacyConsole) = AnsiDetector.Detect(writer, settings.Ansi);

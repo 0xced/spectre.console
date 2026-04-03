@@ -37,7 +37,7 @@ public static class CursorExtensions
     /// <param name="cursor">The cursor.</param>
     public static void Show(this IAnsiConsoleCursor cursor)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Show(true);
     }
@@ -48,7 +48,7 @@ public static class CursorExtensions
     /// <param name="cursor">The cursor.</param>
     public static void Hide(this IAnsiConsoleCursor cursor)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Show(false);
     }
@@ -59,7 +59,7 @@ public static class CursorExtensions
     /// <param name="cursor">The cursor.</param>
     public static void MoveUp(this IAnsiConsoleCursor cursor)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Move(CursorDirection.Up, 1);
     }
@@ -71,7 +71,7 @@ public static class CursorExtensions
     /// <param name="steps">The number of steps to move the cursor.</param>
     public static void MoveUp(this IAnsiConsoleCursor cursor, int steps)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Move(CursorDirection.Up, steps);
     }
@@ -82,7 +82,7 @@ public static class CursorExtensions
     /// <param name="cursor">The cursor.</param>
     public static void MoveDown(this IAnsiConsoleCursor cursor)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Move(CursorDirection.Down, 1);
     }
@@ -94,7 +94,7 @@ public static class CursorExtensions
     /// <param name="steps">The number of steps to move the cursor.</param>
     public static void MoveDown(this IAnsiConsoleCursor cursor, int steps)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Move(CursorDirection.Down, steps);
     }
@@ -105,7 +105,7 @@ public static class CursorExtensions
     /// <param name="cursor">The cursor.</param>
     public static void MoveLeft(this IAnsiConsoleCursor cursor)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Move(CursorDirection.Left, 1);
     }
@@ -117,7 +117,7 @@ public static class CursorExtensions
     /// <param name="steps">The number of steps to move the cursor.</param>
     public static void MoveLeft(this IAnsiConsoleCursor cursor, int steps)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Move(CursorDirection.Left, steps);
     }
@@ -128,7 +128,7 @@ public static class CursorExtensions
     /// <param name="cursor">The cursor.</param>
     public static void MoveRight(this IAnsiConsoleCursor cursor)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Move(CursorDirection.Right, 1);
     }
@@ -140,7 +140,7 @@ public static class CursorExtensions
     /// <param name="steps">The number of steps to move the cursor.</param>
     public static void MoveRight(this IAnsiConsoleCursor cursor, int steps)
     {
-        ArgumentNullException.ThrowIfNull(cursor);
+        if (cursor is null) throw new ArgumentNullException(nameof(cursor));
 
         cursor.Move(CursorDirection.Right, steps);
     }

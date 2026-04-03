@@ -127,7 +127,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart AddItem(this BreakdownChart chart, string label, double value, Color color)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         chart.Data.Add(new BreakdownChartItem(label, value, color));
         return chart;
@@ -143,7 +143,7 @@ public static class BreakdownChartExtensions
     public static BreakdownChart AddItem<T>(this BreakdownChart chart, T item)
         where T : IBreakdownChartItem
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         if (item is BreakdownChartItem chartItem)
         {
@@ -171,9 +171,9 @@ public static class BreakdownChartExtensions
     public static BreakdownChart AddItems<T>(this BreakdownChart chart, IEnumerable<T> items)
         where T : IBreakdownChartItem
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
-        ArgumentNullException.ThrowIfNull(items);
+        if (items is null) throw new ArgumentNullException(nameof(items));
 
         foreach (var item in items)
         {
@@ -193,11 +193,11 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart AddItems<T>(this BreakdownChart chart, IEnumerable<T> items, Func<T, IBreakdownChartItem> converter)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
-        ArgumentNullException.ThrowIfNull(items);
+        if (items is null) throw new ArgumentNullException(nameof(items));
 
-        ArgumentNullException.ThrowIfNull(converter);
+        if (converter is null) throw new ArgumentNullException(nameof(converter));
 
         foreach (var item in items)
         {
@@ -215,7 +215,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart Width(this BreakdownChart chart, int? width)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         chart.Width = width;
         return chart;
@@ -229,7 +229,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart UseValueFormatter(this BreakdownChart chart, Func<double, CultureInfo, string>? func)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         chart.ValueFormatter = func;
         return chart;
@@ -243,7 +243,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart UseValueFormatter(this BreakdownChart chart, Func<double, string>? func)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         chart.ValueFormatter = func != null
             ? (value, _) => func(value)
@@ -259,7 +259,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart ShowPercentage(this BreakdownChart chart)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         chart.ValueFormatter = (value, culture) => string.Format(culture, "{0}%", value);
 
@@ -294,7 +294,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart ShowTags(this BreakdownChart chart, bool show)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         chart.ShowTags = show;
         return chart;
@@ -328,7 +328,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart ShowTagValues(this BreakdownChart chart, bool show)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         chart.ShowTagValues = show;
         return chart;
@@ -362,7 +362,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart Compact(this BreakdownChart chart, bool compact)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         chart.Compact = compact;
         return chart;
@@ -376,7 +376,7 @@ public static class BreakdownChartExtensions
     /// <returns>The same instance so that multiple calls can be chained.</returns>
     public static BreakdownChart WithValueColor(this BreakdownChart chart, Color color)
     {
-        ArgumentNullException.ThrowIfNull(chart);
+        if (chart is null) throw new ArgumentNullException(nameof(chart));
 
         chart.ValueColor = color;
         return chart;

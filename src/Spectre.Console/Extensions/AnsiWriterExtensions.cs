@@ -4,8 +4,8 @@ internal static class AnsiWriterExtensions
 {
     public static void Write(this AnsiWriter writer, IAnsiConsole console, IRenderable? renderable)
     {
-        ArgumentNullException.ThrowIfNull(writer);
-        ArgumentNullException.ThrowIfNull(console);
+        if (writer is null) throw new ArgumentNullException(nameof(writer));
+        if (console is null) throw new ArgumentNullException(nameof(console));
 
         if (renderable == null)
         {

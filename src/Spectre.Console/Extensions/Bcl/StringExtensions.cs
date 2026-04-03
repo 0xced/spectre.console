@@ -108,7 +108,7 @@ public static class StringExtensions
 
     internal static string Repeat(this string text, int count)
     {
-        ArgumentNullException.ThrowIfNull(text);
+        if (text is null) throw new ArgumentNullException(nameof(text));
 
         if (count <= 0)
         {

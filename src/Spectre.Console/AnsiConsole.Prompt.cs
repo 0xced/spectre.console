@@ -13,7 +13,7 @@ public static partial class AnsiConsole
     /// <returns>The prompt input result.</returns>
     public static T Prompt<T>(IPrompt<T> prompt)
     {
-        ArgumentNullException.ThrowIfNull(prompt);
+        if (prompt is null) throw new ArgumentNullException(nameof(prompt));
 
         return prompt.Show(Console);
     }
@@ -27,7 +27,7 @@ public static partial class AnsiConsole
     /// <returns>The prompt input result.</returns>
     public static Task<T> PromptAsync<T>(IPrompt<T> prompt, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(prompt);
+        if (prompt is null) throw new ArgumentNullException(nameof(prompt));
 
         return prompt.ShowAsync(Console, cancellationToken);
     }
