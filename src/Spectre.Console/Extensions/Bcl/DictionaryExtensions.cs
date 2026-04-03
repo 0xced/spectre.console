@@ -7,4 +7,22 @@ internal static class DictionaryExtensions
         key = tuple.Key;
         value = tuple.Value;
     }
+
+#if NETSTANDARD2_0
+    public static bool TryAdd<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
+    {
+        if (!dictionary.ContainsKey(key))
+        {
+            dictionary.Add(key, value);
+            return true;
+        }
+
+        return false;
+    }
+
+    public static TValue? GetValueOrDefault<TKey,TValue>(this IReadOnlyDictionary<TKey,TValue> dictionary, TKey key, TValue defaultValue)
+    {
+        return dictionary.TryGetValue(key, out var value) ? value : defaultValue;
+    }
+#endif
 }

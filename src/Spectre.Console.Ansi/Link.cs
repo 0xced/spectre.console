@@ -6,10 +6,16 @@ namespace Spectre.Console;
 /// <param name="url">The link URL.</param>
 public sealed class Link(string url) : IEquatable<Link>
 {
+#if NETSTANDARD2_0
+    private static readonly Random Random = new Random();
+#else
+    private static readonly Random Random = Random.Shared;
+#endif
+
     /// <summary>
     /// Gets the link ID.
     /// </summary>
-    public int? Id { get; } = Random.Shared.Next(0, int.MaxValue);
+    public int? Id { get; } = Random.Next(0, int.MaxValue);
 
     /// <summary>
     /// Gets the url.

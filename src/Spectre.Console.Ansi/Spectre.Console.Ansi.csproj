@@ -18,8 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Internal Polyfills -->
+    <Compile Include="..\Spectre.Console\Extensions\Bcl\DictionaryExtensions.cs" LinkBase="Extensions\Bcl" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Wcwidth.Sources" PrivateAssets="all" />
-    <PackageReference Include="Polyfill" Condition="'$(TargetFramework)' == 'netstandard2.0'" PrivateAssets="all" />
+    <PackageReference Include="PolySharp" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup Label="Source Generator">

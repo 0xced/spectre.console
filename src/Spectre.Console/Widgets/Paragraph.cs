@@ -64,9 +64,10 @@ public sealed class Paragraph : Renderable, IHasJustification, IOverflowable
         style ??= Style.Plain;
 
         var first = true;
-        var span = text.AsSpan();
-        foreach (var lineSpan in span.EnumerateLines())
+        using var reader = new StringReader(text);
+        while (reader.ReadLine() is {} lineText)
         {
+            var lineSpan = lineText.AsSpan();
             SegmentLine line;
             if (!first || _lines.Count == 0)
             {

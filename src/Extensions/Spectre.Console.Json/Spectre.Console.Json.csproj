@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Polyfill" Condition="'$(TargetFramework)' == 'netstandard2.0'" PrivateAssets="all" />
+    <PackageReference Include="PolySharp" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
